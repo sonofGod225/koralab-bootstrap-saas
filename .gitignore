@@ -1,0 +1,11 @@
+# Templates are a tokenised snapshot of a (possibly proprietary) source repo.
+# They are NOT committed — regenerate them locally with scripts/snapshot.mjs.
+templates/
+
+# Project-specific source identity + secret-scrub rules (contains real values).
+snapshot.local.json
+
+# OS / editor
+.DS_Store
+*.log
+node_modules/

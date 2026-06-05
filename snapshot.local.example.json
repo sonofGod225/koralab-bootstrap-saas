@@ -1,0 +1,11 @@
+{
+  "_comment": "Copy to snapshot.local.json (gitignored) and fill with YOUR source repo's values. snapshot.mjs reads it to (a) know which identifiers to tokenise and (b) scrub project-specific secrets out of templates/. None of this is committed.",
+  "sourceSlug": "myproject",
+  "sourceScope": "myproject",
+  "sourceDisplay": "MyProject",
+  "scrub": [
+    ["SOME_REAL_KV_NAMESPACE_ID", "REPLACE_WITH_STAGING_KV_ID"],
+    ["me@example\\.com", "you@example.com"],
+    ["\\bMyOrgName\\b", "__PROJECT_SLUG__"]
+  ]
+}
