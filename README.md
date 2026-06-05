@@ -30,7 +30,7 @@ grep -rIE "<your-slug>|<your-secrets>" templates/      # must be empty before sh
 node scripts/generate.mjs --name acme --out /path/to/acme
 cd /path/to/acme && pnpm install && pnpm typecheck && pnpm build
 
-# Slimmed to a single example module (experimental — see printed TODOs):
+# Slimmed to a single example module (build-green: infra wired + one module-example):
 node scripts/generate.mjs --name acme --out /path/to/acme --slim
 ```
 

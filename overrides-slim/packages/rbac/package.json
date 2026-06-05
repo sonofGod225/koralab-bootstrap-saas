@@ -1,0 +1,24 @@
+{
+  "name": "@__SCOPE__/rbac",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — registre de permissions RBAC typé (module:resource:action). Source de vérité unique consommée par le gate tRPC, la matrice UI et le seed. Aucune dépendance runtime (ADR 0011).",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@__SCOPE__/module-example": "workspace:*"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2"
+  }
+}

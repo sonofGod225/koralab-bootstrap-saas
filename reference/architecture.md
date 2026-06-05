@@ -53,8 +53,8 @@ explicit deps so cross-platform CI installs don't fail. Keep them.
 in `apps/suite/module-split.config.json`, and (if it has data) a schema in `packages/db` + a
 sub-router in `packages/rpc`.
 
-**Remove** (what `--slim` automates partially): delete the package, then drop its references
-in `packages/rbac/src/registry.ts` (+ `package.json` deps), `packages/rpc/src/router.ts`,
-`packages/db/src/schemas/index.ts`, the app's `*.lazy.tsx` / `module-split.config.json` /
-`src/features/*`, and any `apps/api/src/{crons,queues}` handlers + their `wrangler.toml`
-bindings. typecheck after each to find dangling references.
+**Remove**: delete the package, then drop its references in `packages/rbac/src/registry.ts`
+(+ `src/index.ts` re-export + `package.json` deps), the app's `*.lazy.tsx` / `*.tsx` route /
+`module-split.config.json` / `src/features/*`, and regenerate `routeTree.gen.ts` (via a build).
+typecheck after each to find dangling references. `--slim` does exactly this for the demo
+product modules, leaving one build-green `module-example` (see `overrides-slim/`).

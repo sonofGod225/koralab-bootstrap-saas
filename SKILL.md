@@ -48,8 +48,10 @@ Ask the user (use AskUserQuestion) for:
   - front: `tanstack-start` (default) | `nextjs` | `remix`
   - deploy target: `cloudflare-workers` (default) | `node`
   - db driver: `neon-serverless` (default) | `node-postgres`
-- **slim?** (default no) — prune business modules to a single example. EXPERIMENTAL:
-  needs manual fixups to typecheck (the generator prints the TODO list).
+- **slim?** (default no) — replace the business product modules with a single
+  `module-example` (screen + lazy shim + permissions, wired into rbac + apps/suite).
+  **Build-green as-is** (verified: install + typecheck + build + test:bundle). The
+  backend routers/schemas (rpc, db) keep the reference examples.
 
 ### 2. Run the generator (default / faithful path)
 ```bash

@@ -82,12 +82,22 @@ function detokenisePath(p) {
 }
 
 // ---- prune rules ----------------------------------------------------------
-const BUSINESS_DIRS = ['packages/module-invoicing', 'packages/module-crm'];
+// --slim removes the business product modules + their consumers in apps/suite.
+// The replacements (a single module-example, rewired rbac/registry, etc.) come
+// from overrides-slim/, applied after the template walk. Result is build-green.
+const inDir = (rel, d) => rel === d || rel.startsWith(d + '/');
+const SLIM_DELETE = (rel) =>
+  inDir(rel, 'packages/module-invoicing') ||
+  inDir(rel, 'packages/module-crm') ||
+  inDir(rel, 'apps/suite/src/features/invoicing') ||
+  /^apps\/suite\/src\/routes\/_app\/(invoicing|quotes|crm)\./.test(rel) ||
+  /^apps\/suite\/src\/routes\/_app\/settings\/invoicing\./.test(rel) ||
+  /^apps\/suite\/src\/routes\/[iqr]\.\$token\.tsx$/.test(rel);
 function isPruned(relPosix) {
   if (relPosix === '.template-manifest.json') return true;
-  if (NO_ADMIN && (relPosix === 'apps/admin' || relPosix.startsWith('apps/admin/'))) return true;
-  if (NO_LANDING && (relPosix === 'apps/landing' || relPosix.startsWith('apps/landing/'))) return true;
-  if (SLIM && BUSINESS_DIRS.some((d) => relPosix === d || relPosix.startsWith(d + '/'))) return true;
+  if (NO_ADMIN && inDir(relPosix, 'apps/admin')) return true;
+  if (NO_LANDING && inDir(relPosix, 'apps/landing')) return true;
+  if (SLIM && SLIM_DELETE(relPosix)) return true;
   return false;
 }
 
@@ -131,13 +141,38 @@ console.log(`  out: ${OUT}${SLIM ? '  [slim]' : ''}${DRY ? '  [dry-run]' : ''}`)
 if (!DRY) mkdirSync(OUT, { recursive: true });
 walk(TEMPLATES);
 
+// ---- slim overrides (applied on top, detokenised) -------------------------
+const OVERRIDES_SLIM = join(__dirname, '..', 'overrides-slim');
+let overridden = 0;
+function applyOverrides(absDir, root) {
+  for (const entry of readdirSync(absDir)) {
+    const abs = join(absDir, entry);
+    const rel = relative(root, abs).split('\\').join('/');
+    const st = statSync(abs);
+    if (st.isDirectory()) { applyOverrides(abs, root); continue; }
+    const outAbs = join(OUT, detokenisePath(rel));
+    if (DRY) { console.log(`  ⊕ ${detokenisePath(rel)}`); overridden++; continue; }
+    mkdirSync(dirname(outAbs), { recursive: true });
+    if (isText(abs)) writeFileSync(outAbs, detokenise(readFileSync(abs, 'utf8')));
+    else writeFileSync(outAbs, readFileSync(abs));
+    overridden++;
+  }
+}
+if (SLIM) {
+  if (!existsSync(OVERRIDES_SLIM)) {
+    console.error(`✖ --slim needs overrides-slim/ at ${OVERRIDES_SLIM} (missing).`);
+    process.exit(1);
+  }
+  applyOverrides(OVERRIDES_SLIM, OVERRIDES_SLIM);
+}
+
 if (!DRY && !NO_GIT) {
   try {
     execSync('git init -q && git add -A', { cwd: OUT, stdio: 'ignore' });
   } catch { /* git optional */ }
 }
 
-console.log(`✔ ${written} files written${pruned ? `, ${pruned} pruned` : ''}.`);
+console.log(`✔ ${written} files written${pruned ? `, ${pruned} pruned` : ''}${overridden ? `, ${overridden} slim overrides applied` : ''}.`);
 
 // ---- next steps -----------------------------------------------------------
 console.log(`\nNext:`);
@@ -147,12 +182,9 @@ console.log(`  pnpm typecheck && pnpm build`);
 console.log(`  cp .env.example .env   # then fill secrets`);
 
 if (SLIM) {
-  console.log(`\n⚠  --slim removed the business modules. Manual follow-up required to typecheck:`);
-  console.log(`   • packages/rbac/src/registry.ts — drop imports of @${SCOPE}/module-invoicing|crm permissions`);
-  console.log(`   • packages/rbac/package.json    — drop those workspace deps`);
-  console.log(`   • packages/rpc/src/router.ts     — drop invoicing/contacts/catalogue/billing sub-routers`);
-  console.log(`   • packages/db/src/schemas/index.ts — drop business schema re-exports`);
-  console.log(`   • apps/suite: src/routes/_app/*.lazy.tsx, module-split.config.json, src/features/* — keep only one example module`);
-  console.log(`   • apps/api/src/{crons,queues}/* — drop billing/import handlers + their wrangler.toml bindings`);
-  console.log(`   See reference/architecture.md → "Adding / removing a module".`);
+  console.log(`\nℹ  --slim: business product modules removed; a single packages/module-example`);
+  console.log(`   demonstrates the "Voie A" pattern (screen + lazy shim + permissions, wired into`);
+  console.log(`   rbac + apps/suite). The project is build-green as-is. Duplicate module-example to`);
+  console.log(`   add your own modules — see reference/architecture.md → "Adding / removing a module".`);
+  console.log(`   Note: backend routers/schemas (rpc, db) still include the reference examples.`);
 }
