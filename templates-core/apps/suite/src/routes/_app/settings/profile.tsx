@@ -175,7 +175,7 @@ function ProfilePage() {
       />
 
       {error ? (
-        <div className="border-brique-200 bg-brique-50 text-brique-800 mb-4 rounded-xl border px-4 py-3 text-[13px]">
+        <div className="border-danger-200 bg-danger-50 text-danger-800 mb-4 rounded-xl border px-4 py-3 text-[13px]">
           {error}
         </div>
       ) : savedAt ? (
@@ -183,7 +183,7 @@ function ProfilePage() {
           message={
             <>
               <strong>Profil enregistré.</strong>{' '}
-              <span className="text-palmeraie-600">
+              <span className="text-success-600">
                 Vos modifications sont visibles immédiatement.
               </span>
             </>
@@ -257,16 +257,16 @@ function ProfilePage() {
               </Button>
             }
           >
-            <div className="border-border-subtle bg-terre-25 flex items-center justify-between gap-4 rounded-xl border-[0.5px] px-4 py-3.5">
+            <div className="border-border-subtle bg-base-25 flex items-center justify-between gap-4 rounded-xl border-[0.5px] px-4 py-3.5">
               <div className="flex min-w-0 items-center gap-3">
                 <span
-                  className={`inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] ${emailVerified ? 'bg-palmeraie-50 text-palmeraie-600' : 'bg-mil-50 text-mil-600'}`}
+                  className={`inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] ${emailVerified ? 'bg-success-50 text-success-600' : 'bg-warning-50 text-warning-600'}`}
                 >
                   <Mail className="h-[18px] w-[18px]" />
                 </span>
                 <div className="min-w-0">
-                  <div className="text-terre-900 truncate font-mono text-[14px]">{email}</div>
-                  <div className="text-terre-500 mt-0.5 text-[12px]">Adresse de connexion</div>
+                  <div className="text-base-900 truncate font-mono text-[14px]">{email}</div>
+                  <div className="text-base-500 mt-0.5 text-[12px]">Adresse de connexion</div>
                 </div>
               </div>
               {emailVerified ? (
@@ -276,19 +276,19 @@ function ProfilePage() {
               )}
             </div>
             {emailNotice ? (
-              <div className="bg-soleil-50 border-soleil-200 text-soleil-800 mt-3 rounded-xl border-[0.5px] px-3.5 py-3 text-[12px] leading-[1.5]">
+              <div className="bg-brand-50 border-brand-200 text-brand-800 mt-3 rounded-xl border-[0.5px] px-3.5 py-3 text-[12px] leading-[1.5]">
                 {emailNotice}
               </div>
             ) : null}
             {!emailVerified ? (
-              <div className="bg-mil-50 border-mil-200 mt-3 flex items-center gap-3 rounded-xl border-[0.5px] px-3.5 py-3">
-                <span className="text-mil-600 flex-1 text-[12px] leading-[1.5]">
+              <div className="bg-warning-50 border-warning-200 mt-3 flex items-center gap-3 rounded-xl border-[0.5px] px-3.5 py-3">
+                <span className="text-warning-600 flex-1 text-[12px] leading-[1.5]">
                   Votre adresse n'est pas vérifiée. Vérifiez votre boîte de réception.
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-mil-600"
+                  className="text-warning-600"
                   onClick={() =>
                     void authClient.emailOtp
                       .sendVerificationOtp({ email, type: 'email-verification' })
@@ -312,15 +312,15 @@ function ProfilePage() {
               description="La connexion de votre compte est gérée par un fournisseur externe."
               padding={24}
             >
-              <div className="border-border-subtle bg-terre-25 flex items-center gap-4 rounded-xl border-[0.5px] px-4 py-4">
+              <div className="border-border-subtle bg-base-25 flex items-center gap-4 rounded-xl border-[0.5px] px-4 py-4">
                 <span className="bg-card border-border inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] border-[0.5px]">
-                  <ShieldCheck className="text-soleil-600 h-6 w-6" />
+                  <ShieldCheck className="text-brand-600 h-6 w-6" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-terre-900 text-[14px] font-medium">
+                  <div className="text-base-900 text-[14px] font-medium">
                     Connexion via un fournisseur externe.
                   </div>
-                  <p className="text-terre-600 m-0 mt-1 text-[12px] leading-[1.5]">
+                  <p className="text-base-600 m-0 mt-1 text-[12px] leading-[1.5]">
                     Votre mot de passe est géré par votre fournisseur (Google / Microsoft). Pour le
                     modifier, rendez-vous dans votre compte fournisseur.
                   </p>
@@ -337,8 +337,8 @@ function ProfilePage() {
             description="Comment vous apparaissez à votre équipe."
             padding={20}
           >
-            <div className="border-border-subtle bg-terre-25 flex items-center gap-3 rounded-[14px] border-[0.5px] p-4">
-              <span className="bg-soleil-100 text-terre-900 font-display inline-flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full text-lg font-medium">
+            <div className="border-border-subtle bg-base-25 flex items-center gap-3 rounded-[14px] border-[0.5px] p-4">
+              <span className="bg-brand-100 text-base-900 font-display inline-flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full text-lg font-medium">
                 {image ? (
                   <img src={image} alt="" className="h-full w-full object-cover" />
                 ) : (
@@ -346,8 +346,8 @@ function ProfilePage() {
                 )}
               </span>
               <div className="min-w-0">
-                <div className="text-terre-900 truncate text-[14px] font-medium">{name || '—'}</div>
-                <div className="text-terre-500 truncate text-[12px]">{email}</div>
+                <div className="text-base-900 truncate text-[14px] font-medium">{name || '—'}</div>
+                <div className="text-base-500 truncate text-[12px]">{email}</div>
               </div>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -361,17 +361,17 @@ function ProfilePage() {
 
           <SectionCard padding={18}>
             <div className="flex items-start gap-3">
-              <span className="bg-soleil-50 text-soleil-700 inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px]">
+              <span className="bg-brand-50 text-brand-700 inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px]">
                 <ShieldCheck className="h-[17px] w-[17px]" />
               </span>
               <div className="min-w-0">
-                <div className="text-terre-900 text-[13px] font-medium">Sécurité du compte</div>
-                <p className="text-terre-600 m-0 mt-1 mb-2 text-[12px] leading-[1.5]">
+                <div className="text-base-900 text-[13px] font-medium">Sécurité du compte</div>
+                <p className="text-base-600 m-0 mt-1 mb-2 text-[12px] leading-[1.5]">
                   Double authentification et sessions actives.
                 </p>
                 <Link
                   to="/settings/security/2fa"
-                  className="text-soleil-700 hover:text-soleil-800 inline-flex items-center gap-1 text-[12.5px] font-medium"
+                  className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-1 text-[12.5px] font-medium"
                 >
                   Gérer la sécurité →
                 </Link>
@@ -407,11 +407,11 @@ function StrengthMeter({ value }: { value: string }) {
   const score = scorePw(value);
   const labels = ['', 'Faible', 'Moyen', 'Bon', 'Fort'];
   const fill = [
-    'bg-terre-200',
-    'bg-brique-400',
-    'bg-mil-400',
-    'bg-palmeraie-400',
-    'bg-palmeraie-600',
+    'bg-base-200',
+    'bg-danger-400',
+    'bg-warning-400',
+    'bg-success-400',
+    'bg-success-600',
   ][score];
   return (
     <div className="mt-2 flex items-center gap-2.5">
@@ -419,11 +419,11 @@ function StrengthMeter({ value }: { value: string }) {
         {[1, 2, 3, 4].map((i) => (
           <span
             key={i}
-            className={`h-1 flex-1 rounded-full transition-colors ${i <= score ? fill : 'bg-terre-100'}`}
+            className={`h-1 flex-1 rounded-full transition-colors ${i <= score ? fill : 'bg-base-100'}`}
           />
         ))}
       </div>
-      <span className="text-terre-500 min-w-[38px] text-[11px]">{value ? labels[score] : ''}</span>
+      <span className="text-base-500 min-w-[38px] text-[11px]">{value ? labels[score] : ''}</span>
     </div>
   );
 }
@@ -474,12 +474,12 @@ function PasswordCard({ onError }: { onError: (msg: string | null) => void }) {
     >
       <div className="flex flex-col gap-[18px]">
         {done ? (
-          <div className="border-palmeraie-200 bg-palmeraie-50 text-palmeraie-800 rounded-xl border-[0.5px] px-3.5 py-3 text-[13px]">
+          <div className="border-success-200 bg-success-50 text-success-800 rounded-xl border-[0.5px] px-3.5 py-3 text-[13px]">
             Mot de passe mis à jour. Les autres appareils ont été déconnectés.
           </div>
         ) : null}
         <div className="flex flex-col gap-1.5">
-          <Label className="text-terre-700 text-[13px] font-medium">Mot de passe actuel</Label>
+          <Label className="text-base-700 text-[13px] font-medium">Mot de passe actuel</Label>
           <Input
             type="password"
             value={cur}
@@ -489,11 +489,11 @@ function PasswordCard({ onError }: { onError: (msg: string | null) => void }) {
             }}
             placeholder="••••••••"
           />
-          {localError ? <p className="text-brique-700 text-[11px]">{localError}</p> : null}
+          {localError ? <p className="text-danger-700 text-[11px]">{localError}</p> : null}
         </div>
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 sm:items-start">
           <div className="flex flex-col gap-1.5">
-            <Label className="text-terre-700 text-[13px] font-medium">Nouveau mot de passe</Label>
+            <Label className="text-base-700 text-[13px] font-medium">Nouveau mot de passe</Label>
             <Input
               type="password"
               value={npw}
@@ -501,14 +501,14 @@ function PasswordCard({ onError }: { onError: (msg: string | null) => void }) {
               placeholder="12 caractères minimum"
             />
             <StrengthMeter value={npw} />
-            <p className="text-terre-500 text-[11px]">
+            <p className="text-base-500 text-[11px]">
               {npw && npw.length < 12
                 ? `Encore ${12 - npw.length} caractère(s).`
                 : '12 caractères minimum.'}
             </p>
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label className="text-terre-700 text-[13px] font-medium">
+            <Label className="text-base-700 text-[13px] font-medium">
               Confirmer le nouveau mot de passe
             </Label>
             <Input
@@ -518,7 +518,7 @@ function PasswordCard({ onError }: { onError: (msg: string | null) => void }) {
               placeholder="••••••••"
             />
             {mismatch ? (
-              <p className="text-brique-700 text-[11px]">Les mots de passe ne correspondent pas.</p>
+              <p className="text-danger-700 text-[11px]">Les mots de passe ne correspondent pas.</p>
             ) : null}
           </div>
         </div>
@@ -577,7 +577,7 @@ function EmailChangeDialog({
       <DialogContent className="w-[calc(100vw-32px)] max-w-[520px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2.5">
-            <span className="bg-soleil-100 text-soleil-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
+            <span className="bg-brand-100 text-brand-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
               <Mail className="h-4 w-4" />
             </span>
             Changer d'email
@@ -589,12 +589,12 @@ function EmailChangeDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-4">
-          <div className="border-border-subtle bg-terre-25 flex items-center gap-2.5 rounded-xl border-[0.5px] px-3.5 py-2.5">
-            <span className="text-terre-500 text-[12px]">Email actuel</span>
-            <span className="text-terre-800 font-mono text-[13px]">{currentEmail}</span>
+          <div className="border-border-subtle bg-base-25 flex items-center gap-2.5 rounded-xl border-[0.5px] px-3.5 py-2.5">
+            <span className="text-base-500 text-[12px]">Email actuel</span>
+            <span className="text-base-800 font-mono text-[13px]">{currentEmail}</span>
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label className="text-terre-700 text-[13px] font-medium">Nouvel email</Label>
+            <Label className="text-base-700 text-[13px] font-medium">Nouvel email</Label>
             <Input
               type="email"
               value={next}
@@ -603,7 +603,7 @@ function EmailChangeDialog({
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label className="text-terre-700 text-[13px] font-medium">
+            <Label className="text-base-700 text-[13px] font-medium">
               Confirmer le nouvel email
             </Label>
             <Input
@@ -613,14 +613,14 @@ function EmailChangeDialog({
               placeholder="vous@exemple.com"
             />
             {mismatch ? (
-              <p className="text-brique-700 text-[11px]">Les adresses ne correspondent pas.</p>
+              <p className="text-danger-700 text-[11px]">Les adresses ne correspondent pas.</p>
             ) : null}
           </div>
-          <div className="bg-soleil-50 border-soleil-200 text-soleil-800 flex items-start gap-2.5 rounded-xl border-[0.5px] px-3.5 py-3 text-[12px] leading-[1.5]">
+          <div className="bg-brand-50 border-brand-200 text-brand-800 flex items-start gap-2.5 rounded-xl border-[0.5px] px-3.5 py-3 text-[12px] leading-[1.5]">
             Un email de confirmation sera envoyé à votre adresse actuelle ; le changement prend
             effet après validation.
           </div>
-          {error ? <p className="text-brique-700 text-[12px]">{error}</p> : null}
+          {error ? <p className="text-danger-700 text-[12px]">{error}</p> : null}
         </div>
 
         <DialogFooter>

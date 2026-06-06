@@ -1,5 +1,5 @@
 /**
- * <Carousel /> — embla-carousel-react adapté Terre & Soleil.
+ * <Carousel /> — embla-carousel-react adapté Base & Brand.
  *
  * Exports : `Carousel`, `CarouselContent`, `CarouselItem`,
  *   `CarouselPrevious`, `CarouselNext` et le type `CarouselApi`.

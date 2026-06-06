@@ -33,7 +33,7 @@ export function PaginationBar({
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
   return (
     <div className="mt-4 flex items-center justify-between">
-      <span className="text-terre-500 text-[12.5px]">
+      <span className="text-base-500 text-[12.5px]">
         {shown} sur {total} {total > 1 ? noun[1] : noun[0]}
       </span>
       <div className="flex items-center gap-2">
@@ -45,7 +45,7 @@ export function PaginationBar({
         >
           Précédent
         </Button>
-        <span className="text-terre-600 text-[12.5px]">
+        <span className="text-base-600 text-[12.5px]">
           Page {page + 1} / {pageCount}
         </span>
         <Button

@@ -1,7 +1,7 @@
 /**
- * <Skeleton /> — Placeholder de chargement Terre & Soleil.
+ * <Skeleton /> — Placeholder de chargement Base & Brand.
  *
- * Utilise `animate-pulse` de Tailwind sur fond terre-100.
+ * Utilise `animate-pulse` de Tailwind sur fond base-100.
  * S'adapte à n'importe quelle dimension via className.
  */
 

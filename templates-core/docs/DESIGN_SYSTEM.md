@@ -1,13 +1,13 @@
 ---
 title: __PROJECT_NAME__ Design System — Point d'entrée
-version: 3.0 (Terre et Soleil)
+version: 3.0 (Base et Brand)
 date: 2026-05-14
 references:
   - ./design-system/README.md
   - ./design-system/project/README.md
   - ./design-system/project/SKILL.md
   - ./design-system/project/tokens/__PROJECT_SLUG__-tokens.css
-  - ../_bmad-output/planning-artifacts/architecture.md#design-system-pattern--__PROJECT_SLUG__-terre-et-soleil-v30
+  - ../_bmad-output/planning-artifacts/architecture.md#design-system-pattern--__PROJECT_SLUG__-base-et-brand-v30
 ---
 
 # __PROJECT_NAME__ Design System — Point d'entrée
@@ -16,7 +16,7 @@ references:
 
 ## 🎨 Identité
 
-**Terre et Soleil v3.0** — direction moderne et chaleureuse, ancrée dans l'esthétique sahélienne. Inspiration : Linear/Stripe/Pennylane (rigueur) + architecture sahélienne et lumière de Dakar fin d'après-midi (chaleur). Le logo 4 pétales = les 4 modules formant un outil intégré.
+**Base et Brand v3.0** — direction moderne et chaleureuse, ancrée dans l'esthétique sahélienne. Inspiration : Linear/Stripe/Pennylane (rigueur) + architecture sahélienne et lumière de Dakar fin d'après-midi (chaleur). Le logo 4 pétales = les 4 modules formant un outil intégré.
 
 ## 📁 Structure des sources
 
@@ -54,8 +54,8 @@ docs/
 ## 🚨 Non-négociables (extraits — voir SKILL.md pour liste complète)
 
 1. **Sentence case partout.** Jamais `ALL CAPS`, jamais `Title Case On Sentences`.
-2. **Soleil 400 ≤ 15% de toute surface.** Signature, pas remplissage.
-3. **Italic Fraunces en Soleil 600 — max 2 par page.** Voix éditoriale rare.
+2. **Brand 400 ≤ 15% de toute surface.** Signature, pas remplissage.
+3. **Italic Fraunces en Brand 600 — max 2 par page.** Voix éditoriale rare.
 4. **Pill buttons (radius 100px), card radii 16-20px, input radii 12px.** Jamais sharp corners.
 5. **No emoji.** Status via dots colorés + badges + copy.
 6. **Pas de corporate jargon.** Bannis : solutions, synergies, disruption, innovant, écosystème...
@@ -80,9 +80,9 @@ docs/
 
 ## 🔗 Liens architecturaux
 
-- Architecture technique du Design System : `_bmad-output/planning-artifacts/architecture.md` → section **"Design System Pattern — __PROJECT_NAME__ Terre et Soleil v3.0"**
+- Architecture technique du Design System : `_bmad-output/planning-artifacts/architecture.md` → section **"Design System Pattern — __PROJECT_NAME__ Base et Brand v3.0"**
 - Structure `packages/ui` : `_bmad-output/planning-artifacts/architecture.md` → section **"Project Structure & Boundaries"**
-- Pattern shadcn monorepo (intégration avec Terre et Soleil) : architecture.md → section **"Shadcn/ui Monorepo Pattern"**
+- Pattern shadcn monorepo (intégration avec Base et Brand) : architecture.md → section **"Shadcn/ui Monorepo Pattern"**
 
 ## ⚠️ Caveats du Design System (extraits de la spec)
 
@@ -95,6 +95,6 @@ D'après `design-system/project/README.md` :
 
 ## 📝 Historique
 
-- **v3.0 (Mai 2026) — Terre et Soleil** : direction actuelle (sahélienne, modulaire, 4 pétales)
+- **v3.0 (Mai 2026) — Base et Brand** : direction actuelle (sahélienne, modulaire, 4 pétales)
 - **v2.0 (Cuivre Sahel)** : *deprecated*
 - **v1.0 (Marine + Ambre)** : *deprecated*

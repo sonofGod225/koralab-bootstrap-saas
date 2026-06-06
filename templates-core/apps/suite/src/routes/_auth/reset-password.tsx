@@ -69,22 +69,22 @@ function ResetPasswordPage() {
 
         {invalid ? (
           <div className="flex flex-col gap-3 py-2 text-center">
-            <p className="text-terre-900 font-medium">Lien invalide ou expiré</p>
-            <p className="text-terre-600 text-sm">
+            <p className="text-base-900 font-medium">Lien invalide ou expiré</p>
+            <p className="text-base-600 text-sm">
               Ce lien de réinitialisation n'est plus valable. Demandez-en un nouveau.
             </p>
             <Link
               to="/forgot-password"
-              className="text-terre-900 mt-1 text-sm font-medium underline"
+              className="text-base-900 mt-1 text-sm font-medium underline"
             >
               Demander un nouveau lien
             </Link>
           </div>
         ) : done ? (
-          <div className="border-palmeraie-200 bg-palmeraie-50 text-palmeraie-800 flex flex-col gap-1.5 rounded-xl border p-4 text-sm leading-[1.5]">
+          <div className="border-success-200 bg-success-50 text-success-800 flex flex-col gap-1.5 rounded-xl border p-4 text-sm leading-[1.5]">
             <p className="font-semibold">Mot de passe réinitialisé</p>
             <p>Votre mot de passe a été modifié et toutes vos sessions ont été déconnectées.</p>
-            <Link to="/signin" className="text-palmeraie-800 mt-1 font-medium underline">
+            <Link to="/signin" className="text-success-800 mt-1 font-medium underline">
               Se connecter
             </Link>
           </div>
@@ -139,7 +139,7 @@ function ResetPasswordPage() {
                     </FormItem>
                   )}
                 />
-                {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+                {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
                 <LoadingButton
                   type="submit"
                   size="lg"

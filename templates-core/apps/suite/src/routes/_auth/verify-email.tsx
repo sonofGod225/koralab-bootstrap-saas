@@ -111,14 +111,14 @@ function VerifyEmailPage() {
         />
 
         {!hydrated ? (
-          <p className="text-terre-600 text-sm">Chargement…</p>
+          <p className="text-base-600 text-sm">Chargement…</p>
         ) : !email ? (
           <div className="flex flex-col gap-3 py-2 text-center">
-            <p className="text-terre-900 font-medium">Adresse email manquante</p>
-            <p className="text-terre-600 text-sm">
+            <p className="text-base-900 font-medium">Adresse email manquante</p>
+            <p className="text-base-600 text-sm">
               Relancez l'inscription pour recevoir un nouveau code.
             </p>
-            <Link to="/signup" className="text-terre-900 mt-1 text-sm font-medium underline">
+            <Link to="/signup" className="text-base-900 mt-1 text-sm font-medium underline">
               Retour à l'inscription
             </Link>
           </div>
@@ -127,9 +127,9 @@ function VerifyEmailPage() {
             <div className="flex flex-col gap-1.5">
               <Label>Code de vérification</Label>
               <OtpField value={code} onChange={setCode} autoFocus />
-              <p className="text-terre-500 text-xs">Le code expire dans 10 minutes.</p>
+              <p className="text-base-500 text-xs">Le code expire dans 10 minutes.</p>
             </div>
-            {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+            {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
             <LoadingButton
               type="button"
               size="lg"

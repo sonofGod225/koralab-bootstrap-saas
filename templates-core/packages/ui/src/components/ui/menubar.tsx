@@ -1,13 +1,13 @@
 /**
- * <Menubar /> — Radix Menubar adapté Terre & Soleil.
+ * <Menubar /> — Radix Menubar adapté Base & Brand.
  *
  * Patron shadcn/ui new-york. Style :
- * - Barre : bg-white, border terre-100, rounded-xl, shadow-xs, padding 4px.
- * - Déclencheurs : texte terre-900, hover bg-terre-50, open bg-terre-50.
- * - Contenu : bg-white, rounded-xl, border terre-100/50, shadow-lg.
- * - Items : hover bg-terre-50, focus bg-terre-50.
- * - Raccourcis clavier : font-mono text-xs text-terre-400.
- * - Séparateurs : bg-terre-100.
+ * - Barre : bg-white, border base-100, rounded-xl, shadow-xs, padding 4px.
+ * - Déclencheurs : texte base-900, hover bg-base-50, open bg-base-50.
+ * - Contenu : bg-white, rounded-xl, border base-100/50, shadow-lg.
+ * - Items : hover bg-base-50, focus bg-base-50.
+ * - Raccourcis clavier : font-mono text-xs text-base-400.
+ * - Séparateurs : bg-base-100.
  * - Sous-menus : chevron lucide ChevronRight.
  */
 

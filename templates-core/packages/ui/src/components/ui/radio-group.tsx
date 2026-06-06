@@ -1,11 +1,11 @@
 /**
- * <RadioGroup /> — Radix RadioGroup adapté Terre & Soleil.
+ * <RadioGroup /> — Radix RadioGroup adapté Base & Brand.
  *
  * Style :
  * - Bouton radio 18px, cercle plein, fond card.
  * - Sélectionné : border-primary, point intérieur bg-primary.
  * - Non sélectionné : border-border.
- * - Focus ring Soleil 400 @ 40%.
+ * - Focus ring Brand 400 @ 40%.
  */
 
 import * as React from 'react';
@@ -28,7 +28,7 @@ const RadioGroupItem = React.forwardRef<
     ref={ref}
     className={cn(
       'border-border bg-background aspect-square h-[18px] w-[18px] shrink-0 rounded-full border transition-colors',
-      'focus-visible:ring-soleil-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+      'focus-visible:ring-brand-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
       'disabled:cursor-not-allowed disabled:opacity-50',
       'data-[state=checked]:border-primary',
       className,

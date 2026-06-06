@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "private": true,
   "type": "module",
-  "description": "__PROJECT_NAME__ UI — design system Terre & Soleil (tokens + primitives custom + shadcn).",
+  "description": "__PROJECT_NAME__ UI — design system Base & Brand (tokens + primitives custom + shadcn).",
   "exports": {
     "./styles/globals.css": "./src/styles/globals.css",
     "./styles/tokens.css": "./src/styles/tokens.css",

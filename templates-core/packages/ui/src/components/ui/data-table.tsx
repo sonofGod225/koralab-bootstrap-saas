@@ -1,5 +1,5 @@
 /**
- * <DataTable /> — Tableau de données générique Terre & Soleil.
+ * <DataTable /> — Tableau de données générique Base & Brand.
  *
  * Basé sur @tanstack/react-table v8 (headless). Fonctionnalités :
  * - Tri cliquable sur les en-têtes marqués `enableSorting`.

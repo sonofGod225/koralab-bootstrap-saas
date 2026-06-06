@@ -205,7 +205,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'terre'"
+          "default": "'base'"
         },
         "petal": {
           "name": "petal",
@@ -1293,7 +1293,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'terre'"
+          "default": "'base'"
         },
         "description": {
           "name": "description",
@@ -4201,7 +4201,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'soleil'"
+          "default": "'brand'"
         },
         "reminders_enabled": {
           "name": "reminders_enabled",

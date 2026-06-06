@@ -22,6 +22,7 @@ import { join, dirname, resolve, isAbsolute } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { PRESETS, FONTS } from '../scripts/design.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SKILL_ROOT = join(__dirname, '..');
@@ -87,6 +88,35 @@ async function main() {
     const noAdmin = flag('--no-admin') || !(await askBool('Include the admin app?', true));
     const noLanding = flag('--no-landing') || !(await askBool('Include the landing app?', true));
 
+    // theme (core variant only)
+    const theme = {};
+    if (variant === 'core') {
+      const presetKeys = Object.keys(PRESETS);
+      if (val('--primary') || val('--accent')) {
+        theme.primary = val('--primary');
+        theme.accent = val('--accent');
+      } else if (val('--theme')) {
+        theme.theme = val('--theme');
+      } else {
+        const how = await askChoice('Design system: a preset, or custom colors?', ['preset', 'custom'], 'preset');
+        if (how === 'custom') {
+          theme.primary = await ask('Primary / neutral color (hex):', '#3f3f46');
+          theme.accent = await ask('Accent color (hex):', '#6366f1');
+        } else {
+          theme.theme = await askChoice(`Preset (${presetKeys.join(' / ')})`, presetKeys, 'terre-soleil');
+        }
+      }
+      theme.success = val('--success');
+      theme.danger = val('--danger');
+      theme.warning = val('--warning');
+      // Defaults come from the chosen preset; only override on explicit flag or
+      // interactive choice (so non-interactive keeps the preset's font/radius).
+      const presetSpec = theme.theme ? PRESETS[theme.theme] : null;
+      theme.font = val('--font') || (rl ? await askChoice('Font', Object.keys(FONTS), presetSpec?.font || 'fraunces') : undefined);
+      theme.radius = val('--radius') || (rl ? await askChoice('Radius', ['sharp', 'default', 'rounded'], presetSpec?.radius || 'default') : undefined);
+      theme.mode = val('--mode') || (rl ? await askChoice('Default color mode', ['system', 'light', 'dark'], 'system') : undefined);
+    }
+
     // out
     const out = resolveAbs(val('--out') || name);
     if (existsSync(out) && readdirSync(out).length > 0) fail(`Target ${out} exists and is not empty.`);
@@ -97,6 +127,7 @@ async function main() {
     const genArgs = ['--name', name, '--scope', scope, '--display', display, '--domain', domain, '--out', out, '--variant', variant];
     if (noAdmin) genArgs.push('--no-admin');
     if (noLanding) genArgs.push('--no-landing');
+    for (const [k, v] of Object.entries(theme)) if (v) genArgs.push(`--${k}`, v);
 
     if (variant === 'full') {
       const tmp = mkdtempSync(join(tmpdir(), 'koralab-tpl-'));

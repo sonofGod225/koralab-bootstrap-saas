@@ -1,9 +1,9 @@
 /**
- * <Accordion /> — Radix Accordion adapté Terre & Soleil.
+ * <Accordion /> — Radix Accordion adapté Base & Brand.
  *
  * Exports : `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`.
  * Style :
- * - Item : séparateur border-b terre-200
+ * - Item : séparateur border-b base-200
  * - Trigger : font-display, icône ChevronDown qui pivote à 180° sur open
  * - Content : animation accordion-down / accordion-up (shadcn standard)
  */
@@ -35,7 +35,7 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        'font-display text-foreground hover:text-foreground focus-visible:ring-soleil-400/40 flex flex-1 items-center justify-between px-1 py-4 text-left text-lg font-light tracking-tight transition-all focus-visible:rounded-md focus-visible:ring-2 focus-visible:outline-none [&[data-state=open]>svg]:rotate-180',
+        'font-display text-foreground hover:text-foreground focus-visible:ring-brand-400/40 flex flex-1 items-center justify-between px-1 py-4 text-left text-lg font-light tracking-tight transition-all focus-visible:rounded-md focus-visible:ring-2 focus-visible:outline-none [&[data-state=open]>svg]:rotate-180',
         className,
       )}
       {...props}

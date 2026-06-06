@@ -1,11 +1,11 @@
 /**
- * <ToggleGroup /> — Radix ToggleGroup adapté Terre & Soleil.
+ * <ToggleGroup /> — Radix ToggleGroup adapté Base & Brand.
  *
  * Style "segmented control" :
  * - Fond conteneur : bg-muted, radius rounded-xl, padding p-1.
  * - Item actif : bg-card, shadow-xs.
  * - Item inactif : transparent, text-muted-foreground.
- * - Focus ring Soleil 400 @ 40%.
+ * - Focus ring Brand 400 @ 40%.
  */
 
 import * as React from 'react';
@@ -47,7 +47,7 @@ const ToggleGroupItem = React.forwardRef<
         'inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-150',
         'text-muted-foreground hover:text-foreground',
         'data-[state=on]:text-foreground data-[state=on]:bg-card data-[state=on]:shadow-xs',
-        'focus-visible:ring-soleil-400/40 focus-visible:ring-offset-muted focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none',
+        'focus-visible:ring-brand-400/40 focus-visible:ring-offset-muted focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none',
         'disabled:pointer-events-none disabled:opacity-50',
         '[&_svg]:size-3.5 [&_svg]:shrink-0',
         toggleVariants({ variant: variant || context.variant, size: size || context.size }),

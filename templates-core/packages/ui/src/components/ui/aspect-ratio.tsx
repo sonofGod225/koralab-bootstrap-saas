@@ -1,5 +1,5 @@
 /**
- * <AspectRatio /> — Radix AspectRatio adapté Terre & Soleil.
+ * <AspectRatio /> — Radix AspectRatio adapté Base & Brand.
  *
  * Export : `AspectRatio`.
  * Wrapper minimal — le ratio est contrôlé via la prop `ratio` de Radix.

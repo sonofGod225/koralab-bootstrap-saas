@@ -1,9 +1,9 @@
 /**
- * <ScrollArea /> — Radix ScrollArea adapté Terre & Soleil.
+ * <ScrollArea /> — Radix ScrollArea adapté Base & Brand.
  *
  * Exports : `ScrollArea`, `ScrollBar`.
  * Style :
- * - Thumb : bg-terre-300, rounded-full
+ * - Thumb : bg-base-300, rounded-full
  * - Track : fine (4px), rounded-full, bg-transparent
  * - ScrollBar se cache quand inactive (hover pour réapparaître)
  */

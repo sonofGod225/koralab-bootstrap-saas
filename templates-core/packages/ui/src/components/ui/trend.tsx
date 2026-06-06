@@ -1,10 +1,10 @@
 /**
- * <Trend /> — Indicateur de tendance Terre & Soleil.
+ * <Trend /> — Indicateur de tendance Base & Brand.
  *
  * Affiche une valeur numérique ou texte accompagnée d'une icône
  * directionnelle et d'une couleur sémantique :
- * - `up`   → palmeraie-600 (succès)
- * - `down` → brique-600 (danger)
+ * - `up`   → success-600 (succès)
+ * - `down` → danger-600 (danger)
  * - `flat` → text-muted-foreground (neutre)
  *
  * Police `font-mono text-xs` pour l'alignement tabular dans les cartes KPI.
@@ -27,8 +27,8 @@ const directionConfig: Record<
   TrendDirection,
   { colorClass: string; Icon: React.ComponentType<{ size?: number; className?: string }> }
 > = {
-  up: { colorClass: 'text-palmeraie-600', Icon: TrendingUp },
-  down: { colorClass: 'text-brique-600', Icon: TrendingDown },
+  up: { colorClass: 'text-success-600', Icon: TrendingUp },
+  down: { colorClass: 'text-danger-600', Icon: TrendingDown },
   flat: { colorClass: 'text-muted-foreground', Icon: Minus },
 };
 

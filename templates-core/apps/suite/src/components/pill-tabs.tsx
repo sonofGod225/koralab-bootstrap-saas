@@ -1,5 +1,5 @@
 /**
- * PillTabs — tabs « pills » du design v3 (fond terre-100, item actif bg-card + shadow).
+ * PillTabs — tabs « pills » du design v3 (fond base-100, item actif bg-card + shadow).
  * Badge de compte optionnel. Reproduit `epic6-contacts.jsx` §PillTabs.
  */
 export interface PillTabItem {
@@ -17,7 +17,7 @@ export interface PillTabsProps {
 
 export function PillTabs({ value, onChange, items }: PillTabsProps) {
   return (
-    <div className="bg-terre-100 inline-flex gap-0.5 rounded-full p-[3px]">
+    <div className="bg-base-100 inline-flex gap-0.5 rounded-full p-[3px]">
       {items.map((t) => {
         const active = value === t.value;
         return (
@@ -28,8 +28,8 @@ export function PillTabs({ value, onChange, items }: PillTabsProps) {
             className={[
               'inline-flex items-center gap-2 rounded-full px-[18px] py-[7px] text-[13px] font-medium transition-colors',
               active
-                ? 'bg-card text-terre-900 shadow-xs'
-                : 'text-terre-600 hover:text-terre-900 bg-transparent',
+                ? 'bg-card text-base-900 shadow-xs'
+                : 'text-base-600 hover:text-base-900 bg-transparent',
             ].join(' ')}
           >
             {t.label}
@@ -37,7 +37,7 @@ export function PillTabs({ value, onChange, items }: PillTabsProps) {
               <span
                 className={[
                   'font-mono text-[11px]',
-                  active ? 'text-terre-500' : 'text-terre-400',
+                  active ? 'text-base-500' : 'text-base-400',
                 ].join(' ')}
               >
                 {t.badge}

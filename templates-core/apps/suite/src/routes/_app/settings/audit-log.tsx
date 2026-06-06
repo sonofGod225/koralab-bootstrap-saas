@@ -129,7 +129,7 @@ function AuditLogPage() {
         subtitle="Toutes les actions sensibles tracées. PII automatiquement masquées. Table immuable — append-only au niveau PostgreSQL."
       />
 
-      {error ? <p className="text-brique-700 mb-4 text-sm">{error}</p> : null}
+      {error ? <p className="text-danger-700 mb-4 text-sm">{error}</p> : null}
 
       <div className="flex flex-col gap-5">
         <SectionCard
@@ -148,7 +148,7 @@ function AuditLogPage() {
             </FormRow>
             <FormRow label="Rechercher (action)">
               <div className="relative">
-                <Search className="text-terre-400 pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+                <Search className="text-base-400 pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
                 <Input
                   type="text"
                   placeholder="invoices.create, rbac.role_updated…"
@@ -200,53 +200,53 @@ function AuditLogPage() {
             <div className="flex flex-col gap-4 py-2">
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     Utilisateur
                   </Label>
-                  <p className="text-terre-900 mt-0.5 font-mono">
-                    {detail.userId ?? <span className="text-terre-400">système</span>}
+                  <p className="text-base-900 mt-0.5 font-mono">
+                    {detail.userId ?? <span className="text-base-400">système</span>}
                   </p>
                 </div>
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     Adresse IP
                   </Label>
-                  <p className="text-terre-900 mt-0.5 font-mono">{detail.ipAddress ?? '—'}</p>
+                  <p className="text-base-900 mt-0.5 font-mono">{detail.ipAddress ?? '—'}</p>
                 </div>
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     Ressource
                   </Label>
-                  <p className="text-terre-900 mt-0.5">
+                  <p className="text-base-900 mt-0.5">
                     {detail.resourceType ?? '—'}
                     {detail.resourceId ? (
-                      <span className="text-terre-500 ml-1 font-mono">{detail.resourceId}</span>
+                      <span className="text-base-500 ml-1 font-mono">{detail.resourceId}</span>
                     ) : null}
                   </p>
                 </div>
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     Session
                   </Label>
-                  <p className="text-terre-900 mt-0.5 truncate font-mono">
+                  <p className="text-base-900 mt-0.5 truncate font-mono">
                     {detail.sessionId ?? '—'}
                   </p>
                 </div>
               </div>
               {detail.userAgent ? (
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     User-Agent
                   </Label>
-                  <p className="text-terre-700 mt-0.5 text-xs break-all">{detail.userAgent}</p>
+                  <p className="text-base-700 mt-0.5 text-xs break-all">{detail.userAgent}</p>
                 </div>
               ) : null}
               {detail.details ? (
                 <div>
-                  <Label className="text-terre-500 text-[10px] tracking-wide uppercase">
+                  <Label className="text-base-500 text-[10px] tracking-wide uppercase">
                     Détails (JSON)
                   </Label>
-                  <pre className="bg-terre-50 text-terre-900 mt-1 max-h-[300px] overflow-auto rounded-lg p-3 font-mono text-[11px] leading-relaxed">
+                  <pre className="bg-base-50 text-base-900 mt-1 max-h-[300px] overflow-auto rounded-lg p-3 font-mono text-[11px] leading-relaxed">
                     {JSON.stringify(detail.details, null, 2)}
                   </pre>
                 </div>
@@ -285,7 +285,7 @@ function HistoryCard({
         width: '180px',
         header: 'Quand',
         cell: (e) => (
-          <span className="text-terre-700 font-mono text-xs whitespace-nowrap tabular-nums">
+          <span className="text-base-700 font-mono text-xs whitespace-nowrap tabular-nums">
             {new Date(e.createdAt).toLocaleString('fr-FR', {
               dateStyle: 'short',
               timeStyle: 'medium',
@@ -297,7 +297,7 @@ function HistoryCard({
         id: 'action',
         width: '1.5fr',
         header: 'Action',
-        cell: (e) => <span className="text-terre-900 text-[13px] font-medium">{e.action}</span>,
+        cell: (e) => <span className="text-base-900 text-[13px] font-medium">{e.action}</span>,
       },
       {
         id: 'userId',
@@ -305,11 +305,11 @@ function HistoryCard({
         header: 'Acteur',
         cell: (e) =>
           e.userId ? (
-            <span className="text-terre-600 block max-w-[180px] truncate font-mono text-xs">
+            <span className="text-base-600 block max-w-[180px] truncate font-mono text-xs">
               {e.userId}
             </span>
           ) : (
-            <span className="text-terre-400 text-xs">système</span>
+            <span className="text-base-400 text-xs">système</span>
           ),
       },
       {
@@ -318,14 +318,14 @@ function HistoryCard({
         header: 'Ressource',
         cell: (e) =>
           !e.resourceType ? (
-            <span className="text-terre-400 text-xs">—</span>
+            <span className="text-base-400 text-xs">—</span>
           ) : (
             <span className="inline-flex items-center gap-1.5">
-              <span className="bg-terre-100 text-terre-700 rounded-full px-2 py-0.5 text-[10px] font-medium">
+              <span className="bg-base-100 text-base-700 rounded-full px-2 py-0.5 text-[10px] font-medium">
                 {e.resourceType}
               </span>
               {e.resourceId ? (
-                <span className="text-terre-500 font-mono text-[11px]">
+                <span className="text-base-500 font-mono text-[11px]">
                   {e.resourceId.slice(0, 8)}…
                 </span>
               ) : null}
@@ -336,13 +336,13 @@ function HistoryCard({
         id: 'ipAddress',
         width: '120px',
         header: 'IP',
-        cell: (e) => <span className="text-terre-500 font-mono text-xs">{e.ipAddress ?? '—'}</span>,
+        cell: (e) => <span className="text-base-500 font-mono text-xs">{e.ipAddress ?? '—'}</span>,
       },
       {
         id: 'open',
         width: '40px',
         cellClassName: 'flex justify-end',
-        cell: () => <Eye className="text-terre-400 h-4 w-4" />,
+        cell: () => <Eye className="text-base-400 h-4 w-4" />,
       },
     ],
     [],
@@ -352,30 +352,30 @@ function HistoryCard({
     <button
       type="button"
       onClick={() => onOpenDetail(e)}
-      className="bg-card border-border-subtle hover:border-soleil-300 flex w-full flex-col gap-1.5 rounded-2xl border-[0.5px] p-3.5 text-left transition-colors"
+      className="bg-card border-border-subtle hover:border-brand-300 flex w-full flex-col gap-1.5 rounded-2xl border-[0.5px] p-3.5 text-left transition-colors"
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="text-terre-900 text-[13px] font-medium break-all">{e.action}</span>
-        <Eye className="text-terre-400 mt-0.5 h-4 w-4 shrink-0" />
+        <span className="text-base-900 text-[13px] font-medium break-all">{e.action}</span>
+        <Eye className="text-base-400 mt-0.5 h-4 w-4 shrink-0" />
       </div>
-      <div className="text-terre-500 font-mono text-[11px] tabular-nums">
+      <div className="text-base-500 font-mono text-[11px] tabular-nums">
         {new Date(e.createdAt).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'medium' })}
       </div>
       <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
         {e.resourceType ? (
-          <span className="bg-terre-100 text-terre-700 rounded-full px-2 py-0.5 font-medium">
+          <span className="bg-base-100 text-base-700 rounded-full px-2 py-0.5 font-medium">
             {e.resourceType}
             {e.resourceId ? (
-              <span className="text-terre-500 ml-1 font-mono">{e.resourceId.slice(0, 8)}…</span>
+              <span className="text-base-500 ml-1 font-mono">{e.resourceId.slice(0, 8)}…</span>
             ) : null}
           </span>
         ) : null}
         {e.userId ? (
-          <span className="text-terre-600 max-w-[160px] truncate font-mono">{e.userId}</span>
+          <span className="text-base-600 max-w-[160px] truncate font-mono">{e.userId}</span>
         ) : (
-          <span className="text-terre-400">système</span>
+          <span className="text-base-400">système</span>
         )}
-        <span className="text-terre-500 font-mono">{e.ipAddress ?? '—'}</span>
+        <span className="text-base-500 font-mono">{e.ipAddress ?? '—'}</span>
       </div>
     </button>
   );
@@ -385,13 +385,13 @@ function HistoryCard({
   return (
     <>
       <div className="mb-3.5 flex items-center justify-between gap-3">
-        <h3 className="text-terre-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
+        <h3 className="text-base-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
           {items.length > 0 ? `Historique · ${items.length}` : 'Historique'}
         </h3>
       </div>
 
       {!loading && items.length === 0 ? (
-        <div className="bg-card border-border-subtle text-terre-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
+        <div className="bg-card border-border-subtle text-base-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
           Aucun événement ne correspond à ces filtres.
         </div>
       ) : (

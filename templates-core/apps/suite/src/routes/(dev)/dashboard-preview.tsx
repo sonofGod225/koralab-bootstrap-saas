@@ -123,16 +123,16 @@ const INVOICES: InvoiceData[] = [
   },
 ];
 
-const ACCENT = 'var(--color-soleil-400)';
+const ACCENT = 'var(--color-brand-400)';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Organisations mockées — design « Switch organisation » (__PROJECT_NAME__-Auth)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ORGANIZATIONS: Organization[] = [
-  { id: 'dist-yk', name: 'Distribution YK', role: 'Membre', initial: 'Y', tone: 'soleil' },
-  { id: 'atelier-fatou', name: 'Atelier Fatou', role: 'Propriétaire', initial: 'F', tone: 'terre' },
-  { id: 'cafe-marche', name: 'Café du marché', role: 'Comptable', initial: 'C', tone: 'palmeraie' },
+  { id: 'dist-yk', name: 'Distribution YK', role: 'Membre', initial: 'Y', tone: 'brand' },
+  { id: 'atelier-fatou', name: 'Atelier Fatou', role: 'Propriétaire', initial: 'F', tone: 'base' },
+  { id: 'cafe-marche', name: 'Café du marché', role: 'Comptable', initial: 'C', tone: 'success' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -174,7 +174,7 @@ function HeaderIconButton({ label, badge, children }: HeaderIconButtonProps) {
     >
       {children}
       {badge && (
-        <span className="ring-card bg-brique-400 absolute top-[7px] right-[7px] h-2 w-2 rounded-full ring-2" />
+        <span className="ring-card bg-danger-400 absolute top-[7px] right-[7px] h-2 w-2 rounded-full ring-2" />
       )}
     </button>
   );
@@ -297,9 +297,9 @@ interface ActivityItemProps {
 }
 
 const ACTIVITY_TONE_CLASSES: Record<ActivityTone, { bg: string; fg: string }> = {
-  paid: { bg: 'bg-palmeraie-50', fg: 'text-palmeraie-600' },
-  sent: { bg: 'bg-soleil-50', fg: 'text-soleil-600' },
-  late: { bg: 'bg-brique-50', fg: 'text-brique-600' },
+  paid: { bg: 'bg-success-50', fg: 'text-success-600' },
+  sent: { bg: 'bg-brand-50', fg: 'text-brand-600' },
+  late: { bg: 'bg-danger-50', fg: 'text-danger-600' },
   draft: { bg: 'bg-subtle', fg: 'text-foreground' },
 };
 
@@ -361,7 +361,7 @@ function AppRail() {
       <NavIcon
         icon={<Home size={20} strokeWidth={1.5} />}
         label="Accueil"
-        signatureColor="var(--color-terre-700)"
+        signatureColor="var(--color-base-700)"
       />
 
       {/* Séparateur */}
@@ -371,14 +371,14 @@ function AppRail() {
       <NavIcon
         icon={<Users size={20} strokeWidth={1.5} />}
         label="CRM"
-        signatureColor="var(--color-terre-600)"
+        signatureColor="var(--color-base-600)"
       />
 
       {/* Facturation — badge 3 */}
       <NavIcon
         icon={<FileText size={20} strokeWidth={1.5} />}
         label="Facturation"
-        signatureColor="var(--color-mil-600)"
+        signatureColor="var(--color-warning-600)"
         badge={{ value: 3 }}
       />
 
@@ -387,14 +387,14 @@ function AppRail() {
         icon={<Coins size={20} strokeWidth={1.75} />}
         label="Encaissements"
         active
-        signatureColor="var(--color-soleil-400)"
+        signatureColor="var(--color-brand-400)"
       />
 
       {/* Comptabilité */}
       <NavIcon
         icon={<BookOpen size={20} strokeWidth={1.5} />}
         label="Comptabilité"
-        signatureColor="var(--color-palmeraie-600)"
+        signatureColor="var(--color-success-600)"
       />
 
       {/* Spacer */}
@@ -404,7 +404,7 @@ function AppRail() {
       <NavIcon
         icon={<Settings size={20} strokeWidth={1.5} />}
         label="Paramètres"
-        signatureColor="var(--color-terre-600)"
+        signatureColor="var(--color-base-600)"
       />
     </SidebarRail>
   );
@@ -488,12 +488,12 @@ function DrawerNav() {
             aria-hidden="true"
             style={{ flexShrink: 0 }}
           >
-            <path d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z" fill="var(--color-terre-900)" />
-            <path d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z" fill="var(--color-terre-900)" />
-            <path d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z" fill="var(--color-terre-900)" />
+            <path d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z" fill="var(--color-base-900)" />
+            <path d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z" fill="var(--color-base-900)" />
+            <path d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z" fill="var(--color-base-900)" />
             <path
               d="M 30 30 L 48 30 L 48 38 Q 48 48 38 48 L 30 48 Z"
-              fill="var(--color-soleil-400)"
+              fill="var(--color-brand-400)"
             />
           </svg>
           <span className="font-display text-foreground text-lg font-medium tracking-[-0.4px]">
@@ -505,7 +505,7 @@ function DrawerNav() {
       {/* Org switcher */}
       <div className="border-border border-b px-4 py-3.5">
         <div className="border-border bg-card flex items-center gap-2.5 rounded-xl border px-3 py-2.5">
-          <span className="font-display bg-soleil-100 text-foreground inline-flex h-8 w-8 items-center justify-center rounded-lg text-[15px] font-medium">
+          <span className="font-display bg-brand-100 text-foreground inline-flex h-8 w-8 items-center justify-center rounded-lg text-[15px] font-medium">
             D
           </span>
           <div className="flex-1">
@@ -527,7 +527,7 @@ function DrawerNav() {
 
         {/* CRM */}
         <div className="hover:bg-muted mx-3 mb-1 flex items-center gap-3 rounded-xl px-3.5 py-3 transition-colors">
-          <span className="bg-muted text-terre-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
+          <span className="bg-muted text-base-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
             <Users size={18} strokeWidth={1.5} />
           </span>
           <div className="flex-1">
@@ -538,7 +538,7 @@ function DrawerNav() {
 
         {/* Facturation — badge */}
         <div className="hover:bg-muted mx-3 mb-1 flex items-center gap-3 rounded-xl px-3.5 py-3 transition-colors">
-          <span className="bg-muted text-mil-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
+          <span className="bg-muted text-warning-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
             <FileText size={18} strokeWidth={1.5} />
           </span>
           <div className="flex-1">
@@ -560,12 +560,12 @@ function DrawerNav() {
             <div className="text-foreground text-[14px] font-medium">Encaissements</div>
             <div className="text-muted-foreground text-[11px]">Pôle Commercial</div>
           </div>
-          <span className="bg-soleil-400 h-1.5 w-1.5 rounded-full" />
+          <span className="bg-brand-400 h-1.5 w-1.5 rounded-full" />
         </div>
 
         {/* Comptabilité */}
         <div className="hover:bg-muted mx-3 mb-1 flex items-center gap-3 rounded-xl px-3.5 py-3 transition-colors">
-          <span className="bg-muted text-palmeraie-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
+          <span className="bg-muted text-success-600 inline-flex h-9 w-9 items-center justify-center rounded-[10px]">
             <BookOpen size={18} strokeWidth={1.5} />
           </span>
           <div className="flex-1">
@@ -597,7 +597,7 @@ function DrawerNav() {
       {/* Footer utilisateur */}
       <div className="border-border flex items-center gap-3 border-t px-4 py-3">
         <Avatar className="h-9 w-9 shrink-0">
-          <AvatarFallback className="bg-soleil-100 font-display text-foreground text-sm font-medium">
+          <AvatarFallback className="bg-brand-100 font-display text-foreground text-sm font-medium">
             M
           </AvatarFallback>
         </Avatar>
@@ -632,7 +632,7 @@ function DashboardContent() {
           title={
             <>
               Bonjour Marius,{' '}
-              <em className="font-display text-soleil-600 font-normal italic">2 factures</em>{' '}
+              <em className="font-display text-brand-600 font-normal italic">2 factures</em>{' '}
               attendent.
             </>
           }
@@ -669,7 +669,7 @@ function DashboardContent() {
             unit="FCFA"
             meta={
               <>
-                Dont <strong className="text-soleil-400 font-medium">3 factures</strong> en retard
+                Dont <strong className="text-brand-400 font-medium">3 factures</strong> en retard
                 sur 8 émises.
               </>
             }
@@ -699,7 +699,7 @@ function DashboardContent() {
             unit="FCFA"
             meta={
               <>
-                Dont <strong className="text-soleil-400 font-medium">3 factures</strong> en retard
+                Dont <strong className="text-brand-400 font-medium">3 factures</strong> en retard
                 sur 8 émises.
               </>
             }
@@ -813,7 +813,7 @@ function DashboardContent() {
 
             {/* Bloc suggestion IA */}
             <div className="bg-subtle mt-3 flex items-start gap-2.5 rounded-[14px] px-4 py-3.5">
-              <Sparkles size={16} className="text-soleil-600 mt-0.5 shrink-0" />
+              <Sparkles size={16} className="text-brand-600 mt-0.5 shrink-0" />
               <div>
                 <div className="text-foreground text-[12px] font-medium">3 relances suggérées</div>
                 <div className="text-muted-foreground mt-0.5 text-[11px]">
@@ -865,19 +865,19 @@ function DashboardPreviewPage() {
                     >
                       <path
                         d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z"
-                        fill="var(--color-terre-900)"
+                        fill="var(--color-base-900)"
                       />
                       <path
                         d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z"
-                        fill="var(--color-terre-900)"
+                        fill="var(--color-base-900)"
                       />
                       <path
                         d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z"
-                        fill="var(--color-terre-900)"
+                        fill="var(--color-base-900)"
                       />
                       <path
                         d="M 30 30 L 48 30 L 48 38 Q 48 48 38 48 L 30 48 Z"
-                        fill="var(--color-soleil-400)"
+                        fill="var(--color-brand-400)"
                       />
                     </svg>
                     <span className="font-display text-foreground text-base font-medium tracking-[-0.4px]">
@@ -918,7 +918,7 @@ function DashboardPreviewPage() {
                   <Bell size={18} />
                 </HeaderIconButton>
                 <Avatar className="ml-1 h-[30px] w-[30px] lg:h-[34px] lg:w-[34px]">
-                  <AvatarFallback className="bg-soleil-100 font-display text-foreground text-sm font-medium">
+                  <AvatarFallback className="bg-brand-100 font-display text-foreground text-sm font-medium">
                     M
                   </AvatarFallback>
                 </Avatar>

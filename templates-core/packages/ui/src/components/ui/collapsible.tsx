@@ -1,5 +1,5 @@
 /**
- * <Collapsible /> — Radix Collapsible adapté Terre & Soleil.
+ * <Collapsible /> — Radix Collapsible adapté Base & Brand.
  *
  * Exports : `Collapsible`, `CollapsibleTrigger`, `CollapsibleContent`.
  * Wrapper léger — les variants visuels sont à la charge du consommateur.

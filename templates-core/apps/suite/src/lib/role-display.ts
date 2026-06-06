@@ -8,7 +8,7 @@
 import { BookOpen, Coins, Eye, Shield, ShieldCheck, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-export type RoleTone = 'soleil' | 'palmeraie' | 'terre' | 'mil';
+export type RoleTone = 'brand' | 'success' | 'base' | 'warning';
 
 /** Libellé FR des rôles prédéfinis (les rôles custom gardent leur nom). */
 export function roleLabel(name: string): string {
@@ -29,26 +29,26 @@ export function roleLabel(name: string): string {
 /** Classes Tailwind du carré d'icône selon le ton. */
 export function toneIconBox(tone: RoleTone): string {
   switch (tone) {
-    case 'soleil':
-      return 'bg-soleil-100 text-soleil-700';
-    case 'palmeraie':
-      return 'bg-palmeraie-50 text-palmeraie-600';
-    case 'mil':
-      return 'bg-mil-100 text-mil-700';
+    case 'brand':
+      return 'bg-brand-100 text-brand-700';
+    case 'success':
+      return 'bg-success-50 text-success-600';
+    case 'warning':
+      return 'bg-warning-100 text-warning-700';
     default:
-      return 'bg-terre-100 text-terre-700';
+      return 'bg-base-100 text-base-700';
   }
 }
 
 const PREDEFINED_VISUAL: Record<string, { icon: LucideIcon; tone: RoleTone }> = {
-  owner: { icon: Shield, tone: 'soleil' },
-  admin: { icon: ShieldCheck, tone: 'palmeraie' },
-  member: { icon: Users, tone: 'terre' },
-  guest: { icon: Eye, tone: 'mil' },
+  owner: { icon: Shield, tone: 'brand' },
+  admin: { icon: ShieldCheck, tone: 'success' },
+  member: { icon: Users, tone: 'base' },
+  guest: { icon: Eye, tone: 'warning' },
 };
 
 const CUSTOM_ICONS: LucideIcon[] = [Coins, BookOpen, Users, ShieldCheck];
-const CUSTOM_TONES: RoleTone[] = ['soleil', 'palmeraie', 'terre', 'mil'];
+const CUSTOM_TONES: RoleTone[] = ['brand', 'success', 'base', 'warning'];
 
 /** Icône + ton d'un rôle (prédéfini : mappé par nom ; custom : par index). */
 export function roleVisual(
@@ -60,6 +60,6 @@ export function roleVisual(
   if (isPredefined && predefined) return predefined;
   return {
     icon: CUSTOM_ICONS[index % CUSTOM_ICONS.length] ?? Users,
-    tone: CUSTOM_TONES[index % CUSTOM_TONES.length] ?? 'terre',
+    tone: CUSTOM_TONES[index % CUSTOM_TONES.length] ?? 'base',
   };
 }

@@ -6,12 +6,12 @@
  * au design (clair / sombre via tokens DS automatiques).
  *
  * Composition (top-down) :
- *  - `<TwoFAStatusCard>` : card horizontal palmeraie (activé) vs terre (off),
+ *  - `<TwoFAStatusCard>` : card horizontal success (activé) vs base (off),
  *    icône 48×48 + titre + Badge/StatusDot + description + Switch.
  *  - `<TwoFAActivationFlow>` : SectionCard avec Steps indicator visuel + grid
  *    `lg:grid-cols-[200px_1fr]` (QR + clé manuelle à gauche, OTP à droite).
  *    Pas de wizard step-by-step — QR et OTP visibles simultanément.
- *  - `<RecoveryCodesCard>` : grid 5-cols avec numéros 01-10 + alert mil-50.
+ *  - `<RecoveryCodesCard>` : grid 5-cols avec numéros 01-10 + alert warning-50.
  *  - `<EnablePasswordDialog>` / `<DisableConfirmDialog>` : modals password.
  *  - `<OwnerPolicyCard>` : info SectionCard "2FA obligatoire pour Propriétaires".
  *  - `<MobileTwoFAView>` : layout cards stackées sous md (768px).
@@ -73,17 +73,17 @@ function TwoFAStatusCard({
 }) {
   if (enabled) {
     return (
-      <div className="bg-palmeraie-50 border-palmeraie-200 flex items-center gap-4 rounded-[16px] border p-5 sm:gap-5">
-        <span className="bg-palmeraie-200 text-palmeraie-800 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px]">
+      <div className="bg-success-50 border-success-200 flex items-center gap-4 rounded-[16px] border p-5 sm:gap-5">
+        <span className="bg-success-200 text-success-800 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px]">
           <ShieldCheck className="h-5 w-5" />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-terre-900 text-[15px] font-medium">Double authentification</span>
-            <span className="bg-palmeraie-400 inline-block h-1.5 w-1.5 rounded-full" aria-hidden />
-            <span className="text-palmeraie-800 text-xs font-medium">Active</span>
+            <span className="text-base-900 text-[15px] font-medium">Double authentification</span>
+            <span className="bg-success-400 inline-block h-1.5 w-1.5 rounded-full" aria-hidden />
+            <span className="text-success-800 text-xs font-medium">Active</span>
           </div>
-          <p className="text-terre-700 mt-1 text-[13px] leading-[1.5]">
+          <p className="text-base-700 mt-1 text-[13px] leading-[1.5]">
             Application configurée. Un code à 6 chiffres est demandé à chaque connexion.
           </p>
         </div>
@@ -93,15 +93,15 @@ function TwoFAStatusCard({
   }
   return (
     <div className="bg-card border-border flex items-center gap-4 rounded-[16px] border p-5 sm:gap-5">
-      <span className="bg-terre-100 text-terre-700 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px]">
+      <span className="bg-base-100 text-base-700 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px]">
         <Shield className="h-5 w-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-terre-900 text-[15px] font-medium">Double authentification</span>
+          <span className="text-base-900 text-[15px] font-medium">Double authentification</span>
           <Badge variant="pending">{pending ? 'En cours de configuration' : 'Désactivée'}</Badge>
         </div>
-        <p className="text-terre-600 mt-1 text-[13px] leading-[1.5]">
+        <p className="text-base-600 mt-1 text-[13px] leading-[1.5]">
           Renforcez la sécurité de votre compte en exigeant un code à 6 chiffres à chaque connexion.
         </p>
       </div>
@@ -121,18 +121,18 @@ function StepsIndicator({ current }: { current: 0 | 1 | 2 }) {
         <li key={label} className="flex flex-1 items-center gap-2 last:flex-initial">
           <span
             className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-mono text-[11px] font-semibold ${
-              i <= current ? 'bg-terre-900 text-terre-100' : 'bg-terre-100 text-terre-600'
+              i <= current ? 'bg-base-900 text-base-100' : 'bg-base-100 text-base-600'
             }`}
           >
             {i + 1}
           </span>
           <span
-            className={`text-xs ${i <= current ? 'text-terre-900 font-medium' : 'text-terre-500'}`}
+            className={`text-xs ${i <= current ? 'text-base-900 font-medium' : 'text-base-500'}`}
           >
             {label}
           </span>
           {i < ACTIVATION_STEPS.length - 1 ? (
-            <span className="bg-terre-200 h-px flex-1" aria-hidden />
+            <span className="bg-base-200 h-px flex-1" aria-hidden />
           ) : null}
         </li>
       ))}
@@ -186,47 +186,47 @@ function TwoFAActivationFlow({
             <QRCodeSVG
               value={totpURI}
               size={168}
-              fgColor="var(--color-terre-900)"
+              fgColor="var(--color-base-900)"
               bgColor="transparent"
               level="M"
             />
           </div>
-          <p className="text-terre-500 max-w-[180px] text-center text-[11px]">
+          <p className="text-base-500 max-w-[180px] text-center text-[11px]">
             Compatible Google Authenticator, 1Password, Authy, Bitwarden.
           </p>
         </div>
 
         {/* Instructions + clé + OTP — colonne droite desktop */}
         <div className="min-w-0">
-          <p className="text-terre-500 mb-2 text-[11px] font-semibold tracking-[1.2px] uppercase">
+          <p className="text-base-500 mb-2 text-[11px] font-semibold tracking-[1.2px] uppercase">
             Étape 1 · Scannez le QR code
           </p>
-          <p className="text-terre-700 mb-3.5 text-[13px] leading-[1.5]">
+          <p className="text-base-700 mb-3.5 text-[13px] leading-[1.5]">
             Ouvrez votre application d'authentification, ajoutez un nouveau compte et scannez
             l'image. Vous préférez le mode manuel&nbsp;?
           </p>
 
-          {/* Clé manuelle — chip terre-100 + copy button */}
-          <div className="bg-terre-100 mb-6 inline-flex max-w-full items-center gap-2 rounded-[10px] px-3 py-2">
-            <Key className="text-terre-700 h-3.5 w-3.5 shrink-0" />
-            <code className="text-terre-900 truncate font-mono text-xs font-medium tracking-[0.5px]">
+          {/* Clé manuelle — chip base-100 + copy button */}
+          <div className="bg-base-100 mb-6 inline-flex max-w-full items-center gap-2 rounded-[10px] px-3 py-2">
+            <Key className="text-base-700 h-3.5 w-3.5 shrink-0" />
+            <code className="text-base-900 truncate font-mono text-xs font-medium tracking-[0.5px]">
               {secret}
             </code>
             <button
               type="button"
               onClick={() => void copySecret()}
               aria-label="Copier la clé"
-              className="text-terre-600 hover:text-terre-900 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md transition-colors"
+              className="text-base-600 hover:text-base-900 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md transition-colors"
             >
               {copied ? (
-                <Check className="text-palmeraie-600 h-3 w-3" />
+                <Check className="text-success-600 h-3 w-3" />
               ) : (
                 <Copy className="h-3 w-3" />
               )}
             </button>
           </div>
 
-          <p className="text-terre-500 mb-2.5 text-[11px] font-semibold tracking-[1.2px] uppercase">
+          <p className="text-base-500 mb-2.5 text-[11px] font-semibold tracking-[1.2px] uppercase">
             Étape 2 · Saisissez le code à 6 chiffres
           </p>
           <InputOTP maxLength={6} value={code} onChange={setCode}>
@@ -242,11 +242,11 @@ function TwoFAActivationFlow({
               <InputOTPSlot index={5} />
             </InputOTPGroup>
           </InputOTP>
-          <p className="text-terre-500 mt-2.5 mb-5 text-xs">
+          <p className="text-base-500 mt-2.5 mb-5 text-xs">
             Le code se renouvelle toutes les 30 secondes.
           </p>
 
-          {error ? <p className="text-brique-700 mb-3 text-sm">{error}</p> : null}
+          {error ? <p className="text-danger-700 mb-3 text-sm">{error}</p> : null}
 
           <div className="flex flex-wrap gap-2">
             <Button type="button" variant="ghost" size="sm" onClick={onCancel}>
@@ -299,12 +299,12 @@ function RecoveryCodesCard({ codes, mobile = false }: { codes: string[]; mobile?
     return (
       <div className="bg-card border-border rounded-[16px] border p-4">
         <div className="mb-3 flex items-center gap-3">
-          <span className="bg-soleil-50 text-soleil-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
+          <span className="bg-brand-50 text-brand-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
             <Key className="h-4 w-4" />
           </span>
           <div className="min-w-0 flex-1">
-            <div className="text-terre-900 text-[13px] font-medium">Codes de récupération</div>
-            <div className="text-terre-500 text-[11px]">
+            <div className="text-base-900 text-[13px] font-medium">Codes de récupération</div>
+            <div className="text-base-500 text-[11px]">
               {codes.length} codes générés · 0 utilisé
             </div>
           </div>
@@ -354,22 +354,22 @@ function RecoveryCodesCard({ codes, mobile = false }: { codes: string[]; mobile?
         </div>
       }
     >
-      <div className="bg-terre-50 border-border grid grid-cols-2 gap-2.5 rounded-[14px] border p-3 sm:grid-cols-3 sm:gap-3 sm:p-4 md:grid-cols-5">
+      <div className="bg-base-50 border-border grid grid-cols-2 gap-2.5 rounded-[14px] border p-3 sm:grid-cols-3 sm:gap-3 sm:p-4 md:grid-cols-5">
         {codes.map((c, i) => (
           <div
             key={`${c}-${i}`}
-            className="bg-card border-border text-terre-900 relative rounded-[10px] border px-3 py-2.5 text-center font-mono text-[13px] tracking-[0.5px]"
+            className="bg-card border-border text-base-900 relative rounded-[10px] border px-3 py-2.5 text-center font-mono text-[13px] tracking-[0.5px]"
           >
-            <span className="text-terre-400 absolute top-1 left-1.5 font-mono text-[9px]">
+            <span className="text-base-400 absolute top-1 left-1.5 font-mono text-[9px]">
               {String(i + 1).padStart(2, '0')}
             </span>
             {c}
           </div>
         ))}
       </div>
-      <div className="border-mil-200 bg-mil-50 mt-3.5 flex items-start gap-2.5 rounded-[12px] border p-3.5">
-        <AlertTriangle className="text-mil-600 h-3.5 w-3.5 shrink-0" />
-        <p className="text-mil-700 text-xs leading-[1.5]">
+      <div className="border-warning-200 bg-warning-50 mt-3.5 flex items-start gap-2.5 rounded-[12px] border p-3.5">
+        <AlertTriangle className="text-warning-600 h-3.5 w-3.5 shrink-0" />
+        <p className="text-warning-700 text-xs leading-[1.5]">
           Ces codes ne s'afficheront plus. Téléchargez-les ou imprimez-les maintenant.
         </p>
       </div>
@@ -383,14 +383,14 @@ function OwnerPolicyCard() {
   return (
     <SectionCard padding={20}>
       <div className="flex items-center gap-3.5">
-        <span className="bg-soleil-50 text-soleil-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
+        <span className="bg-brand-50 text-brand-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
           <Info className="h-4 w-4" />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="text-terre-900 text-[13px] font-medium">
+          <div className="text-base-900 text-[13px] font-medium">
             2FA obligatoire pour les propriétaires
           </div>
-          <p className="text-terre-600 mt-1 text-xs leading-[1.5]">
+          <p className="text-base-600 mt-1 text-xs leading-[1.5]">
             Toute personne avec le rôle <strong>Propriétaire</strong> doit activer la 2FA dans les
             7&nbsp;jours.
           </p>
@@ -427,7 +427,7 @@ function EnablePasswordDialog({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2.5">
-            <span className="bg-soleil-100 text-soleil-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
+            <span className="bg-brand-100 text-brand-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
               <ShieldCheck className="h-4 w-4" />
             </span>
             Confirmez votre mot de passe
@@ -446,7 +446,7 @@ function EnablePasswordDialog({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+          {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
         </div>
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={onClose}>
@@ -490,7 +490,7 @@ function DisableConfirmDialog({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2.5">
-            <span className="bg-brique-100 text-brique-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
+            <span className="bg-danger-100 text-danger-700 inline-flex h-8 w-8 items-center justify-center rounded-[10px]">
               <AlertTriangle className="h-4 w-4" />
             </span>
             Désactiver la double authentification ?
@@ -510,7 +510,7 @@ function DisableConfirmDialog({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+          {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
         </div>
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={onClose}>

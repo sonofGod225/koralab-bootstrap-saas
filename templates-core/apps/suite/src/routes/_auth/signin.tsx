@@ -126,7 +126,7 @@ function CredentialsMode({
                     <FormLabel>Mot de passe</FormLabel>
                     <a
                       href="/forgot-password"
-                      className="text-soleil-700 text-xs font-medium underline underline-offset-2"
+                      className="text-brand-700 text-xs font-medium underline underline-offset-2"
                     >
                       Oublié ?
                     </a>
@@ -154,14 +154,14 @@ function CredentialsMode({
                         onCheckedChange={(v) => field.onChange(v === true)}
                       />
                     </FormControl>
-                    <Label className="text-terre-700 text-sm font-normal">
+                    <Label className="text-base-700 text-sm font-normal">
                       Garder ma session active
                     </Label>
                   </div>
                 </FormItem>
               )}
             />
-            {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+            {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
             <div className="flex flex-col gap-2.5">
               <LoadingButton
                 type="submit"
@@ -222,13 +222,13 @@ function MfaMode({ nextUrl }: { nextUrl: string }) {
         ) : (
           <OtpField value={code} onChange={setCode} autoFocus />
         )}
-        <p className="text-terre-500 text-xs">
+        <p className="text-base-500 text-xs">
           {useRecovery
             ? 'Chaque code de récupération n’est utilisable qu’une seule fois.'
             : 'Ouvrez votre application d’authentification (Google Authenticator, etc.).'}
         </p>
       </div>
-      {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+      {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
       <LoadingButton
         type="button"
         size="lg"
@@ -290,9 +290,9 @@ function SigninPage() {
         )}
 
         {mode === 'credentials' ? (
-          <p className="text-terre-600 text-sm">
+          <p className="text-base-600 text-sm">
             Pas encore de compte ?{' '}
-            <Link to="/signup" className="text-terre-900 font-medium underline">
+            <Link to="/signup" className="text-base-900 font-medium underline">
               Créer un compte
             </Link>
           </p>

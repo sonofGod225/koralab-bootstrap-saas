@@ -3,7 +3,7 @@
  *
  * Style :
  * - Slot : 44×52px, rounded-lg, border-border, font-mono.
- * - Slot actif (focus) : border-soleil-300, ring Soleil 400 @ 40%.
+ * - Slot actif (focus) : border-brand-300, ring Brand 400 @ 40%.
  * - Séparateur : trait border.
  */
 
@@ -49,7 +49,7 @@ const InputOTPSlot = React.forwardRef<
       className={cn(
         'border-border bg-background text-foreground relative flex h-[52px] w-11 items-center justify-center rounded-lg border font-mono text-xl font-medium transition-all',
         isActive &&
-          'border-soleil-300 ring-soleil-400/40 ring-offset-background z-10 ring-2 ring-offset-1',
+          'border-brand-300 ring-brand-400/40 ring-offset-background z-10 ring-2 ring-offset-1',
         className,
       )}
       {...props}

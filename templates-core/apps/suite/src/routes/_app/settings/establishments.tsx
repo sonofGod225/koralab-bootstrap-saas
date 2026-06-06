@@ -95,7 +95,7 @@ function EstablishmentsPage() {
       header: 'Nom',
       cell: (e) => (
         <div className="flex items-center gap-2">
-          <span className="text-terre-900 truncate font-medium">{e.name}</span>
+          <span className="text-base-900 truncate font-medium">{e.name}</span>
           {e.isPrimary ? <PrincipalBadge /> : null}
         </div>
       ),
@@ -105,7 +105,7 @@ function EstablishmentsPage() {
       width: '1.6fr',
       header: 'Ville',
       cell: (e) => (
-        <span className="text-terre-600 text-sm">
+        <span className="text-base-600 text-sm">
           {[e.city, e.address].filter(Boolean).join(' · ') || '—'}
         </span>
       ),
@@ -115,7 +115,7 @@ function EstablishmentsPage() {
       width: '1fr',
       header: 'Membres affectés',
       cell: (e) => (
-        <span className="text-terre-600 text-sm">
+        <span className="text-base-600 text-sm">
           {e.memberCount} membre{e.memberCount > 1 ? 's' : ''}
         </span>
       ),
@@ -137,7 +137,7 @@ function EstablishmentsPage() {
     <div className="border-border-subtle bg-card rounded-2xl border-[0.5px] p-3.5">
       <div className="flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="text-terre-900 truncate text-[14px] font-medium">{e.name}</span>
+          <span className="text-base-900 truncate text-[14px] font-medium">{e.name}</span>
           {e.isPrimary ? <PrincipalBadge /> : null}
         </div>
         <Button type="button" variant="ghost" size="sm" onClick={() => manage(e.id)}>
@@ -145,10 +145,10 @@ function EstablishmentsPage() {
           <ChevronRight className="ml-1 h-3.5 w-3.5" />
         </Button>
       </div>
-      <div className="text-terre-500 mt-1 text-[12px]">
+      <div className="text-base-500 mt-1 text-[12px]">
         {[e.city, e.address].filter(Boolean).join(' · ') || '—'}
       </div>
-      <div className="text-terre-500 mt-0.5 text-[12px]">
+      <div className="text-base-500 mt-0.5 text-[12px]">
         {e.memberCount} membre{e.memberCount > 1 ? 's' : ''}
       </div>
     </div>
@@ -181,15 +181,15 @@ function EstablishmentsPage() {
       {phase === 'forbidden' ? (
         <SectionCard>
           <div className="flex flex-col items-center gap-3 py-8 text-center">
-            <Lock className="text-terre-400 h-8 w-8" />
-            <p className="text-terre-900 font-medium">Accès restreint</p>
-            <p className="text-terre-600 max-w-md text-sm">
+            <Lock className="text-base-400 h-8 w-8" />
+            <p className="text-base-900 font-medium">Accès restreint</p>
+            <p className="text-base-600 max-w-md text-sm">
               La gestion des établissements requiert une permission que votre rôle n'accorde pas.
             </p>
           </div>
         </SectionCard>
       ) : phase === 'error' ? (
-        <p className="text-brique-700 text-sm">{error}</p>
+        <p className="text-danger-700 text-sm">{error}</p>
       ) : phase === 'ready' && rows.length === 0 ? (
         <SectionCard padding={20}>
           <EstablishmentsEmptyState onCreate={() => setCreateOpen(true)} disabled={!canCreate} />
@@ -197,7 +197,7 @@ function EstablishmentsPage() {
       ) : (
         <div>
           {limitReached ? (
-            <p className="bg-mil-50 text-mil-700 mb-3 rounded-lg px-3.5 py-2.5 text-xs">
+            <p className="bg-warning-50 text-warning-700 mb-3 rounded-lg px-3.5 py-2.5 text-xs">
               Limite du plan atteinte
               {entitlement?.establishmentLimit != null
                 ? ` (${entitlement.establishmentLimit} établissement${entitlement.establishmentLimit > 1 ? 's' : ''})`
@@ -247,13 +247,13 @@ function EstablishmentsEmptyState({
   const navigate = useNavigate();
   if (disabled) {
     return (
-      <div className="border-soleil-300 from-terre-100 to-soleil-50 flex items-start gap-3.5 rounded-[14px] border border-dashed bg-gradient-to-br p-4">
-        <span className="bg-soleil-400 text-terre-900 inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]">
+      <div className="border-brand-300 from-base-100 to-brand-50 flex items-start gap-3.5 rounded-[14px] border border-dashed bg-gradient-to-br p-4">
+        <span className="bg-brand-400 text-base-900 inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]">
           <Sparkles className="h-[18px] w-[18px]" />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-terre-900 text-sm font-medium">Gérer plusieurs établissements</p>
-          <p className="text-terre-700 mt-1 max-w-[420px] text-xs leading-[1.5]">
+          <p className="text-base-900 text-sm font-medium">Gérer plusieurs établissements</p>
+          <p className="text-base-700 mt-1 max-w-[420px] text-xs leading-[1.5]">
             Votre plan actuel ne permet pas d'ajouter d'établissement supplémentaire. Passez à un
             plan supérieur pour déclarer vos boutiques et agences.
           </p>
@@ -272,11 +272,11 @@ function EstablishmentsEmptyState({
   }
   return (
     <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
-      <span className="bg-terre-100 text-terre-600 inline-flex h-12 w-12 items-center justify-center rounded-[14px]">
+      <span className="bg-base-100 text-base-600 inline-flex h-12 w-12 items-center justify-center rounded-[14px]">
         <Store className="h-6 w-6" />
       </span>
-      <p className="text-terre-900 text-sm font-medium">Aucun établissement</p>
-      <p className="text-terre-600 max-w-md text-[13px] leading-[1.5]">
+      <p className="text-base-900 text-sm font-medium">Aucun établissement</p>
+      <p className="text-base-600 max-w-md text-[13px] leading-[1.5]">
         Créez votre premier établissement pour organiser vos équipes par périmètre.
       </p>
       <Button type="button" size="sm" className="mt-1" onClick={onCreate}>
@@ -339,7 +339,7 @@ function CreateEstablishmentDialog({
       onOpenChange={onOpenChange}
       width={540}
       icon={<Plus className="h-5 w-5" />}
-      iconTone="soleil"
+      iconTone="brand"
       title="Nouvel établissement"
       description="Boutique, agence, pharmacie, station, site — donnez-lui un nom et une adresse."
       footer={
@@ -361,7 +361,7 @@ function CreateEstablishmentDialog({
     >
       {isFirst ? (
         <div className="mb-[18px]">
-          <InlineNotice tone="palmeraie" icon={<Info className="h-[15px] w-[15px]" />}>
+          <InlineNotice tone="success" icon={<Info className="h-[15px] w-[15px]" />}>
             Premier établissement de l'organisation — il deviendra automatiquement le principal.
           </InlineNotice>
         </div>
@@ -369,7 +369,7 @@ function CreateEstablishmentDialog({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5 sm:col-span-2">
           <Label htmlFor="est-name">
-            Nom <span className="text-soleil-600">*</span>
+            Nom <span className="text-brand-600">*</span>
           </Label>
           <Input
             id="est-name"
@@ -379,7 +379,7 @@ function CreateEstablishmentDialog({
             maxLength={120}
             autoFocus
           />
-          <div className="text-terre-500 text-right font-mono text-[11px]">{name.length}/120</div>
+          <div className="text-base-500 text-right font-mono text-[11px]">{name.length}/120</div>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="est-city">Ville</Label>
@@ -405,7 +405,7 @@ function CreateEstablishmentDialog({
             maxLength={200}
           />
         </div>
-        {err ? <p className="text-brique-700 text-sm sm:col-span-2">{err}</p> : null}
+        {err ? <p className="text-danger-700 text-sm sm:col-span-2">{err}</p> : null}
       </div>
     </CenterDialog>
   );

@@ -218,7 +218,7 @@ function CompanyStep() {
                         <FormControl>
                           <Input placeholder="Distribution YK" {...field} />
                         </FormControl>
-                        <p className="text-terre-500 text-[11px]">Apparaît sur les factures.</p>
+                        <p className="text-base-500 text-[11px]">Apparaît sur les factures.</p>
                       </FormItem>
                     )}
                   />
@@ -256,7 +256,7 @@ function CompanyStep() {
                         <FormControl>
                           <Input placeholder={idMeta.placeholder} {...field} />
                         </FormControl>
-                        <p className="text-terre-500 text-[11px]">{legalIdHelper(country)}</p>
+                        <p className="text-base-500 text-[11px]">{legalIdHelper(country)}</p>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -334,7 +334,7 @@ function CompanyStep() {
                 </FieldGrid>
               </FieldRow>
 
-              {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+              {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
 
               <StepActions primaryType="submit" primaryLoading={methods.formState.isSubmitting} />
             </>

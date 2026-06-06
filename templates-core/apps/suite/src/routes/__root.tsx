@@ -24,7 +24,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      // Theme color : Terre 900 — couleur de la status bar mobile (Story 1.10).
+      // Theme color : Base 900 — couleur de la status bar mobile (Story 1.10).
       { name: 'theme-color', content: '#2A1A0F' },
       // Hints PWA iOS (Add to Home Screen).
       { name: 'apple-mobile-web-app-capable', content: 'yes' },

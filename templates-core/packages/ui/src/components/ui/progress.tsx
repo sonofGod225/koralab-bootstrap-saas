@@ -1,14 +1,14 @@
 /**
- * <Progress /> — Radix Progress adapté Terre & Soleil.
- * <CircularProgress /> — Anneau SVG Soleil 400.
+ * <Progress /> — Radix Progress adapté Base & Brand.
+ * <CircularProgress /> — Anneau SVG Brand 400.
  *
  * Progress linéaire :
- * - track  : bg-terre-100, rounded-full
- * - indicateur : bg-terre-900, transition width
+ * - track  : bg-base-100, rounded-full
+ * - indicateur : bg-base-900, transition width
  * - tailles sm / md (défaut) / lg via className du conteneur
  *
  * CircularProgress :
- * - Anneau SVG, stroke soleil-400 sur fond terre-100
+ * - Anneau SVG, stroke brand-400 sur fond base-100
  * - Valeur % centrée en font-display
  */
 
@@ -76,7 +76,7 @@ const CircularProgress = React.forwardRef<HTMLDivElement, CircularProgressProps>
             cy={size / 2}
             r={r}
             fill="none"
-            className="stroke-soleil-400 transition-all duration-300 ease-in-out"
+            className="stroke-brand-400 transition-all duration-300 ease-in-out"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={offset}

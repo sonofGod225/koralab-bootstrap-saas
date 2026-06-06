@@ -1,5 +1,5 @@
 /**
- * <Resizable /> — react-resizable-panels v4 adapté Terre & Soleil.
+ * <Resizable /> — react-resizable-panels v4 adapté Base & Brand.
  *
  * Exports : `ResizablePanelGroup`, `ResizablePanel`, `ResizableHandle`.
  * Note : react-resizable-panels v4 exporte `Group`, `Panel`, `Separator`
@@ -7,8 +7,8 @@
  * noms shadcn conventionnels.
  *
  * Style handle :
- * - bg-terre-100, flex items-center justify-center
- * - Prop `withHandle` affiche un grip visuel (ligne terre-400)
+ * - bg-base-100, flex items-center justify-center
+ * - Prop `withHandle` affiche un grip visuel (ligne base-400)
  */
 
 import * as React from 'react';
@@ -38,7 +38,7 @@ function ResizableHandle({
   return (
     <Separator
       className={cn(
-        'bg-subtle focus-visible:ring-soleil-400/40 relative flex w-px items-center justify-center after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:outline-none data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:translate-x-0 data-[panel-group-direction=vertical]:after:-translate-y-1/2 [&[data-panel-group-direction=vertical]>div]:rotate-90',
+        'bg-subtle focus-visible:ring-brand-400/40 relative flex w-px items-center justify-center after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:outline-none data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:translate-x-0 data-[panel-group-direction=vertical]:after:-translate-y-1/2 [&[data-panel-group-direction=vertical]>div]:rotate-90',
         className,
       )}
       {...props}

@@ -28,11 +28,11 @@ export function ExamplePage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-8 sm:py-16">
       <header className="mb-10">
-        <p className="text-soleil-600 text-xs font-medium tracking-wide uppercase">Example module</p>
-        <h1 className="font-display text-terre-900 mt-2 text-4xl font-light tracking-tighter sm:text-5xl">
+        <p className="text-brand-600 text-xs font-medium tracking-wide uppercase">Example module</p>
+        <h1 className="font-display text-base-900 mt-2 text-4xl font-light tracking-tighter sm:text-5xl">
           Your items.
         </h1>
-        <p className="text-terre-600 mt-3 max-w-xl text-base leading-relaxed">
+        <p className="text-base-600 mt-3 max-w-xl text-base leading-relaxed">
           This screen lives in the <code className="font-mono text-sm">@__SCOPE__/module-example</code>{' '}
           package — outside <code className="font-mono text-sm">apps/suite</code>. The app only
           mounts it on <code className="font-mono text-sm">/example</code>.

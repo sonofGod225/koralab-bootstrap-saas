@@ -1,8 +1,8 @@
 /**
- * <HoverCard /> — Carte contextuelle au survol, adapté Terre & Soleil.
+ * <HoverCard /> — Carte contextuelle au survol, adapté Base & Brand.
  *
  * Patron shadcn/ui v2 new-york. Style :
- * - Contenu : fond Terre 25, rounded-2xl, border terre-100, shadow-lg
+ * - Contenu : fond Base 25, rounded-2xl, border base-100, shadow-lg
  * - Animations : fade + zoom + slide selon le côté d'affichage
  */
 

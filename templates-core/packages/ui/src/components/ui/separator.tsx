@@ -1,7 +1,7 @@
 /**
- * <Separator /> — Radix Separator adapté Terre & Soleil.
+ * <Separator /> — Radix Separator adapté Base & Brand.
  *
- * Séparateur hairline 0.5px, couleur terre-200.
+ * Séparateur hairline 0.5px, couleur base-200.
  * Supporte les orientations horizontal (défaut) et vertical.
  * Rôle sémantique `separator` par défaut (decorative=false).
  */

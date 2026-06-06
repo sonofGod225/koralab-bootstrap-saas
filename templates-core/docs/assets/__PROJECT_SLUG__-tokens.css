@@ -1,10 +1,10 @@
 /**
- * __PROJECT_NAME__ Design Tokens — Terre et Soleil
+ * __PROJECT_NAME__ Design Tokens — Base et Brand
  * Version 3.0 — Mai 2026
  *
  * Direction : moderne et chaleureux, ancré dans l'esthétique sahélienne
  * Couleur signature : Cuivre solaire #E89B5A (15% max de surface)
- * Couleur principale : Encre terre #2A1A0F
+ * Couleur principale : Encre base #2A1A0F
  * Fond de repos : Sable doré #FCF7EE / #F4E4CC
  *
  * Usage Tailwind v4 :
@@ -14,77 +14,77 @@
 
 @theme {
   /* === SOLEIL — Couleur signature === */
-  --color-soleil-50: #FDF1DD;
-  --color-soleil-100: #FBE2BA;
-  --color-soleil-200: #F5C994;
-  --color-soleil-300: #EFB071;
-  --color-soleil-400: #E89B5A;
-  --color-soleil-500: #D6843E;
-  --color-soleil-600: #B86A28;
-  --color-soleil-700: #95531C;
-  --color-soleil-800: #6B3A12;
-  --color-soleil-900: #3D200A;
+  --color-brand-50: #FDF1DD;
+  --color-brand-100: #FBE2BA;
+  --color-brand-200: #F5C994;
+  --color-brand-300: #EFB071;
+  --color-brand-400: #E89B5A;
+  --color-brand-500: #D6843E;
+  --color-brand-600: #B86A28;
+  --color-brand-700: #95531C;
+  --color-brand-800: #6B3A12;
+  --color-brand-900: #3D200A;
 
   /* === ENCRE TERRE — Texte et contraste === */
-  --color-terre-25: #FCF7EE;
-  --color-terre-50: #F8EFDF;
-  --color-terre-100: #F4E4CC;
-  --color-terre-200: #E5D2B5;
-  --color-terre-300: #BFA378;
-  --color-terre-400: #A18560;
-  --color-terre-500: #8C6F4F;
-  --color-terre-600: #6B4423;
-  --color-terre-700: #4A2F18;
-  --color-terre-800: #3A2412;
-  --color-terre-900: #2A1A0F;
-  --color-terre-950: #1A0F08;
+  --color-base-25: #FCF7EE;
+  --color-base-50: #F8EFDF;
+  --color-base-100: #F4E4CC;
+  --color-base-200: #E5D2B5;
+  --color-base-300: #BFA378;
+  --color-base-400: #A18560;
+  --color-base-500: #8C6F4F;
+  --color-base-600: #6B4423;
+  --color-base-700: #4A2F18;
+  --color-base-800: #3A2412;
+  --color-base-900: #2A1A0F;
+  --color-base-950: #1A0F08;
 
   /* === PALMERAIE — Succès === */
-  --color-palmeraie-50: #E8F0DC;
-  --color-palmeraie-200: #A8C083;
-  --color-palmeraie-400: #6A9C42;
-  --color-palmeraie-600: #4A7C36;
-  --color-palmeraie-800: #2C4F1F;
-  --color-palmeraie-900: #1A3010;
+  --color-success-50: #E8F0DC;
+  --color-success-200: #A8C083;
+  --color-success-400: #6A9C42;
+  --color-success-600: #4A7C36;
+  --color-success-800: #2C4F1F;
+  --color-success-900: #1A3010;
 
   /* === BRIQUE — Danger === */
-  --color-brique-50: #FAE8E0;
-  --color-brique-200: #E6A084;
-  --color-brique-400: #D85F36;
-  --color-brique-600: #B8421A;
-  --color-brique-800: #7A2A0E;
-  --color-brique-900: #4A180A;
+  --color-danger-50: #FAE8E0;
+  --color-danger-200: #E6A084;
+  --color-danger-400: #D85F36;
+  --color-danger-600: #B8421A;
+  --color-danger-800: #7A2A0E;
+  --color-danger-900: #4A180A;
 
   /* === MIL — Attention === */
-  --color-mil-50: #FFF5D9;
-  --color-mil-200: #FFDF8C;
-  --color-mil-400: #EFC548;
-  --color-mil-600: #BD9420;
+  --color-warning-50: #FFF5D9;
+  --color-warning-200: #FFDF8C;
+  --color-warning-400: #EFC548;
+  --color-warning-600: #BD9420;
 
   /* === ALIAS SÉMANTIQUES — Backgrounds === */
-  --color-bg-base: var(--color-terre-25);
-  --color-bg-warm: var(--color-terre-100);
+  --color-bg-base: var(--color-base-25);
+  --color-bg-warm: var(--color-base-100);
   --color-bg-elevated: #FFFFFF;
-  --color-bg-inverse: var(--color-terre-900);
-  --color-bg-brand: var(--color-soleil-400);
-  --color-bg-cta: var(--color-terre-900);
+  --color-bg-inverse: var(--color-base-900);
+  --color-bg-brand: var(--color-brand-400);
+  --color-bg-cta: var(--color-base-900);
 
   /* === ALIAS SÉMANTIQUES — Texte === */
-  --color-text-primary: var(--color-terre-900);
-  --color-text-secondary: var(--color-terre-600);
-  --color-text-tertiary: var(--color-terre-500);
-  --color-text-inverse: var(--color-terre-100);
-  --color-text-brand: var(--color-soleil-600);
-  --color-text-success: var(--color-palmeraie-800);
-  --color-text-danger: var(--color-brique-800);
-  --color-text-warning: var(--color-soleil-800);
+  --color-text-primary: var(--color-base-900);
+  --color-text-secondary: var(--color-base-600);
+  --color-text-tertiary: var(--color-base-500);
+  --color-text-inverse: var(--color-base-100);
+  --color-text-brand: var(--color-brand-600);
+  --color-text-success: var(--color-success-800);
+  --color-text-danger: var(--color-danger-800);
+  --color-text-warning: var(--color-brand-800);
 
   /* === ALIAS SÉMANTIQUES — Bordures === */
   --color-border-subtle: rgba(42, 26, 15, 0.06);
   --color-border-default: rgba(42, 26, 15, 0.12);
   --color-border-strong: rgba(42, 26, 15, 0.20);
-  --color-border-brand: var(--color-soleil-400);
-  --color-border-focus: var(--color-soleil-300);
+  --color-border-brand: var(--color-brand-400);
+  --color-border-focus: var(--color-brand-300);
 
   /* === TYPOGRAPHIE === */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
@@ -164,21 +164,21 @@
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* === GRADIENT SOLEIL (décoratif, hero uniquement) === */
-  --gradient-soleil: radial-gradient(circle at 30% 30%, var(--color-soleil-400) 0%, transparent 70%);
+  --gradient-brand: radial-gradient(circle at 30% 30%, var(--color-brand-400) 0%, transparent 70%);
 }
 
 /* === DARK MODE === */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg-base: var(--color-terre-950);
-    --color-bg-warm: var(--color-terre-900);
-    --color-bg-elevated: var(--color-terre-800);
-    --color-bg-inverse: var(--color-terre-25);
+    --color-bg-base: var(--color-base-950);
+    --color-bg-warm: var(--color-base-900);
+    --color-bg-elevated: var(--color-base-800);
+    --color-bg-inverse: var(--color-base-25);
 
-    --color-text-primary: var(--color-terre-25);
-    --color-text-secondary: var(--color-terre-200);
-    --color-text-tertiary: var(--color-terre-400);
-    --color-text-inverse: var(--color-terre-900);
+    --color-text-primary: var(--color-base-25);
+    --color-text-secondary: var(--color-base-200);
+    --color-text-tertiary: var(--color-base-400);
+    --color-text-inverse: var(--color-base-900);
 
     --color-border-subtle: rgba(252, 247, 238, 0.06);
     --color-border-default: rgba(252, 247, 238, 0.12);

@@ -5,7 +5,7 @@
  * Style :
  * - Trigger : height 44px, rounded-[12px], border-border, texte foreground.
  * - Liste : rounded-[12px], shadow-lg, bg-background.
- * - Item sélectionné : Check lucide soleil-600.
+ * - Item sélectionné : Check lucide brand-600.
  * - Vide : texte muted-foreground centré.
  */
 
@@ -67,10 +67,10 @@ const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
             className={cn(
               'border-border bg-background flex h-11 w-full items-center justify-between rounded-[12px] border px-3.5 py-2 text-sm transition-shadow',
               'text-foreground placeholder:text-muted-foreground',
-              'focus-visible:ring-soleil-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none',
+              'focus-visible:ring-brand-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none',
               'disabled:cursor-not-allowed disabled:opacity-50',
               open &&
-                'ring-soleil-400/40 ring-offset-background border-soleil-300 ring-2 ring-offset-1',
+                'ring-brand-400/40 ring-offset-background border-brand-300 ring-2 ring-offset-1',
               className,
             )}
           >
@@ -98,7 +98,7 @@ const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
                     {opt.label}
                     <Check
                       className={cn(
-                        'text-soleil-600 ml-auto h-4 w-4',
+                        'text-brand-600 ml-auto h-4 w-4',
                         value === opt.value ? 'opacity-100' : 'opacity-0',
                       )}
                     />

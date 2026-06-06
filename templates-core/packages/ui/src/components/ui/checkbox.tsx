@@ -1,11 +1,11 @@
 /**
- * <Checkbox /> — Radix Checkbox adapté Terre & Soleil.
+ * <Checkbox /> — Radix Checkbox adapté Base & Brand.
  *
  * Style :
  * - Boîte 18px, radius rounded-md (8px).
  * - Coché : bg-primary, icône Check Lucide primary-foreground.
  * - Non coché : border-border, fond transparent.
- * - Focus ring Soleil 400 @ 40%.
+ * - Focus ring Brand 400 @ 40%.
  */
 
 import * as React from 'react';
@@ -21,7 +21,7 @@ const Checkbox = React.forwardRef<
     ref={ref}
     className={cn(
       'peer border-border h-[18px] w-[18px] shrink-0 rounded-md border bg-transparent transition-colors',
-      'focus-visible:ring-soleil-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+      'focus-visible:ring-brand-400/40 focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
       'disabled:cursor-not-allowed disabled:opacity-50',
       'data-[state=checked]:bg-primary data-[state=checked]:border-primary',
       'data-[state=indeterminate]:bg-primary data-[state=indeterminate]:border-primary',

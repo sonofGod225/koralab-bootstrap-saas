@@ -1,9 +1,9 @@
 /**
  * <PetalSymbol /> — Logo __PROJECT_NAME__ (4 pétales).
  *
- * Design Terre & Soleil v3.0 :
- * - 3 pétales Terre 900 (#2A1A0F) : haut-gauche, haut-droit, bas-gauche.
- * - 1 pétale Soleil 400 (#E89B5A) : bas-droit (signature ≤ 15% surface).
+ * Design Base & Brand v3.0 :
+ * - 3 pétales Base 900 (#2A1A0F) : haut-gauche, haut-droit, bas-gauche.
+ * - 1 pétale Brand 400 (#E89B5A) : bas-droit (signature ≤ 15% surface).
  *
  * Utilisé partout : favicon, en-têtes, splash, etc.
  *

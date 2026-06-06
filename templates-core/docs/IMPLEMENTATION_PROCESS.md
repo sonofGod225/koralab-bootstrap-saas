@@ -95,7 +95,7 @@ Une story déclenche UI design ad hoc si elle :
 
 ```
 docs/
-├── DESIGN_SYSTEM.md                  # Système de design __PROJECT_NAME__ v3.0 Terre et Soleil
+├── DESIGN_SYSTEM.md                  # Système de design __PROJECT_NAME__ v3.0 Base et Brand
 ├── design-system/                    # Bundle complet design system (tokens, fontes, primitives)
 ├── IMPLEMENTATION_PROCESS.md         # CE DOCUMENT
 └── ui-designs/                       # 🆕 Designs UI par épic (claude.ai/design exports)
@@ -169,7 +169,7 @@ docs/
    - 1 écran = 1 vue principale ou un sous-flow critique
    - Estimer 5-10 écrans pour un gros épic, 3-5 pour un moyen
 3. **Préparer le brief** pour Claude Code Design avec :
-   - Lien vers `docs/DESIGN_SYSTEM.md` (système Terre et Soleil v3.0)
+   - Lien vers `docs/DESIGN_SYSTEM.md` (système Base et Brand v3.0)
    - PRD section pertinente (ex: `__PROJECT_NAME__-PRD-v2.0-Africa.md` § 5.4 pour épic Facturation)
    - Architecture section pertinente (`architecture.md`)
    - Liste des écrans à produire avec mini-description chaque
@@ -181,9 +181,9 @@ docs/
 
 1. Démarrer une session `claude.ai/design` avec le brief
 2. Itérer sur les écrans (Claude Design propose, Marius affine, etc.)
-3. **Respecter les non-négociables** Terre et Soleil v3.0 :
+3. **Respecter les non-négociables** Base et Brand v3.0 :
    - Sentence case partout
-   - Soleil 400 ≤ 15% surface
+   - Brand 400 ≤ 15% surface
    - Italic Fraunces max 2/page
    - Pill buttons 100px, cards 16-20px, inputs 12px
    - No emoji, no corporate jargon
@@ -222,10 +222,10 @@ Lors du `[DS]` Dev Story :
 2. **NE PAS render le HTML dans un browser** sauf demande explicite — lire le source HTML/CSS directement (recommandation Claude Design)
 3. **Implémenter en React/TypeScript** avec :
    - Composants depuis `@__SCOPE__/ui/<component>` (shadcn + primitives __PROJECT_NAME__)
-   - Tokens Tailwind depuis le design system Terre/Soleil
+   - Tokens Tailwind depuis le design system Base/Brand
    - Pattern code __PROJECT_NAME__ (cf. architecture step 5 patterns)
 4. **Match visuel pixel-perfect** : recreer le rendu exact, pas la structure interne du prototype HTML
-5. **Réutiliser** tous les composants existants de `packages/ui` (shadcn + primitives Terre et Soleil)
+5. **Réutiliser** tous les composants existants de `packages/ui` (shadcn + primitives Base et Brand)
 6. **Si nouvelle primitive nécessaire** (jamais vue dans `packages/ui/src/primitives/`) :
    - Créer une story Phase 0 dédiée "add primitive X to packages/ui"
    - Sinon ajouter à `packages/ui/src/primitives/` dans la même story avec ADR justifiant
@@ -269,12 +269,12 @@ Si une story du backlog (créée après le kickoff de l'épic) introduit un écr
 4. **JAMAIS modifier** un composant shadcn généré sans ADR documentée
 5. **JAMAIS render** le HTML prototype dans un browser pour screenshot — lire le source
 6. **TOUJOURS recreer le visuel** pixel-perfect mais ne pas copier la structure HTML/CSS interne du prototype
-7. **TOUJOURS implémenter les états manquants** : empty, loading skeleton (Terre 100), error boundary, success toast (Palmeraie)
+7. **TOUJOURS implémenter les états manquants** : empty, loading skeleton (Base 100), error boundary, success toast (Success)
 
 ### Pour le reviewer (Code Review)
 
 1. **TOUJOURS comparer** le rendu implémenté avec le HTML de `docs/ui-designs/epic-<id>/project/screens/<screen>.html`
-2. **TOUJOURS vérifier** les non-négociables Terre et Soleil (sentence case, Soleil ≤ 15%, pill buttons, radii organiques)
+2. **TOUJOURS vérifier** les non-négociables Base et Brand (sentence case, Brand ≤ 15%, pill buttons, radii organiques)
 3. **TOUJOURS vérifier** que les tokens design system sont utilisés (pas de couleurs hardcoded type `#FF0000`)
 4. **TOUJOURS vérifier** responsive mobile-first (360px → 768px → 1280px)
 5. **TOUJOURS vérifier** l'accessibilité (WCAG 2.1 AA — labels forms, contraste, focus visible)
@@ -316,7 +316,7 @@ Pour le MVP __PROJECT_NAME__ (Phase 0 + Phase 1, mois 1-9) :
 
 ## 🎯 Pourquoi ce processus est différenciateur
 
-1. **Solo founder + IA** peut produire une UI de qualité agency-level grâce à Claude Design + design system Terre et Soleil
+1. **Solo founder + IA** peut produire une UI de qualité agency-level grâce à Claude Design + design system Base et Brand
 2. **Cohérence visuelle parfaite** dans chaque épic (1 session = N écrans coordonnés)
 3. **Découverte design system gaps tôt** : nouvelles primitives identifiées au design, ajoutées proprement à `packages/ui`
 4. **Documentation visuelle exhaustive** dans le repo (re-référençable à tout moment)

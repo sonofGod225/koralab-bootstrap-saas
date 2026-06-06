@@ -41,9 +41,9 @@ export function FicheSkeleton({
 }) {
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-7 sm:px-8">
-      <nav className="text-terre-500 mb-4 flex items-center gap-1.5 text-[12px]">
+      <nav className="text-base-500 mb-4 flex items-center gap-1.5 text-[12px]">
         <span>{breadcrumb}</span>
-        <ChevronRight className="text-terre-400 h-3 w-3" />
+        <ChevronRight className="text-base-400 h-3 w-3" />
         <Skeleton className="h-3.5 w-32" />
       </nav>
 

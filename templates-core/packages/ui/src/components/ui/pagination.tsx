@@ -1,14 +1,14 @@
 /**
- * <Pagination /> — navigation paginée adaptée Terre & Soleil.
+ * <Pagination /> — navigation paginée adaptée Base & Brand.
  *
  * Implémentation shadcn/ui new-york sans Radix (markup HTML natif).
  * Utilise `buttonVariants` de `./button` pour le style de base des liens.
  *
  * Style :
- * - Page active : bg-terre-900 text-terre-25, carrée 36 × 36 px, rounded-lg.
- * - Pages inactives : ghost, hover bg-terre-50.
+ * - Page active : bg-base-900 text-base-25, carrée 36 × 36 px, rounded-lg.
+ * - Pages inactives : ghost, hover bg-base-50.
  * - Précédent / Suivant : outline ghost avec icône Lucide ChevronLeft/Right.
- * - Ellipsis : simple point médian terre-400.
+ * - Ellipsis : simple point médian base-400.
  */
 
 import * as React from 'react';

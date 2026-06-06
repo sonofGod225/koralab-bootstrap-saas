@@ -99,13 +99,13 @@ function roleLabel(role: string | null | undefined): string {
 function roleBadgeClass(role: string | null | undefined): string {
   switch (role) {
     case 'owner':
-      return 'bg-soleil-100 text-soleil-800';
+      return 'bg-brand-100 text-brand-800';
     case 'admin':
-      return 'bg-palmeraie-50 text-palmeraie-800';
+      return 'bg-success-50 text-success-800';
     case 'guest':
-      return 'bg-terre-100 text-terre-700';
+      return 'bg-base-100 text-base-700';
     default:
-      return 'bg-terre-50 text-terre-700';
+      return 'bg-base-50 text-base-700';
   }
 }
 
@@ -340,7 +340,7 @@ function RemoveMemberDialog({
       onOpenChange={(v) => !v && onClose()}
       width={480}
       icon={<UserMinus className="h-5 w-5" />}
-      iconTone="brique"
+      iconTone="danger"
       title={`Retirer ${member?.user.name ?? ''} de l'organisation ?`}
       description="Ses affectations à tous les établissements seront supprimées. Cette action est définitive."
       footer={
@@ -358,7 +358,7 @@ function RemoveMemberDialog({
       }
     >
       {lastOwner ? (
-        <InlineNotice tone="brique" icon={<TriangleAlert className="h-4 w-4" />}>
+        <InlineNotice tone="danger" icon={<TriangleAlert className="h-4 w-4" />}>
           Impossible de retirer le dernier propriétaire de l'organisation. Désignez d'abord un autre
           propriétaire.
         </InlineNotice>
@@ -384,7 +384,7 @@ function RoleFilterSelect({
     <Select value={value || 'all'} onValueChange={(v) => onChange(v === 'all' ? '' : v)}>
       <SelectTrigger className={className} aria-label="Filtrer par rôle">
         <span className="flex items-center gap-1.5">
-          <Filter className="text-terre-400 h-3.5 w-3.5" />
+          <Filter className="text-base-400 h-3.5 w-3.5" />
           <SelectValue />
         </span>
       </SelectTrigger>
@@ -485,20 +485,20 @@ function TeamContent({
           return (
             <div className="flex min-w-0 items-center gap-3">
               <Avatar className="h-9 w-9">
-                <AvatarFallback className="bg-soleil-100 text-soleil-800 text-sm font-medium">
+                <AvatarFallback className="bg-brand-100 text-brand-800 text-sm font-medium">
                   {m.user.name.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-terre-900 text-[13px] font-medium">{m.user.name}</span>
+                  <span className="text-base-900 text-[13px] font-medium">{m.user.name}</span>
                   {isYou ? (
-                    <span className="bg-soleil-50 text-soleil-600 rounded-full px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.4px] uppercase">
+                    <span className="bg-brand-50 text-brand-600 rounded-full px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.4px] uppercase">
                       c'est vous
                     </span>
                   ) : null}
                 </div>
-                <div className="text-terre-500 truncate text-xs">{m.user.email}</div>
+                <div className="text-base-500 truncate text-xs">{m.user.email}</div>
               </div>
             </div>
           );
@@ -522,7 +522,7 @@ function TeamContent({
         width: '1fr',
         header: 'Ajouté',
         cell: (m) => (
-          <span className="text-terre-600 text-xs">
+          <span className="text-base-600 text-xs">
             {new Date(m.createdAt).toLocaleDateString('fr-FR')}
           </span>
         ),
@@ -541,7 +541,7 @@ function TeamContent({
                 size="sm"
                 loading={busy === m.id}
                 onClick={() => onRemove(m)}
-                className="text-brique-700 hover:text-brique-900"
+                className="text-danger-700 hover:text-danger-900"
               >
                 Retirer
               </LoadingButton>
@@ -550,7 +550,7 @@ function TeamContent({
           return (
             <button
               type="button"
-              className="text-terre-500 hover:bg-terre-50 inline-flex h-8 w-8 items-center justify-center rounded-lg disabled:opacity-50"
+              className="text-base-500 hover:bg-base-50 inline-flex h-8 w-8 items-center justify-center rounded-lg disabled:opacity-50"
               aria-label="Actions"
               disabled
             >
@@ -571,17 +571,17 @@ function TeamContent({
         header: 'Email',
         cell: (inv) => (
           <div className="flex min-w-0 items-center gap-2.5">
-            <span className="bg-soleil-50 text-soleil-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]">
+            <span className="bg-brand-50 text-brand-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]">
               <Mail className="h-3.5 w-3.5" />
             </span>
             <div className="min-w-0">
-              <div className="text-terre-900 truncate text-[13px] font-medium">{inv.email}</div>
+              <div className="text-base-900 truncate text-[13px] font-medium">{inv.email}</div>
               {(targetNames.get(inv.id)?.length ?? 0) > 0 ? (
                 <div className="mt-1 flex flex-wrap gap-1">
                   {targetNames.get(inv.id)?.map((n) => (
                     <span
                       key={n}
-                      className="bg-soleil-50 text-soleil-700 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium"
+                      className="bg-brand-50 text-brand-700 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium"
                     >
                       <Building2 className="h-2.5 w-2.5" />
                       {n}
@@ -589,7 +589,7 @@ function TeamContent({
                   ))}
                 </div>
               ) : (
-                <div className="text-terre-500 text-[11px]">Invitation envoyée</div>
+                <div className="text-base-500 text-[11px]">Invitation envoyée</div>
               )}
             </div>
           </div>
@@ -613,7 +613,7 @@ function TeamContent({
         width: '1.2fr',
         header: 'Expire',
         cell: (inv) => (
-          <span className="text-terre-600 text-xs">
+          <span className="text-base-600 text-xs">
             le {new Date(inv.expiresAt).toLocaleDateString('fr-FR')}
           </span>
         ),
@@ -630,7 +630,7 @@ function TeamContent({
               size="sm"
               loading={busy === inv.id}
               onClick={() => onCancelInvite(inv)}
-              className="text-brique-700 hover:text-brique-900"
+              className="text-danger-700 hover:text-danger-900"
             >
               Révoquer
             </LoadingButton>
@@ -652,14 +652,14 @@ function TeamContent({
         </Avatar>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-terre-900 text-sm font-medium">{m.user.name}</span>
+            <span className="text-base-900 text-sm font-medium">{m.user.name}</span>
             {isYou ? (
-              <span className="bg-soleil-50 text-soleil-600 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-[0.4px] uppercase">
+              <span className="bg-brand-50 text-brand-600 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-[0.4px] uppercase">
                 vous
               </span>
             ) : null}
           </div>
-          <div className="text-terre-500 mt-0.5 truncate text-xs">{m.user.email}</div>
+          <div className="text-base-500 mt-0.5 truncate text-xs">{m.user.email}</div>
           <div className="mt-2 flex items-center gap-2">
             <span
               className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium ${roleBadgeClass(m.role)}`}
@@ -676,7 +676,7 @@ function TeamContent({
             size="sm"
             loading={busy === m.id}
             onClick={() => onRemove(m)}
-            className="text-brique-700 hover:text-brique-900 shrink-0"
+            className="text-danger-700 hover:text-danger-900 shrink-0"
           >
             Retirer
           </LoadingButton>
@@ -685,7 +685,7 @@ function TeamContent({
             type="button"
             aria-label="Actions"
             disabled
-            className="bg-terre-50 text-terre-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg disabled:opacity-50"
+            className="bg-base-50 text-base-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg disabled:opacity-50"
           >
             <MoreHorizontal className="h-4 w-4" />
           </button>
@@ -697,12 +697,12 @@ function TeamContent({
   const inviteMobileCard = (p: Invitation) => (
     <article className="bg-card border-border-subtle rounded-2xl border-[0.5px] p-3.5">
       <div className="mb-2 flex items-center gap-2.5">
-        <span className="bg-soleil-50 text-soleil-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]">
+        <span className="bg-brand-50 text-brand-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]">
           <Mail className="h-3.5 w-3.5" />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="text-terre-900 truncate text-[13px] font-medium">{p.email}</div>
-          <div className="text-terre-500 text-[11px]">
+          <div className="text-base-900 truncate text-[13px] font-medium">{p.email}</div>
+          <div className="text-base-500 text-[11px]">
             {p.status === 'pending'
               ? `Expire ${formatExpiry(p.expiresAt)}`
               : INVITE_STATUS_LABELS[p.status as InviteStatus]}
@@ -714,7 +714,7 @@ function TeamContent({
           {targetNames.get(p.id)?.map((n) => (
             <span
               key={n}
-              className="bg-soleil-50 text-soleil-700 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium"
+              className="bg-brand-50 text-brand-700 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium"
             >
               <Building2 className="h-2.5 w-2.5" />
               {n}
@@ -736,7 +736,7 @@ function TeamContent({
             size="sm"
             loading={busy === p.id}
             onClick={() => onCancelInvite(p)}
-            className="text-brique-700 hover:text-brique-900"
+            className="text-danger-700 hover:text-danger-900"
           >
             Révoquer
           </LoadingButton>
@@ -750,12 +750,12 @@ function TeamContent({
       {/* ── Membres ──────────────────────────────────────────────────────── */}
       <section>
         <div className="mb-3.5 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
-          <h3 className="text-terre-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
+          <h3 className="text-base-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
             {loading ? 'Membres' : `Membres · ${memberTotal}`}
           </h3>
           <div className="flex items-center gap-2">
             <div className="relative flex-1 sm:flex-none">
-              <Search className="text-terre-400 pointer-events-none absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2" />
+              <Search className="text-base-400 pointer-events-none absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2" />
               <Input
                 type="search"
                 placeholder="Filtrer par nom, e-mail…"
@@ -773,7 +773,7 @@ function TeamContent({
           </div>
         </div>
         {!loading && list.length === 0 ? (
-          <div className="bg-card border-border-subtle text-terre-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
+          <div className="bg-card border-border-subtle text-base-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
             {search || roleFilter
               ? 'Aucun membre ne correspond à ces filtres.'
               : 'Invitez vos collaborateurs pour démarrer ensemble.'}
@@ -804,7 +804,7 @@ function TeamContent({
       <section>
         <div className="mb-3.5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <h3 className="text-terre-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
+            <h3 className="text-base-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
               Invitations
             </h3>
             {inviteTotal > 0 ? <Badge variant="pending">{inviteTotal}</Badge> : null}
@@ -816,7 +816,7 @@ function TeamContent({
           />
         </div>
         {invitations.length === 0 ? (
-          <div className="bg-card border-border-subtle text-terre-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
+          <div className="bg-card border-border-subtle text-base-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
             Aucune invitation « {INVITE_STATUS_LABELS[inviteStatus].toLowerCase()} » pour le moment.
           </div>
         ) : (
@@ -976,7 +976,7 @@ function InviteDialog({
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="invite-email">Adresse e-mail</Label>
           <div className="relative">
-            <Mail className="text-terre-400 pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+            <Mail className="text-base-400 pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               id="invite-email"
               type="email"
@@ -992,7 +992,7 @@ function InviteDialog({
         <div className="flex flex-col gap-2">
           <Label>Rôle</Label>
           {loadError ? (
-            <p className="text-brique-700 text-[13px]">
+            <p className="text-danger-700 text-[13px]">
               Impossible de charger les rôles. Réessayez en rouvrant la fenêtre.
             </p>
           ) : !data ? (
@@ -1014,8 +1014,8 @@ function InviteDialog({
                       title={r.description ?? undefined}
                       className={`rounded-[12px] border px-1.5 py-2 text-[11px] font-medium transition-colors sm:px-2 sm:py-2.5 sm:text-xs ${
                         selected
-                          ? 'border-soleil-400 bg-soleil-50 text-terre-900'
-                          : 'border-border bg-card text-terre-900 hover:border-terre-300'
+                          ? 'border-brand-400 bg-brand-50 text-base-900'
+                          : 'border-border bg-card text-base-900 hover:border-base-300'
                       }`}
                     >
                       {roleLabel(r.name)}
@@ -1024,7 +1024,7 @@ function InviteDialog({
                 })}
               </div>
               {!hasCustomRole ? (
-                <p className="text-terre-500 text-[11px]">
+                <p className="text-base-500 text-[11px]">
                   Les rôles personnalisés sont disponibles avec les plans Pro/Enterprise.
                 </p>
               ) : null}
@@ -1036,7 +1036,7 @@ function InviteDialog({
         {multiEstablishment ? (
           <div className="flex flex-col gap-2">
             <Label>Périmètre établissements</Label>
-            <p className="text-terre-500 text-[12px] leading-[1.5]">
+            <p className="text-base-500 text-[12px] leading-[1.5]">
               {isPrivileged
                 ? 'Les propriétaires et administrateurs accèdent à tous les établissements.'
                 : 'Le membre ne verra que les établissements cochés. Laissez vide pour le rattacher au siège.'}
@@ -1049,12 +1049,12 @@ function InviteDialog({
                     key={e.id}
                     className={`flex items-center gap-3 py-3 ${i > 0 ? 'border-border border-t' : ''} ${isPrivileged ? 'opacity-55' : 'cursor-pointer'}`}
                   >
-                    <span className="bg-terre-100 text-terre-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px]">
+                    <span className="bg-base-100 text-base-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px]">
                       <Building2 className="h-[15px] w-[15px]" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-2">
-                        <span className="text-terre-900 text-[13px] font-medium">{e.name}</span>
+                        <span className="text-base-900 text-[13px] font-medium">{e.name}</span>
                         {e.isPrimary ? <PrincipalBadge /> : null}
                       </span>
                     </span>
@@ -1068,15 +1068,15 @@ function InviteDialog({
               })}
             </div>
             {!isPrivileged && noneChecked ? (
-              <div className="text-terre-500 inline-flex items-center gap-1.5 text-[11.5px]">
-                <Info className="text-terre-400 h-3 w-3" />
+              <div className="text-base-500 inline-flex items-center gap-1.5 text-[11.5px]">
+                <Info className="text-base-400 h-3 w-3" />
                 Aucun coché — le membre sera rattaché au siège.
               </div>
             ) : null}
           </div>
         ) : null}
 
-        {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+        {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
       </div>
     </SidePanel>
   );

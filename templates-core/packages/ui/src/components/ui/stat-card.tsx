@@ -1,9 +1,9 @@
 /**
- * <StatCard /> — Carte KPI (indicateur clé de performance) Terre & Soleil.
+ * <StatCard /> — Carte KPI (indicateur clé de performance) Base & Brand.
  *
  * Deux variantes :
  * - `default` : fond bg-card, bordure border-border, shadow-xs — usage courant.
- * - `hero`    : fond terre-900 + texte terre-100 + cercle Soleil décoratif
+ * - `hero`    : fond base-900 + texte base-100 + cercle Brand décoratif
  *               (réservé au KPI principal de la vue, ≤ 1 par page).
  *
  * Props :
@@ -28,7 +28,7 @@ const statCardVariants = cva(
     variants: {
       variant: {
         default: 'bg-card border-border shadow-xs text-foreground min-h-[140px]',
-        hero: 'bg-terre-900 border-transparent shadow-md text-terre-100 min-h-[200px]',
+        hero: 'bg-base-900 border-transparent shadow-md text-base-100 min-h-[200px]',
       },
     },
     defaultVariants: {
@@ -58,14 +58,14 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
     const isHero = variant === 'hero';
     return (
       <div ref={ref} className={cn(statCardVariants({ variant }), className)} {...props}>
-        {/* Cercle décoratif Soleil — hero uniquement */}
+        {/* Cercle décoratif Brand — hero uniquement */}
         {isHero && (
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-10 -bottom-10 h-48 w-48 rounded-full opacity-35"
             style={{
               background:
-                'radial-gradient(circle at 30% 30%, var(--color-soleil-400), transparent 70%)',
+                'radial-gradient(circle at 30% 30%, var(--color-brand-400), transparent 70%)',
             }}
           />
         )}
@@ -75,7 +75,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
           <p
             className={cn(
               'text-xs font-semibold tracking-widest uppercase',
-              isHero ? 'text-soleil-300' : 'text-muted-foreground',
+              isHero ? 'text-brand-300' : 'text-muted-foreground',
             )}
           >
             {label}
@@ -84,7 +84,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             <span
               className={cn(
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
-                isHero ? 'text-soleil-300' : 'text-muted-foreground bg-muted',
+                isHero ? 'text-brand-300' : 'text-muted-foreground bg-muted',
               )}
             >
               {icon}
@@ -99,13 +99,13 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             <span
               className={cn(
                 'font-display tracking-display leading-none font-light tabular-nums',
-                isHero ? 'text-terre-100 text-5xl' : 'text-foreground text-3xl',
+                isHero ? 'text-base-100 text-5xl' : 'text-foreground text-3xl',
               )}
             >
               {value}
             </span>
             {unit && (
-              <span className={cn('text-xs', isHero ? 'text-soleil-300' : 'text-muted-foreground')}>
+              <span className={cn('text-xs', isHero ? 'text-brand-300' : 'text-muted-foreground')}>
                 {unit}
               </span>
             )}
@@ -116,7 +116,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             <div
               className={cn(
                 'flex flex-wrap items-center gap-1.5 text-xs',
-                isHero ? 'text-soleil-200' : 'text-muted-foreground',
+                isHero ? 'text-brand-200' : 'text-muted-foreground',
               )}
             >
               {trend}

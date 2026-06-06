@@ -1,5 +1,5 @@
 /**
- * <CountrySelect /> — Sélection de pays Terre & Soleil.
+ * <CountrySelect /> — Sélection de pays Base & Brand.
  *
  * Combobox recherchable (Popover + Command) affichant une puce ISO2 mono
  * et le nom du pays en français. Pas d'emoji — règle design system __PROJECT_NAME__.
@@ -256,7 +256,7 @@ const CountrySelect = React.forwardRef<HTMLDivElement, CountrySelectProps>(
                         <span className="text-muted-foreground text-xs tabular-nums">
                           +{c.dialCode}
                         </span>
-                        {value === c.iso2 && <Check className="text-soleil-600 h-4 w-4 shrink-0" />}
+                        {value === c.iso2 && <Check className="text-brand-600 h-4 w-4 shrink-0" />}
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -280,7 +280,7 @@ const CountrySelect = React.forwardRef<HTMLDivElement, CountrySelectProps>(
                         <span className="text-muted-foreground text-xs tabular-nums">
                           +{c.dialCode}
                         </span>
-                        {value === c.iso2 && <Check className="text-soleil-600 h-4 w-4 shrink-0" />}
+                        {value === c.iso2 && <Check className="text-brand-600 h-4 w-4 shrink-0" />}
                       </CommandItem>
                     ))}
                   </CommandGroup>

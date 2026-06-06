@@ -1,10 +1,10 @@
 /**
- * <Tabs /> — Radix Tabs adapté Terre & Soleil.
+ * <Tabs /> — Radix Tabs adapté Base & Brand.
  *
  * Variants :
  * - `underline` (défaut) : liste sans fond, déclencheur actif avec bordure-bas
- *   soleil-400 et texte terre-900. Inactifs terre-500.
- * - `pills` : liste bg-terre-50 arrondie, déclencheur actif bg-white shadow-xs.
+ *   brand-400 et texte base-900. Inactifs base-500.
+ * - `pills` : liste bg-base-50 arrondie, déclencheur actif bg-white shadow-xs.
  *
  * Le variant est fourni via un contexte interne afin que TabsList et TabsTrigger
  * partagent la même configuration sans prop-drilling explicite côté consommateur.
@@ -68,12 +68,12 @@ const TabsTrigger = React.forwardRef<
     <TabsPrimitive.Trigger
       ref={ref}
       className={cn(
-        'focus-visible:ring-soleil-400/40 inline-flex items-center gap-2 text-sm font-medium tracking-tight whitespace-nowrap transition-all duration-120 focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0',
+        'focus-visible:ring-brand-400/40 inline-flex items-center gap-2 text-sm font-medium tracking-tight whitespace-nowrap transition-all duration-120 focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0',
         variant === 'underline' && [
           'text-muted-foreground px-3.5 py-3',
           '-mb-px border-b-2 border-transparent',
           'hover:text-foreground',
-          'data-[state=active]:border-soleil-400 data-[state=active]:text-foreground',
+          'data-[state=active]:border-brand-400 data-[state=active]:text-foreground',
         ],
         variant === 'pills' && [
           'text-muted-foreground rounded-lg px-3.5 py-[7px]',
@@ -97,7 +97,7 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'focus-visible:ring-soleil-400/40 mt-4 focus-visible:ring-2 focus-visible:outline-none',
+      'focus-visible:ring-brand-400/40 mt-4 focus-visible:ring-2 focus-visible:outline-none',
       className,
     )}
     {...props}

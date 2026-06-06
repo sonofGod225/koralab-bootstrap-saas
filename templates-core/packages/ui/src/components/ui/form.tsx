@@ -1,5 +1,5 @@
 /**
- * Primitives de formulaire Terre & Soleil (Story 2.8).
+ * Primitives de formulaire Base & Brand (Story 2.8).
  *
  * - `<Form>` câble react-hook-form + résolveur zod ; validation au **blur**
  *   par défaut, `noValidate` (on délègue tout à zod), focus + scroll vers le
@@ -157,12 +157,12 @@ const FormLabel = React.forwardRef<
     <Label
       ref={ref}
       htmlFor={formItemId}
-      className={cn(error ? 'text-brique-700' : 'text-foreground', className)}
+      className={cn(error ? 'text-danger-700' : 'text-foreground', className)}
       {...props}
     >
       {children}
       {required && (
-        <span aria-hidden="true" className="text-soleil-600 ml-0.5">
+        <span aria-hidden="true" className="text-brand-600 ml-0.5">
           *
         </span>
       )}
@@ -216,7 +216,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-brique-700 text-xs font-medium', className)}
+      className={cn('text-danger-700 text-xs font-medium', className)}
       {...props}
     >
       {body}

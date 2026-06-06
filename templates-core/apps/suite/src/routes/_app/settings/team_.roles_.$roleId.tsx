@@ -237,18 +237,18 @@ function RoleEditorPage() {
         <EditorSkeleton />
       ) : phase === 'notfound' ? (
         <SectionCard>
-          <p className="text-terre-600 py-6 text-center text-sm">
+          <p className="text-base-600 py-6 text-center text-sm">
             Ce rôle est introuvable dans votre organisation.
           </p>
         </SectionCard>
       ) : phase === 'forbidden' ? (
         <SectionCard>
-          <p className="text-terre-600 py-6 text-center text-sm">
+          <p className="text-base-600 py-6 text-center text-sm">
             La gestion des rôles est réservée au <strong>Propriétaire</strong> de l'organisation.
           </p>
         </SectionCard>
       ) : phase === 'error' ? (
-        <p className="text-brique-700 text-sm">{error}</p>
+        <p className="text-danger-700 text-sm">{error}</p>
       ) : (
         <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1fr_320px]">
           {/* Colonne principale */}
@@ -294,13 +294,13 @@ function RoleEditorPage() {
                 onActivateModule={() => void navigate({ to: '/settings/team' })}
               />
               {!readOnly && definedCells === 0 ? (
-                <p className="text-brique-700 mt-3 text-[12px]">
+                <p className="text-danger-700 mt-3 text-[12px]">
                   Définissez au moins une permission (cliquez sur une case) avant d'enregistrer.
                 </p>
               ) : null}
             </SectionCard>
 
-            {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+            {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
 
             {!readOnly && role && !role.isPredefined ? (
               <div>
@@ -308,7 +308,7 @@ function RoleEditorPage() {
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="text-brique-700 hover:text-brique-900"
+                  className="text-danger-700 hover:text-danger-900"
                   onClick={() => void remove()}
                   disabled={removing}
                 >
@@ -323,7 +323,7 @@ function RoleEditorPage() {
           <aside className="flex flex-col gap-4">
             <SectionCard title="Membres affectés" padding={18}>
               {members.length === 0 ? (
-                <p className="text-terre-500 text-[12px]">
+                <p className="text-base-500 text-[12px]">
                   Aucun membre n'a ce rôle pour le moment.
                 </p>
               ) : (
@@ -338,10 +338,10 @@ function RoleEditorPage() {
                           </AvatarFallback>
                         </Avatar>
                         <div className="min-w-0 flex-1">
-                          <div className="text-terre-900 truncate text-[13px] font-medium">
+                          <div className="text-base-900 truncate text-[13px] font-medium">
                             {m.name}
                           </div>
-                          <div className="text-terre-500 truncate text-[11px]">{m.email}</div>
+                          <div className="text-base-500 truncate text-[11px]">{m.email}</div>
                         </div>
                       </div>
                     );
@@ -352,14 +352,14 @@ function RoleEditorPage() {
 
             <SectionCard padding={18}>
               <div className="flex items-start gap-3">
-                <Info className="text-terre-600 mt-0.5 h-4 w-4 shrink-0" />
+                <Info className="text-base-600 mt-0.5 h-4 w-4 shrink-0" />
                 <div>
-                  <div className="text-terre-900 text-[13px] font-medium">Règle d'héritage</div>
-                  <p className="text-terre-600 mt-1 text-[12px] leading-[1.5]">
+                  <div className="text-base-900 text-[13px] font-medium">Règle d'héritage</div>
+                  <p className="text-base-600 mt-1 text-[12px] leading-[1.5]">
                     Une cellule non définie hérite de la ligne{' '}
                     <strong>∗ toutes les sous-entités</strong>. Un membre peut cumuler plusieurs
-                    rôles : <strong className="text-brique-600">refuser</strong> l'emporte partout
-                    sur <strong className="text-palmeraie-600">autoriser</strong>.
+                    rôles : <strong className="text-danger-600">refuser</strong> l'emporte partout
+                    sur <strong className="text-success-600">autoriser</strong>.
                   </p>
                 </div>
               </div>

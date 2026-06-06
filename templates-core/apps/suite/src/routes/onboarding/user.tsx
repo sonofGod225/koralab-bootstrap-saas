@@ -206,26 +206,26 @@ function UserStep() {
               {/* Téléphone — read-only, statut Vérifié si OTP déjà fait au signup */}
               {phoneInfo ? (
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-terre-700 text-[13px] font-medium">
+                  <span className="text-base-700 text-[13px] font-medium">
                     Téléphone professionnel
                   </span>
                   <div className="border-input bg-card flex items-center justify-between rounded-md border px-3 py-2.5">
-                    <span className="text-terre-900 inline-flex items-center gap-2 text-sm">
-                      <Phone className="text-terre-500 h-4 w-4" />
+                    <span className="text-base-900 inline-flex items-center gap-2 text-sm">
+                      <Phone className="text-base-500 h-4 w-4" />
                       {phoneInfo.number}
                     </span>
                     {phoneInfo.verified ? (
-                      <span className="bg-palmeraie-50 text-palmeraie-800 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium">
+                      <span className="bg-success-50 text-success-800 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium">
                         <Check className="h-2.5 w-2.5" strokeWidth={3} />
                         Vérifié
                       </span>
                     ) : (
-                      <span className="bg-terre-100 text-terre-600 rounded-full px-2 py-0.5 text-[11px] font-medium">
+                      <span className="bg-base-100 text-base-600 rounded-full px-2 py-0.5 text-[11px] font-medium">
                         À vérifier
                       </span>
                     )}
                   </div>
-                  <p className="text-terre-500 text-[11px]">
+                  <p className="text-base-500 text-[11px]">
                     Modifiable depuis vos paramètres après l'onboarding.
                   </p>
                 </div>
@@ -252,7 +252,7 @@ function UserStep() {
               />
             </FieldRow>
 
-            {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+            {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
 
             <StepActions
               onBack={() => void navigate({ to: '/onboarding/company' })}

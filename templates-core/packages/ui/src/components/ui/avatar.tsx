@@ -1,10 +1,10 @@
 /**
- * <Avatar /> — Radix Avatar adapté Terre & Soleil.
+ * <Avatar /> — Radix Avatar adapté Base & Brand.
  *
  * Composants :
  * - `Avatar`        : conteneur circulaire Radix.
  * - `AvatarImage`   : image avec fallback automatique.
- * - `AvatarFallback`: initiales, fond soleil-100 texte terre-900, font-display.
+ * - `AvatarFallback`: initiales, fond brand-100 texte base-900, font-display.
  * - `AvatarGroup`   : rangée d'avatars en chevauchement avec bague blanche.
  *
  * Taille par défaut 40px via className (w-10 h-10).
@@ -45,7 +45,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      'bg-soleil-100 text-foreground font-display flex h-full w-full items-center justify-center rounded-full text-sm font-medium tracking-tight',
+      'bg-brand-100 text-foreground font-display flex h-full w-full items-center justify-center rounded-full text-sm font-medium tracking-tight',
       className,
     )}
     {...props}

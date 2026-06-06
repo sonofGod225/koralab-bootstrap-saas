@@ -1,5 +1,5 @@
 /**
- * Route specimen design system Terre & Soleil — dev only (Story 2.14).
+ * Route specimen design system Base & Brand — dev only (Story 2.14).
  *
  * Présente toutes les primitives @__SCOPE__/ui comme source de vérité visuelle.
  * URL en dev : http://localhost:3000/design-preview
@@ -143,61 +143,61 @@ interface Swatch {
 
 const PALETTE: Array<{ family: string; swatches: ReadonlyArray<Swatch> }> = [
   {
-    family: 'Terre',
+    family: 'Base',
     swatches: [
-      { name: 'Terre 25', hex: '#FCF7EE', variable: '--color-terre-25', textOnHex: '#2A1A0F' },
-      { name: 'Terre 100', hex: '#F4E4CC', variable: '--color-terre-100', textOnHex: '#2A1A0F' },
-      { name: 'Terre 300', hex: '#BFA378', variable: '--color-terre-300', textOnHex: '#2A1A0F' },
-      { name: 'Terre 600', hex: '#6B4423', variable: '--color-terre-600', textOnHex: '#FCF7EE' },
-      { name: 'Terre 900', hex: '#2A1A0F', variable: '--color-terre-900', textOnHex: '#FCF7EE' },
+      { name: 'Base 25', hex: '#FCF7EE', variable: '--color-base-25', textOnHex: '#2A1A0F' },
+      { name: 'Base 100', hex: '#F4E4CC', variable: '--color-base-100', textOnHex: '#2A1A0F' },
+      { name: 'Base 300', hex: '#BFA378', variable: '--color-base-300', textOnHex: '#2A1A0F' },
+      { name: 'Base 600', hex: '#6B4423', variable: '--color-base-600', textOnHex: '#FCF7EE' },
+      { name: 'Base 900', hex: '#2A1A0F', variable: '--color-base-900', textOnHex: '#FCF7EE' },
     ],
   },
   {
-    family: 'Soleil (≤ 15% surface)',
+    family: 'Brand (≤ 15% surface)',
     swatches: [
-      { name: 'Soleil 100', hex: '#FBE2BA', variable: '--color-soleil-100', textOnHex: '#3D200A' },
-      { name: 'Soleil 200', hex: '#F5C994', variable: '--color-soleil-200', textOnHex: '#3D200A' },
-      { name: 'Soleil 400', hex: '#E89B5A', variable: '--color-soleil-400', textOnHex: '#2A1A0F' },
-      { name: 'Soleil 600', hex: '#B86A28', variable: '--color-soleil-600', textOnHex: '#FCF7EE' },
+      { name: 'Brand 100', hex: '#FBE2BA', variable: '--color-brand-100', textOnHex: '#3D200A' },
+      { name: 'Brand 200', hex: '#F5C994', variable: '--color-brand-200', textOnHex: '#3D200A' },
+      { name: 'Brand 400', hex: '#E89B5A', variable: '--color-brand-400', textOnHex: '#2A1A0F' },
+      { name: 'Brand 600', hex: '#B86A28', variable: '--color-brand-600', textOnHex: '#FCF7EE' },
     ],
   },
   {
-    family: 'Palmeraie (success)',
+    family: 'Success (success)',
     swatches: [
       {
-        name: 'Palmeraie 200',
+        name: 'Success 200',
         hex: '#A8C083',
-        variable: '--color-palmeraie-200',
+        variable: '--color-success-200',
         textOnHex: '#1A3010',
       },
       {
-        name: 'Palmeraie 400',
+        name: 'Success 400',
         hex: '#6A9C42',
-        variable: '--color-palmeraie-400',
+        variable: '--color-success-400',
         textOnHex: '#FCF7EE',
       },
       {
-        name: 'Palmeraie 800',
+        name: 'Success 800',
         hex: '#2C4F1F',
-        variable: '--color-palmeraie-800',
+        variable: '--color-success-800',
         textOnHex: '#FCF7EE',
       },
     ],
   },
   {
-    family: 'Brique (danger)',
+    family: 'Danger (danger)',
     swatches: [
-      { name: 'Brique 200', hex: '#E6A084', variable: '--color-brique-200', textOnHex: '#4A180A' },
-      { name: 'Brique 400', hex: '#D85F36', variable: '--color-brique-400', textOnHex: '#FCF7EE' },
-      { name: 'Brique 800', hex: '#7A2A0E', variable: '--color-brique-800', textOnHex: '#FCF7EE' },
+      { name: 'Danger 200', hex: '#E6A084', variable: '--color-danger-200', textOnHex: '#4A180A' },
+      { name: 'Danger 400', hex: '#D85F36', variable: '--color-danger-400', textOnHex: '#FCF7EE' },
+      { name: 'Danger 800', hex: '#7A2A0E', variable: '--color-danger-800', textOnHex: '#FCF7EE' },
     ],
   },
   {
-    family: 'Mil (warning)',
+    family: 'Warning (warning)',
     swatches: [
-      { name: 'Mil 200', hex: '#FFDF8C', variable: '--color-mil-200', textOnHex: '#2A1A0F' },
-      { name: 'Mil 400', hex: '#EFC548', variable: '--color-mil-400', textOnHex: '#2A1A0F' },
-      { name: 'Mil 600', hex: '#BD9420', variable: '--color-mil-600', textOnHex: '#FCF7EE' },
+      { name: 'Warning 200', hex: '#FFDF8C', variable: '--color-warning-200', textOnHex: '#2A1A0F' },
+      { name: 'Warning 400', hex: '#EFC548', variable: '--color-warning-400', textOnHex: '#2A1A0F' },
+      { name: 'Warning 600', hex: '#BD9420', variable: '--color-warning-600', textOnHex: '#FCF7EE' },
     ],
   },
 ];
@@ -368,7 +368,7 @@ function DesignPreviewPage() {
           <PetalSymbol size={80} />
           <div>
             <h1 className="font-display tracking-display text-foreground mb-2 text-5xl font-light">
-              Terre &amp; Soleil v3.0
+              Base &amp; Brand v3.0
             </h1>
             <EditorialQuote attribution="Design system __PROJECT_NAME__">
               Encaissez plus vite. Gérez plus sereinement.
@@ -438,7 +438,7 @@ function DesignPreviewPage() {
             <p className="font-display text-foreground text-lg font-medium">
               .t-h3 — Revenus du mois
             </p>
-            <p className="font-display text-soleil-600 text-xl tracking-tight italic">
+            <p className="font-display text-brand-600 text-xl tracking-tight italic">
               .t-editorial — Un seul outil, quatre modules.
             </p>
             <p className="text-foreground font-mono text-sm">
@@ -466,7 +466,7 @@ function DesignPreviewPage() {
               </h3>
               <div className="flex flex-wrap items-center gap-3">
                 <Button variant="default">Principal</Button>
-                <Button variant="accent">Accent Soleil</Button>
+                <Button variant="accent">Accent Brand</Button>
                 <Button variant="outline">Contour</Button>
                 <Button variant="ghost">Ghost</Button>
                 <Button variant="destructive">Destructif</Button>
@@ -1364,7 +1364,7 @@ function DesignPreviewPage() {
         <footer className="border-border border-t pt-8 pb-4">
           <p className="text-muted-foreground font-mono text-xs tracking-widest">
             story 2.14 · design-preview · dev only ·{' '}
-            <span className="text-foreground">Terre &amp; Soleil v3.0</span>
+            <span className="text-foreground">Base &amp; Brand v3.0</span>
           </p>
         </footer>
       </Container>

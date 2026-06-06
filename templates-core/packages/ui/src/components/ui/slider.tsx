@@ -1,12 +1,12 @@
 /**
- * <Slider /> — Radix Slider adapté Terre & Soleil.
+ * <Slider /> — Radix Slider adapté Base & Brand.
  *
  * Supporte la valeur simple et la plage (range) via un tableau de valeurs.
  * Style :
  * - Piste : bg-subtle, hauteur 4px, radius pill.
  * - Plage active : bg-primary.
  * - Pouce : card, border-primary, shadow-sm.
- * - Focus ring Soleil 400 @ 40%.
+ * - Focus ring Brand 400 @ 40%.
  */
 
 import * as React from 'react';
@@ -37,7 +37,7 @@ const Slider = React.forwardRef<
           key={i}
           className={cn(
             'border-primary bg-card block h-[18px] w-[18px] rounded-full border-[1.5px] shadow-sm',
-            'focus-visible:ring-soleil-400/40 focus-visible:ring-offset-background transition-shadow focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+            'focus-visible:ring-brand-400/40 focus-visible:ring-offset-background transition-shadow focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
             'disabled:pointer-events-none disabled:opacity-50',
           )}
         />

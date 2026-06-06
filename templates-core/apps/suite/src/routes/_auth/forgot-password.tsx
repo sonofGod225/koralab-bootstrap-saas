@@ -50,9 +50,9 @@ function ForgotPasswordPage() {
         />
 
         {sentTo ? (
-          <div className="border-palmeraie-200 bg-palmeraie-50 flex items-start gap-3 rounded-xl border p-4">
-            <CircleCheck className="text-palmeraie-600 mt-0.5 size-4 shrink-0" />
-            <div className="text-palmeraie-800 text-sm leading-[1.5]">
+          <div className="border-success-200 bg-success-50 flex items-start gap-3 rounded-xl border p-4">
+            <CircleCheck className="text-success-600 mt-0.5 size-4 shrink-0" />
+            <div className="text-success-800 text-sm leading-[1.5]">
               <p className="font-semibold">Lien envoyé !</p>
               <p>
                 Vérifiez la boîte de réception <strong>{sentTo}</strong>. Le lien expire dans
@@ -101,8 +101,8 @@ function ForgotPasswordPage() {
           </Form>
         )}
 
-        <p className="text-terre-600 text-sm">
-          <Link to="/signin" className="text-terre-900 font-medium underline">
+        <p className="text-base-600 text-sm">
+          <Link to="/signin" className="text-base-900 font-medium underline">
             Retour à la connexion
           </Link>
         </p>

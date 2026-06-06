@@ -8,7 +8,7 @@
  * référence `apps/suite/src/routes/(dev)/dashboard-preview.tsx:929`.
  *
  * Visuel : `Sidebar` 256px collée au rail 64px, pleine hauteur viewport,
- * header filet 3px Soleil, sections labellisées, ergot Soleil sur l'item actif.
+ * header filet 3px Brand, sections labellisées, ergot Brand sur l'item actif.
  */
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
@@ -28,7 +28,7 @@ import { Sidebar, SidebarHeader, SidebarItem, SidebarSection } from '@__SCOPE__/
 import { getActiveModules } from '../lib/module-access';
 
 /** Couleur signature de la section Paramètres (filet header + ergot actif). */
-const ACCENT = 'var(--color-soleil-400)';
+const ACCENT = 'var(--color-brand-400)';
 
 interface NavItem {
   label: string;

@@ -1,5 +1,5 @@
 /**
- * <DateRangePicker /> — Sélection de plage de dates Terre & Soleil.
+ * <DateRangePicker /> — Sélection de plage de dates Base & Brand.
  *
  * Props :
  * - `value`         : { from: Date; to: Date } | undefined

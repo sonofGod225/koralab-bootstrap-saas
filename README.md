@@ -23,12 +23,31 @@ Two **variants**:
 Verify any generated project: `pnpm install && pnpm typecheck && pnpm build`
 (`pnpm --filter @<scope>/suite test:bundle` checks each module is code-split).
 
+## Define the design system at init (core variant)
+The CLI lets you choose the design system; the default reproduces the original look exactly.
+Palettes are generic: `base` (neutral/primary), `brand` (accent), `success`, `danger`, `warning`.
+```bash
+# a curated preset:
+node bin/cli.mjs my-app --variant core --theme zinc-violet --yes
+# custom seed colors → full OKLCH scales (25→950) generated for you:
+node bin/cli.mjs my-app --variant core --primary '#334155' --accent '#3b82f6' \
+  --radius rounded --font inter --mode dark --yes
+```
+Flags (all optional): `--theme <preset>` · `--primary/--accent/--success/--danger/--warning <hex>`
+· `--font fraunces|inter|geist|system` · `--radius sharp|default|rounded` · `--mode system|light|dark`.
+Applied by `scripts/design.mjs` (zero-dep OKLCH→sRGB) + `scripts/apply-theme.mjs`: rewrites
+`packages/ui/src/styles/tokens.css` (palettes + semantic `--bs-*` light/dark + radius + fonts),
+swaps the Google-Fonts `<link>`, sets the default color mode, and recolors the logo/favicon/manifest
+(a generic initial mark). Presets: `terre-soleil` (default), `slate-blue`, `zinc-violet`, `stone-emerald`.
+
 ## Layout
 ```
 bin/cli.mjs                  # the CLI (interactive + flags), orchestrates the scripts
 SKILL.md                     # trigger + orchestration (read by Claude)
 scripts/snapshot.mjs         # maintenance: tokenise a source repo → templates
-scripts/generate.mjs         # runtime: materialise a project (--variant core|full)
+scripts/generate.mjs         # runtime: materialise a project (--variant core|full + theme flags)
+scripts/design.mjs           # theme generator: OKLCH scales + presets + tokens.css renderer
+scripts/apply-theme.mjs      # applies a theme to a generated core project (tokens/logo/fonts/mode)
 templates-core/              # COMMITTED generic build-green boilerplate (bundled in npm)
 templates/                   # gitignored: tokenised faithful copy of a private source repo
 overrides-slim/              # full-variant --slim overrides (single module-example)

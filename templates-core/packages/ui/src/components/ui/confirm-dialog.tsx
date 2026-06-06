@@ -1,7 +1,7 @@
 /**
  * <ConfirmDialog> — confirmation d'action, basée sur `<AlertDialog>` (Story 2.10).
  *
- * - `destructive` : bouton de confirmation en Brique 600.
+ * - `destructive` : bouton de confirmation en Danger 600.
  * - `confirmPhrase` : double confirmation — l'utilisateur doit retaper la
  *   phrase exacte pour activer le bouton (suppressions critiques, UX-DR).
  *
@@ -37,7 +37,7 @@ export interface ConfirmDialogProps {
   cancelLabel?: string;
   /** Action exécutée à la confirmation. */
   onConfirm?: () => void;
-  /** Style destructif (Brique 600) pour le bouton de confirmation. */
+  /** Style destructif (Danger 600) pour le bouton de confirmation. */
   destructive?: boolean;
   /** Si fourni, l'utilisateur doit retaper cette phrase pour confirmer. */
   confirmPhrase?: string;
@@ -94,7 +94,7 @@ function ConfirmDialog({
             disabled={locked}
             onClick={onConfirm}
             className={cn(
-              destructive && 'bg-brique-600 text-terre-25 hover:bg-brique-800',
+              destructive && 'bg-danger-600 text-base-25 hover:bg-danger-800',
               locked && 'pointer-events-none opacity-50',
             )}
           >

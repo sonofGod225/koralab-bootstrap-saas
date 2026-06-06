@@ -1,11 +1,11 @@
 /**
- * <Breadcrumb /> — fil d'Ariane sémantique adapté Terre & Soleil.
+ * <Breadcrumb /> — fil d'Ariane sémantique adapté Base & Brand.
  *
  * Implémentation shadcn/ui new-york sans Radix (markup HTML natif).
- * Séparateur par défaut : point médian `·` en terre-300 (cf. design navigation.jsx).
- * - Liens intermédiaires : terre-500, hover terre-700 underline.
- * - Page courante : terre-900 font-medium (non cliquable).
- * - Ellipsis : terre-400, aria-hidden.
+ * Séparateur par défaut : point médian `·` en base-300 (cf. design navigation.jsx).
+ * - Liens intermédiaires : base-500, hover base-700 underline.
+ * - Page courante : base-900 font-medium (non cliquable).
+ * - Ellipsis : base-400, aria-hidden.
  */
 
 import * as React from 'react';

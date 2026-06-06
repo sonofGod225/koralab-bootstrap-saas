@@ -1,6 +1,6 @@
 # Changelog — `@__SCOPE__/ui`
 
-Toutes les évolutions notables du design system __PROJECT_NAME__ « Terre & Soleil ».
+Toutes les évolutions notables du design system __PROJECT_NAME__ « Base & Brand ».
 
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ·
 Versionnage : [SemVer](https://semver.org/lang/fr/).
@@ -10,11 +10,11 @@ Versionnage : [SemVer](https://semver.org/lang/fr/).
 ### Ajouté
 
 - **Epic 2 — Design system** : initialisation du package `@__SCOPE__/ui`.
-- **Tokens** Terre & Soleil v3.0 (`src/styles/tokens.css`, `@theme` Tailwind v4)
+- **Tokens** Base & Brand v3.0 (`src/styles/tokens.css`, `@theme` Tailwind v4)
   et fontes Fraunces self-hosted (`fonts/`).
 - **6 primitives custom** : `MoneyDisplay`, `KPI`, `EditorialQuote`,
   `PetalSymbol`, `StatusDot`, `VersionBadge`.
-- **Story 2.5 — 47 primitives shadcn** thémées Terre & Soleil :
+- **Story 2.5 — 47 primitives shadcn** thémées Base & Brand :
   - _Atoms_ : Avatar, Separator, Skeleton, Progress, Tooltip, Kbd, Spinner,
     Alert, Textarea, Button, Badge, Card, Input, Label.
   - _Forms_ : Checkbox, RadioGroup, Switch, Slider, Toggle, ToggleGroup,
@@ -34,7 +34,7 @@ Versionnage : [SemVer](https://semver.org/lang/fr/).
   (ESM + `.d.ts` par composant). Les `exports` restent sur la source `.tsx`
   (pattern Just-in-Time du monorepo) ; `dist/` = validation CI / publication.
 - **Story 2.2 — tokens Tailwind v4** : palette par défaut purgée
-  (`--color-*: initial` — seules terre/soleil/palmeraie/brique/mil existent),
+  (`--color-*: initial` — seules base/brand/success/danger/warning existent),
   radii sémantiques `rounded-card`/`rounded-input`/`rounded-tile`, utilitaire
   `border-hairline` (0.5px @ 6%), token `--ring-focus` ; test anti-fuite de la
   palette par défaut.
@@ -66,7 +66,7 @@ Versionnage : [SemVer](https://semver.org/lang/fr/).
   `hero`), `Trend`, `EmptyState`, skeletons préfabriqués (`TableSkeleton`,
   `CardSkeleton`, `ListSkeleton`).
 - **Story 2.10 — feedback** : `LoadingButton` (spinner + anti-double-submit),
-  `ConfirmDialog` (variante destructive Brique + double confirmation par
+  `ConfirmDialog` (variante destructive Danger + double confirmation par
   phrase à retaper), hook `useConnectionStatusToast` (toast réseau non
   bloquant, UX-DR12). Toaster / Dialog / Drawer / Sheet / AlertDialog déjà
   livrés en Story 2.5.
@@ -82,8 +82,8 @@ Versionnage : [SemVer](https://semver.org/lang/fr/).
   code ISO2 en puce mono — pas de drapeau emoji).
 - **Story 2.13 — accessibilité** : tests `axe-core` (`jest-axe`) sur un
   échantillon de 15 primitives — 0 violation WCAG 2.1 AA ; contrat de
-  contraste vérifié (Terre 900/Ivoire ≥ 7:1, Soleil 400/Terre 900 ≥ 4.5:1,
-  Brique 600/Ivoire ≥ 4.5:1) ; workflow GitHub Actions `axe-ci.yml` (gate sur
+  contraste vérifié (Base 900/Ivoire ≥ 7:1, Brand 400/Base 900 ≥ 4.5:1,
+  Danger 600/Ivoire ≥ 4.5:1) ; workflow GitHub Actions `axe-ci.yml` (gate sur
   les PR touchant `packages/ui/**`).
 - **Story 2.14 — specimen** : route dev-only `/design-preview` (`apps/suite`)
   présentant toutes les primitives (10 sections) avec variants/états + toggle

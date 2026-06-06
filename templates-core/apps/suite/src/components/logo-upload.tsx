@@ -135,7 +135,7 @@ export function LogoUpload({
       <button
         type="button"
         onClick={() => fileInputRef.current?.click()}
-        className="bg-soleil-100 text-terre-900 font-display relative inline-flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-[20px] text-[36px] font-medium"
+        className="bg-brand-100 text-base-900 font-display relative inline-flex h-[88px] w-[88px] shrink-0 items-center justify-center overflow-hidden rounded-[20px] text-[36px] font-medium"
         aria-label="Choisir un logo"
       >
         {shownUrl ? (
@@ -145,7 +145,7 @@ export function LogoUpload({
         )}
       </button>
       <div className="flex flex-col gap-1.5">
-        <span className="text-terre-700 text-[13px] font-medium">Logo de l'entreprise</span>
+        <span className="text-base-700 text-[13px] font-medium">Logo de l'entreprise</span>
         <div className="flex flex-wrap items-center gap-2">
           <Button
             type="button"
@@ -156,9 +156,9 @@ export function LogoUpload({
           >
             {uploading ? 'Téléversement…' : shownUrl ? 'Changer le logo' : 'Téléverser'}
           </Button>
-          <span className="text-terre-500 text-[11px]">{hint}</span>
+          <span className="text-base-500 text-[11px]">{hint}</span>
         </div>
-        {error ? <span className="text-brique-700 text-[11px]">{error}</span> : null}
+        {error ? <span className="text-danger-700 text-[11px]">{error}</span> : null}
       </div>
       <input
         ref={fileInputRef}

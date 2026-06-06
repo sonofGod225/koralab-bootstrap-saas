@@ -164,9 +164,9 @@ function resolveCell(
 /* ─── Cellule tri-state ─────────────────────────────────────────────────── */
 
 const CELL_CLS: Record<'allow' | 'deny' | 'unset', string> = {
-  allow: 'border-palmeraie-200 bg-palmeraie-50 text-palmeraie-600',
-  deny: 'border-brique-200 bg-brique-50 text-brique-600',
-  unset: 'border-border bg-card text-terre-300',
+  allow: 'border-success-200 bg-success-50 text-success-600',
+  deny: 'border-danger-200 bg-danger-50 text-danger-600',
+  unset: 'border-border bg-card text-base-300',
 };
 
 function PermissionCell({
@@ -199,7 +199,7 @@ function PermissionCell({
       aria-label={`${ariaLabel} — ${stateWord}${inherited ? ' (hérité)' : ''}`}
       title={inherited ? `Hérité de « toutes les sous-entités » — ${stateWord}` : stateWord}
       className={[
-        'focus-visible:ring-soleil-400 inline-flex h-9 w-full items-center justify-center rounded-lg border transition-all duration-150 focus-visible:ring-2 focus-visible:outline-none',
+        'focus-visible:ring-brand-400 inline-flex h-9 w-full items-center justify-center rounded-lg border transition-all duration-150 focus-visible:ring-2 focus-visible:outline-none',
         inherited ? 'border-transparent bg-transparent opacity-40' : cls,
         readOnly ? 'cursor-default' : 'cursor-pointer hover:brightness-[0.98]',
       ].join(' ')}
@@ -226,7 +226,7 @@ function gridCols(actionsCount: number): string {
 function ActionHeader({ actions }: { actions: readonly Action[] }) {
   return (
     <div className="grid gap-2 px-1 pb-2" style={{ gridTemplateColumns: gridCols(actions.length) }}>
-      <span className="text-terre-500 self-center text-[10px] font-semibold tracking-[1.2px] uppercase">
+      <span className="text-base-500 self-center text-[10px] font-semibold tracking-[1.2px] uppercase">
         Ressource
       </span>
       {actions.map((a) => {
@@ -234,7 +234,7 @@ function ActionHeader({ actions }: { actions: readonly Action[] }) {
         return (
           <span
             key={a}
-            className="text-terre-500 inline-flex items-center justify-center gap-1 text-[10px] font-semibold tracking-[0.8px] uppercase"
+            className="text-base-500 inline-flex items-center justify-center gap-1 text-[10px] font-semibold tracking-[0.8px] uppercase"
           >
             <Ico className="h-2.5 w-2.5" />
             <span className="hidden sm:inline">{ACTION_META[a].label}</span>
@@ -266,19 +266,19 @@ function MatrixRow({
 }) {
   return (
     <div
-      className={`grid items-center gap-2 rounded-lg px-1 py-1 ${wildcard ? 'bg-terre-50' : ''}`}
+      className={`grid items-center gap-2 rounded-lg px-1 py-1 ${wildcard ? 'bg-base-50' : ''}`}
       style={{ gridTemplateColumns: gridCols(actions.length) }}
     >
       <div className={`flex min-w-0 items-center gap-2 ${wildcard ? 'pl-1' : 'pl-3'}`}>
         {wildcard ? (
-          <span className="text-soleil-600 w-4 flex-shrink-0 text-center font-mono text-sm font-semibold">
+          <span className="text-brand-600 w-4 flex-shrink-0 text-center font-mono text-sm font-semibold">
             ∗
           </span>
         ) : (
-          <span className="bg-terre-300 h-1 w-1 flex-shrink-0 rounded-full" />
+          <span className="bg-base-300 h-1 w-1 flex-shrink-0 rounded-full" />
         )}
         <span
-          className={`truncate text-[13px] ${wildcard ? 'text-terre-800 font-medium' : 'text-terre-700'}`}
+          className={`truncate text-[13px] ${wildcard ? 'text-base-800 font-medium' : 'text-base-700'}`}
         >
           {wildcard ? 'Toutes les sous-entités' : rowLabel}
         </span>
@@ -336,7 +336,7 @@ function ModuleSection({
   return (
     <div
       className={`overflow-hidden rounded-[14px] border ${
-        locked ? 'border-border bg-terre-25' : 'border-border bg-card shadow-xs'
+        locked ? 'border-border bg-base-25' : 'border-border bg-card shadow-xs'
       }`}
     >
       <button
@@ -344,28 +344,28 @@ function ModuleSection({
         onClick={() => !locked && setOpen((o) => !o)}
         aria-expanded={open}
         disabled={locked}
-        className="focus-visible:ring-soleil-400 flex w-full items-center gap-3 px-4 py-3.5 text-left focus-visible:ring-2 focus-visible:outline-none"
+        className="focus-visible:ring-brand-400 flex w-full items-center gap-3 px-4 py-3.5 text-left focus-visible:ring-2 focus-visible:outline-none"
       >
         <span
-          className={`bg-terre-100 inline-flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center rounded-lg ${
-            locked ? 'text-terre-400' : 'text-terre-700'
+          className={`bg-base-100 inline-flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center rounded-lg ${
+            locked ? 'text-base-400' : 'text-base-700'
           }`}
         >
           <Ico className="h-[17px] w-[17px]" />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className={`text-sm font-medium ${locked ? 'text-terre-500' : 'text-terre-900'}`}>
+            <span className={`text-sm font-medium ${locked ? 'text-base-500' : 'text-base-900'}`}>
               {mod.label}
             </span>
-            {locked && <Lock className="text-terre-400 h-3.5 w-3.5" />}
+            {locked && <Lock className="text-base-400 h-3.5 w-3.5" />}
             {!locked && denies > 0 && (
-              <span className="text-brique-600 bg-brique-50 rounded-full px-1.5 py-px text-[10px] font-semibold">
+              <span className="text-danger-600 bg-danger-50 rounded-full px-1.5 py-px text-[10px] font-semibold">
                 {denies} refus
               </span>
             )}
           </div>
-          <div className="text-terre-500 mt-0.5 text-[11.5px]">
+          <div className="text-base-500 mt-0.5 text-[11.5px]">
             {locked
               ? 'Module non souscrit'
               : `${mod.resources.length} ressources · ${mod.actions.length} actions · ${defined} permission${defined > 1 ? 's' : ''} définie${defined > 1 ? 's' : ''}`}
@@ -373,19 +373,19 @@ function ModuleSection({
         </div>
         {!locked && (
           <ChevronDown
-            className={`text-terre-400 h-4 w-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+            className={`text-base-400 h-4 w-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
           />
         )}
       </button>
 
       {locked && (
-        <div className="border-soleil-300 bg-soleil-50 mx-4 mb-4 flex items-center gap-3 rounded-xl border border-dashed px-4 py-3.5">
-          <Sparkles className="text-soleil-600 h-4 w-4 flex-shrink-0" />
+        <div className="border-brand-300 bg-brand-50 mx-4 mb-4 flex items-center gap-3 rounded-xl border border-dashed px-4 py-3.5">
+          <Sparkles className="text-brand-600 h-4 w-4 flex-shrink-0" />
           <div className="min-w-0 flex-1">
-            <div className="text-terre-900 text-[13px] font-medium">
+            <div className="text-base-900 text-[13px] font-medium">
               Activez ce module pour gérer ses permissions
             </div>
-            <div className="text-terre-600 mt-0.5 text-[11.5px]">
+            <div className="text-base-600 mt-0.5 text-[11.5px]">
               {mod.label} n'est pas inclus dans votre abonnement actuel.
             </div>
           </div>
@@ -441,7 +441,7 @@ function ModuleSection({
 function LegendItem({ tone, label }: { tone: 'allow' | 'deny' | 'unset'; label: string }) {
   const Ico = tone === 'allow' ? Check : tone === 'deny' ? Ban : null;
   return (
-    <span className="text-terre-600 inline-flex items-center gap-1.5 text-[12px]">
+    <span className="text-base-600 inline-flex items-center gap-1.5 text-[12px]">
       <span
         className={`inline-flex h-[22px] w-[22px] items-center justify-center rounded-md border ${CELL_CLS[tone]}`}
       >
@@ -496,13 +496,13 @@ export function PermissionMatrix({
         />
       ))}
 
-      <div className="bg-terre-25 border-border flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border px-4 py-3.5">
+      <div className="bg-base-25 border-border flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border px-4 py-3.5">
         <LegendItem tone="allow" label="Autorisé" />
         <LegendItem tone="deny" label="Refusé" />
         <LegendItem tone="unset" label="Non défini" />
-        <span className="text-terre-600 inline-flex items-center gap-1.5 text-[12px]">
-          <span className="text-palmeraie-600 inline-flex h-[22px] w-[22px] items-center justify-center rounded-md opacity-50">
-            <span className="border-palmeraie-200 inline-flex rounded-md border border-dashed p-0.5">
+        <span className="text-base-600 inline-flex items-center gap-1.5 text-[12px]">
+          <span className="text-success-600 inline-flex h-[22px] w-[22px] items-center justify-center rounded-md opacity-50">
+            <span className="border-success-200 inline-flex rounded-md border border-dashed p-0.5">
               <Check className="h-2.5 w-2.5" strokeWidth={2} />
             </span>
           </span>
@@ -513,7 +513,7 @@ export function PermissionMatrix({
           <button
             type="button"
             onClick={onReset}
-            className="text-soleil-600 hover:text-soleil-700 inline-flex items-center gap-1.5 text-[12px]"
+            className="text-brand-600 hover:text-brand-700 inline-flex items-center gap-1.5 text-[12px]"
           >
             <RotateCcw className="h-3 w-3" />
             Réinitialiser

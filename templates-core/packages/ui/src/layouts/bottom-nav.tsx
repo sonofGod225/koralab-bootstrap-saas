@@ -5,9 +5,9 @@
  * - `BottomNav`     : conteneur h-[72px], bg-card, border-t, ombre haute légère,
  *                     répartit les items également (flex justify-around).
  * - `BottomNavItem` : bouton d'onglet avec icône + label 10px.
- *                     Actif → text-soleil-600 + ergot Soleil 400 en haut (3px × ~28px, arrondi bas).
+ *                     Actif → text-brand-600 + ergot Brand 400 en haut (3px × ~28px, arrondi bas).
  *                     Inactif → text-muted-foreground.
- *                     Badge numérique → pastille bg-brique-400 text-white.
+ *                     Badge numérique → pastille bg-danger-400 text-white.
  *
  * Exports :
  * - `BottomNav`
@@ -59,17 +59,17 @@ export interface BottomNavItemProps extends React.ButtonHTMLAttributes<HTMLButto
   icon: React.ReactNode;
   /** Label affiché sous l'icône (10px). */
   label: string;
-  /** Item actif — texte soleil-600 + ergot Soleil en haut. */
+  /** Item actif — texte brand-600 + ergot Brand en haut. */
   active?: boolean;
-  /** Badge numérique affiché en pastille rouge (brique-400). */
+  /** Badge numérique affiché en pastille rouge (danger-400). */
   badge?: number;
 }
 
 /**
  * Onglet de la BottomNav.
- * Actif : texte `text-soleil-600` + ergot Soleil 400 (3 × 28px) arrondi en bas, ancré en haut.
+ * Actif : texte `text-brand-600` + ergot Brand 400 (3 × 28px) arrondi en bas, ancré en haut.
  * Inactif : texte `text-muted-foreground`.
- * Badge : pastille `bg-brique-400 text-white` en haut-droite de l'icône.
+ * Badge : pastille `bg-danger-400 text-white` en haut-droite de l'icône.
  */
 const BottomNavItem = React.forwardRef<HTMLButtonElement, BottomNavItemProps>(
   ({ className, icon, label, active = false, badge, ...props }, ref) => (
@@ -82,16 +82,16 @@ const BottomNavItem = React.forwardRef<HTMLButtonElement, BottomNavItemProps>(
         'h-full border-none bg-transparent',
         'cursor-pointer font-sans text-[10px] font-medium tracking-[-0.1px]',
         'transition-colors duration-[120ms]',
-        'focus-visible:ring-soleil-400/40 focus-visible:ring-2 focus-visible:outline-none',
-        active ? 'text-soleil-600' : 'text-muted-foreground',
+        'focus-visible:ring-brand-400/40 focus-visible:ring-2 focus-visible:outline-none',
+        active ? 'text-brand-600' : 'text-muted-foreground',
         className,
       )}
       {...props}
     >
-      {/* Ergot actif Soleil 400 — 3px × 28px, arrondi bas, ancré en haut du bouton */}
+      {/* Ergot actif Brand 400 — 3px × 28px, arrondi bas, ancré en haut du bouton */}
       {active && (
         <span
-          className="bg-soleil-400 absolute top-[-10px] left-1/2 h-[3px] w-7 -translate-x-1/2 rounded-b-[4px]"
+          className="bg-brand-400 absolute top-[-10px] left-1/2 h-[3px] w-7 -translate-x-1/2 rounded-b-[4px]"
           aria-hidden="true"
         />
       )}
@@ -104,7 +104,7 @@ const BottomNavItem = React.forwardRef<HTMLButtonElement, BottomNavItemProps>(
             className={cn(
               'absolute top-[-4px] right-[-7px]',
               'inline-flex h-[14px] min-w-[14px] items-center justify-center px-1',
-              'bg-brique-400 rounded-full text-white',
+              'bg-danger-400 rounded-full text-white',
               'font-mono text-[9px] font-semibold',
               'ring-card ring-2',
             )}

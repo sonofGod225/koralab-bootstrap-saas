@@ -195,7 +195,7 @@ function AcceptInvitePage() {
     <AuthScreen marketing={MARKETING}>
       <div className="flex flex-col gap-6">
         {phase === 'loading' ? (
-          <p className="text-terre-600 text-sm">Chargement de l'invitation…</p>
+          <p className="text-base-600 text-sm">Chargement de l'invitation…</p>
         ) : phase === 'noToken' ? (
           <PanelMessage
             title="Lien invalide"
@@ -360,12 +360,12 @@ function ReadyPanel({
           )
         }
       />
-      <div className="border-border bg-terre-50 flex flex-col gap-3 rounded-2xl border p-4">
+      <div className="border-border bg-base-50 flex flex-col gap-3 rounded-2xl border p-4">
         <Row label="Organisation" value={invitation.organizationName} />
         <Row label="Rôle attribué" value={roleLabel(invitation.role)} />
         <Row label="Invité par" value={invitation.inviterEmail} />
       </div>
-      {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+      {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
       <div className="flex flex-col gap-2.5">
         <LoadingButton
           type="button"
@@ -380,7 +380,7 @@ function ReadyPanel({
         <Button
           type="button"
           variant="ghost"
-          className="text-brique-700 w-full"
+          className="text-danger-700 w-full"
           disabled={busy || accepted}
           onClick={() => void onReject()}
         >
@@ -394,8 +394,8 @@ function ReadyPanel({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <span className="text-terre-500 text-xs font-medium tracking-wide uppercase">{label}</span>
-      <span className="text-terre-900 truncate text-sm font-medium">{value}</span>
+      <span className="text-base-500 text-xs font-medium tracking-wide uppercase">{label}</span>
+      <span className="text-base-900 truncate text-sm font-medium">{value}</span>
     </div>
   );
 }

@@ -5,8 +5,8 @@
  * Paramètres (établissements, équipe, sessions, journal d'audit). Reproduit le
  * pattern d'origine (`features/contacts/contacts-list-page.tsx`) :
  *  - conteneur `rounded-[14px] border-[0.5px]` ;
- *  - en-tête `bg-terre-25` 10px uppercase tracking 1px ;
- *  - lignes filet `border-t-[0.5px]`, `hover:bg-terre-25`, densité compacte ;
+ *  - en-tête `bg-base-25` 10px uppercase tracking 1px ;
+ *  - lignes filet `border-t-[0.5px]`, `hover:bg-base-25`, densité compacte ;
  *  - skeleton calqué sur la grille ; vue cartes `<lg` via `mobileCard`.
  *
  * Sélection / liens / actions = cellules fournies par l'appelant (Checkbox,
@@ -72,7 +72,7 @@ export function GridTable<T>({
     >
       {/* En-tête */}
       <div
-        className={`text-terre-500 bg-terre-25 ${gridBase} py-[11px] text-[10px] font-semibold tracking-[1px] uppercase`}
+        className={`text-base-500 bg-base-25 ${gridBase} py-[11px] text-[10px] font-semibold tracking-[1px] uppercase`}
         style={{ gridTemplateColumns: template }}
       >
         {columns.map((c) => (
@@ -97,7 +97,7 @@ export function GridTable<T>({
             </div>
           ))
         : data.map((row) => {
-            const rc = rowClassName?.(row) ?? 'hover:bg-terre-25';
+            const rc = rowClassName?.(row) ?? 'hover:bg-base-25';
             return (
               <div
                 key={getRowId(row)}

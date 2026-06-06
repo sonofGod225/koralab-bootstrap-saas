@@ -35,13 +35,13 @@ function DashboardPage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-8 sm:py-16">
       <header className="mb-10">
-        <p className="text-soleil-600 text-xs font-medium tracking-wide uppercase">
+        <p className="text-brand-600 text-xs font-medium tracking-wide uppercase">
           Tableau de bord
         </p>
-        <h1 className="font-display text-terre-900 mt-2 text-4xl font-light tracking-tighter sm:text-5xl">
+        <h1 className="font-display text-base-900 mt-2 text-4xl font-light tracking-tighter sm:text-5xl">
           Bonjour {firstName(name) || 'à vous'}.
         </h1>
-        <p className="text-terre-600 mt-3 max-w-xl text-base leading-relaxed">
+        <p className="text-base-600 mt-3 max-w-xl text-base leading-relaxed">
           Votre suite est prête. Les premiers modules (Facturation, Encaissements, CRM) arrivent
           progressivement — en attendant, configurez votre équipe et explorez les paramètres.
         </p>
@@ -68,7 +68,7 @@ function DashboardPage() {
         />
       </section>
 
-      <p className="text-terre-500 mt-10 text-xs">
+      <p className="text-base-500 mt-10 text-xs">
         Les modules métier seront activés au fil de leur livraison.
       </p>
     </main>
@@ -98,18 +98,18 @@ function DashCard({
       className="border-border bg-card animate-in fade-in slide-in-from-bottom-2 fill-mode-both flex flex-col gap-3 rounded-2xl border p-5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md"
       style={{ animationDelay: `${delayMs}ms` }}
     >
-      <div className="bg-soleil-100 text-soleil-700 flex h-10 w-10 items-center justify-center rounded-xl">
+      <div className="bg-brand-100 text-brand-700 flex h-10 w-10 items-center justify-center rounded-xl">
         <Icon className="h-5 w-5" />
       </div>
       <div>
-        <p className="text-terre-500 text-xs font-medium tracking-wide uppercase">{eyebrow}</p>
-        <h2 className="text-terre-900 mt-1 text-lg font-semibold">{title}</h2>
-        <p className="text-terre-600 mt-1.5 text-sm leading-relaxed">{body}</p>
+        <p className="text-base-500 text-xs font-medium tracking-wide uppercase">{eyebrow}</p>
+        <h2 className="text-base-900 mt-1 text-lg font-semibold">{title}</h2>
+        <p className="text-base-600 mt-1.5 text-sm leading-relaxed">{body}</p>
       </div>
       <Button
         asChild
         variant="ghost"
-        className="text-terre-900 mt-auto w-fit px-0 hover:bg-transparent hover:underline"
+        className="text-base-900 mt-auto w-fit px-0 hover:bg-transparent hover:underline"
       >
         <Link to={ctaHref}>
           {ctaLabel}

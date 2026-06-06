@@ -1,8 +1,8 @@
 /**
- * <Popover /> — Popover Radix adapté Terre & Soleil.
+ * <Popover /> — Popover Radix adapté Base & Brand.
  *
  * Patron shadcn/ui v2 new-york. Style :
- * - Contenu : fond blanc, rounded-2xl, border terre-100, shadow-lg, p-4
+ * - Contenu : fond blanc, rounded-2xl, border base-100, shadow-lg, p-4
  * - Animations : fade + zoom à l'ouverture/fermeture
  * - Ancre : PopoverAnchor pour positionnement personnalisé
  */

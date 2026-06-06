@@ -1,11 +1,11 @@
 /**
- * <Tooltip /> — Radix Tooltip adapté Terre & Soleil.
+ * <Tooltip /> — Radix Tooltip adapté Base & Brand.
  *
  * Composants :
  * - `TooltipProvider` : contexte Radix (délai 300ms par défaut).
  * - `Tooltip`         : racine Radix, alias de Root.
  * - `TooltipTrigger`  : déclencheur, alias de Trigger.
- * - `TooltipContent`  : bulle bg-terre-900 texte terre-25, animate-in/out.
+ * - `TooltipContent`  : bulle bg-base-900 texte base-25, animate-in/out.
  *
  * Side par défaut : top. Offset : 6px.
  */

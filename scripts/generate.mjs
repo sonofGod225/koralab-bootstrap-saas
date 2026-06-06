@@ -30,6 +30,8 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSy
 import { join, relative, dirname, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { resolveSpec } from './design.mjs';
+import { applyTheme } from './apply-theme.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -54,6 +56,19 @@ const DOMAIN = val('--domain', `${NAME}.com`);
 const SLIM = flag('--slim');
 const NO_ADMIN = flag('--no-admin');
 const NO_LANDING = flag('--no-landing');
+
+// Theme (applied to the `core` variant after generation). All optional.
+const THEME = {
+  theme: val('--theme'),
+  primary: val('--primary'),
+  accent: val('--accent'),
+  success: val('--success'),
+  danger: val('--danger'),
+  warning: val('--warning'),
+  font: val('--font'),
+  radius: val('--radius'),
+  mode: val('--mode'),
+};
 
 // Variant: 'core' = the committed generic deep-stripped boilerplate (templates-core/,
 // bundled in the npm package); 'full' = the faithful clone from templates/ (private,
@@ -180,6 +195,13 @@ if (SLIM && VARIANT === 'full') {
   applyOverrides(OVERRIDES_SLIM, OVERRIDES_SLIM);
 }
 
+// ---- theme (core variant only) --------------------------------------------
+let themeSpec = null;
+if (!DRY && VARIANT === 'core') {
+  themeSpec = resolveSpec(THEME);
+  applyTheme(OUT, themeSpec, { scope: SCOPE, name: NAME, display: DISPLAY });
+}
+
 if (!DRY && !NO_GIT) {
   try {
     execSync('git init -q && git add -A', { cwd: OUT, stdio: 'ignore' });
@@ -187,6 +209,9 @@ if (!DRY && !NO_GIT) {
 }
 
 console.log(`✔ ${written} files written${pruned ? `, ${pruned} pruned` : ''}${overridden ? `, ${overridden} slim overrides applied` : ''}.`);
+if (themeSpec) {
+  console.log(`  theme: ${themeSpec.preset}${THEME.primary || THEME.accent ? ' (custom seeds)' : ''} · font=${themeSpec.font} · radius=${themeSpec.radius} · mode=${themeSpec.mode}`);
+}
 
 // ---- next steps -----------------------------------------------------------
 console.log(`\nNext:`);

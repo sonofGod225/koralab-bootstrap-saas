@@ -1,5 +1,5 @@
 /**
- * <MoneyDisplay /> -- Affichage monetaire localise Terre & Soleil.
+ * <MoneyDisplay /> -- Affichage monetaire localise Base & Brand.
  *
  * Regles UX (cf. docs/design-system/project/SKILL.md, UX-DR6) :
  * - XOF/XAF : 0 decimale, thin no-break space U+202F entre groupes

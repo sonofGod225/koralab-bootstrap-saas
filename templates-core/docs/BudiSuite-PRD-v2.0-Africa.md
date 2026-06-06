@@ -36,7 +36,7 @@ Marchés pilotes : Sénégal et Côte d'Ivoire — expansion UEMOA puis CEMAC.
 > 1. **Retrait offline-first MVP** : décision Lot 1 #1.3 invalidée, online-only confirmé. Économie scope ~10-15 jours dev. POS mobile Phase 4 nécessitera ré-introduction couche offline.
 > 2. **Ajout onboarding entreprise § 5.1.2** : flow post-signup 8 étapes (incluant invitation équipes skippable).
 > 3. **KPI § 12.1 enrichis** : onboarding completion rate, time, module adoption.
-> 4. **Design System "Terre et Soleil" v3.0 intégré** : bundle complet dans `docs/design-system/`.
+> 4. **Design System "Base et Brand" v3.0 intégré** : bundle complet dans `docs/design-system/`.
 >
 > **Révisions v2.3 (2026-05-14) — Intégration FNE Côte d'Ivoire (Loi de finances 2025)** :
 > 1. **Nouveau § 5.10 Module FNE Côte d'Ivoire** : 10 capabilities (certification auto, multi-établissement, monitoring stickers, retry async, audit 10 ans). Compliance obligatoire DGI CI dès lancement en Côte d'Ivoire.
@@ -67,7 +67,7 @@ Cible prioritaire : Sénégal et Côte d'Ivoire au lancement, expansion UEMOA pu
 
 ### 1.2 Proposition de valeur
 
-**Première suite complète de gestion d'entreprise native Afrique.** Au MVP, le trio commercial (CRM + Facturation SYSCOHADA + Encaissements Mobile Money) répond à la douleur n°1 des PME africaines — **être effectivement payé** — et constitue la première brique d'une suite modulaire qui s'étendra progressivement à 10 modules au total.
+**Première suite complète de gestion d'entreprise native Afrique.** Au MVP, le trio commercial (CRM + Facturation SYSCOHADA + Encaissements Mobile Money) répond à la douleur n°1 des PME africaines — **être effectivement payé** — et constitue la première danger d'une suite modulaire qui s'étendra progressivement à 10 modules au total.
 
 - **Modularité** : chaque PME active uniquement les modules utilisés.
 - **Encaissements natifs mobile money** : Wave, Orange Money, Free Money, cartes locales via Paystack et Flutterwave.
@@ -250,7 +250,7 @@ __PROJECT_NAME__ expose **3 surfaces distinctes**, chacune avec une audience, un
 | **`apps/admin`** | Équipe __PROJECT_NAME__ (support, ops, fondateur) | `admin.__PROJECT_SLUG__.com` (auth séparée, IP whitelisting envisagé) | Identique à `apps/suite` (TanStack Start sur Cloudflare Workers) | Gestion des organisations clientes, monitoring opérationnel, support, modération KYC, gestion des incidents FNE |
 | **`apps/api`** | Consommé exclusivement par `apps/suite` et `apps/admin` (puis V1.5+ : API publique tierce) | `api.__PROJECT_SLUG__.com` | Hono + tRPC (`@__SCOPE__/rpc`) + Drizzle ORM + Cloudflare Workers | Toutes les procedures tRPC, webhooks PSP, queues FNE / notifications / events, cron jobs, healthchecks |
 
-**Source unique du design system** : `packages/ui` ("Terre & Soleil v3.0") — tokens CSS, fontes Fraunces self-hosted, composants shadcn thémés, primitives custom __PROJECT_NAME__ (`KPI`, `EditorialQuote`, `PetalSymbol`, `MoneyDisplay`, `StatusDot`). **Consommé par** `apps/suite` et `apps/admin` (jamais inline). Référence détaillée : `docs/design-system/project/SKILL.md` + ADR 0007.
+**Source unique du design system** : `packages/ui` ("Base & Brand v3.0") — tokens CSS, fontes Fraunces self-hosted, composants shadcn thémés, primitives custom __PROJECT_NAME__ (`KPI`, `EditorialQuote`, `PetalSymbol`, `MoneyDisplay`, `StatusDot`). **Consommé par** `apps/suite` et `apps/admin` (jamais inline). Référence détaillée : `docs/design-system/project/SKILL.md` + ADR 0007.
 
 > Pour le détail de la pile technique (compute, hosting, drivers DB, providers), voir l'architecture (`_bmad-output/planning-artifacts/architecture.md`) et les ADRs (`docs/adrs/0001` à `0009`).
 
@@ -390,7 +390,7 @@ Intégrations PSP UEMOA natives obligatoires (sans dépendance à un agrégateur
 **Module Facturation SYSCOHADA — onboarding**
 
 1. Upload logo entreprise (recommandé) + saisie mentions légales obligatoires (NINEA/RCCM, régime fiscal, adresse complète)
-2. Configurer template facture par défaut (couleur d'accent depuis design system Terre/Soleil ; sélection style classique vs moderne)
+2. Configurer template facture par défaut (couleur d'accent depuis design system Base/Brand ; sélection style classique vs moderne)
 3. Configurer TVA par défaut (18% SN ou 18%/9% CI selon pays Step 1)
 4. Configurer relances automatiques (J+7 / J+15 / J+30 par défaut, modifiable)
 5. Configurer numérotation initiale (suffixe année par défaut : `FAC-2026-0001`)

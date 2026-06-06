@@ -1,9 +1,9 @@
 /**
- * <DropdownMenu /> — Menu déroulant Radix adapté Terre & Soleil.
+ * <DropdownMenu /> — Menu déroulant Radix adapté Base & Brand.
  *
  * Patron shadcn/ui v2 new-york. Style :
  * - Contenu : fond background, rounded-2xl, border border, shadow-lg, p-1
- * - Items : hover bg-muted ; destructive text-brique-800 hover bg-brique-50
+ * - Items : hover bg-muted ; destructive text-danger-800 hover bg-danger-50
  * - Sous-menus : slide + fade animations
  * - Raccourcis : font-mono text-xs text-muted-foreground
  */
@@ -86,7 +86,7 @@ const DropdownMenuItem = React.forwardRef<
     className={cn(
       'relative flex cursor-default items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors outline-none select-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
       destructive
-        ? 'text-brique-800 focus:bg-brique-50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
+        ? 'text-danger-800 focus:bg-danger-50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
         : 'text-foreground focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       inset && 'pl-8',
       className,
@@ -111,7 +111,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-4 w-4 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <Check className="text-soleil-600 h-4 w-4" />
+        <Check className="text-brand-600 h-4 w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -133,7 +133,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-4 w-4 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <Circle className="fill-soleil-600 text-soleil-600 h-2 w-2" />
+        <Circle className="fill-brand-600 text-brand-600 h-2 w-2" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

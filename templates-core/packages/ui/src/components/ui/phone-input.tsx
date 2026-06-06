@@ -1,5 +1,5 @@
 /**
- * <PhoneInput /> — Saisie téléphone internationale Terre & Soleil.
+ * <PhoneInput /> — Saisie téléphone internationale Base & Brand.
  *
  * Props :
  * - `value`          : string E.164 (ex: '+221781234567')
@@ -253,7 +253,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
               disabled={disabled}
               aria-label="Sélectionner le pays"
               className={cn(
-                'border-border bg-card text-foreground focus-visible:ring-soleil-400/40 flex h-10 shrink-0 items-center gap-1.5 rounded-[12px] border px-2.5 text-sm transition-shadow focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                'border-border bg-card text-foreground focus-visible:ring-brand-400/40 flex h-10 shrink-0 items-center gap-1.5 rounded-[12px] border px-2.5 text-sm transition-shadow focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
               )}
             >
               <Flag iso2={country} />

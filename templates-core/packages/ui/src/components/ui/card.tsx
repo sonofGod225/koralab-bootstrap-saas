@@ -1,5 +1,5 @@
 /**
- * <Card /> — shadcn/ui adapté Terre & Soleil.
+ * <Card /> — shadcn/ui adapté Base & Brand.
  *
  * Style :
  * - radius 24px (`rounded-2xl`, dans la fourchette 16-20 mais on prend

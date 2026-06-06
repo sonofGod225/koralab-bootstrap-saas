@@ -1,5 +1,5 @@
 /**
- * <Table /> — shadcn/ui adapté Terre & Soleil.
+ * <Table /> — shadcn/ui adapté Base & Brand.
  *
  * Style :
  * - thead : tracking widest, uppercase typo-only (caps small), text-muted-foreground
@@ -56,7 +56,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     <tr
       ref={ref}
       className={cn(
-        'border-border hover:bg-muted/60 data-[state=selected]:bg-soleil-50 border-b transition-colors',
+        'border-border hover:bg-muted/60 data-[state=selected]:bg-brand-50 border-b transition-colors',
         className,
       )}
       {...props}

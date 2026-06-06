@@ -22,7 +22,7 @@ import { authClient } from '../lib/auth-client';
 
 /**
  * Titre du panneau marketing — la portion encadrée par `*…*` est rendue en
- * italique Fraunces couleur Soleil. Le retour à la ligne est forcé juste
+ * italique Fraunces couleur Brand. Le retour à la ligne est forcé juste
  * avant cette portion (et non laissé à l'algorithme de césure), pour une
  * coupure nette entre la phrase et son emphase.
  */
@@ -38,7 +38,7 @@ function EditorialTitle({ text }: { text: string }) {
           return (
             <Fragment key={i}>
               {withBreak ? <br /> : null}
-              <em className="text-soleil-400 font-normal italic">{part.slice(1, -1)}</em>
+              <em className="text-brand-400 font-normal italic">{part.slice(1, -1)}</em>
             </Fragment>
           );
         }
@@ -55,12 +55,12 @@ export function AuthLogo() {
   return (
     <a href="/" className="inline-flex items-center gap-2.5" aria-label="__PROJECT_NAME__ — accueil">
       <svg viewBox="0 0 56 56" className="size-7" aria-hidden="true">
-        <path d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z" fill="var(--color-terre-900)" />
-        <path d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z" fill="var(--color-terre-900)" />
-        <path d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z" fill="var(--color-terre-900)" />
-        <path d="M 30 30 L 48 30 L 48 38 Q 48 48 38 48 L 30 48 Z" fill="var(--color-soleil-400)" />
+        <path d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z" fill="var(--color-base-900)" />
+        <path d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z" fill="var(--color-base-900)" />
+        <path d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z" fill="var(--color-base-900)" />
+        <path d="M 30 30 L 48 30 L 48 38 Q 48 48 38 48 L 30 48 Z" fill="var(--color-brand-400)" />
       </svg>
-      <span className="font-display text-terre-900 text-xl font-medium tracking-[-0.8px]">
+      <span className="font-display text-base-900 text-xl font-medium tracking-[-0.8px]">
         __PROJECT_NAME__
       </span>
     </a>
@@ -71,7 +71,7 @@ export function AuthLogo() {
 
 export interface AuthMarketing {
   eyebrow: string;
-  /** Titre éditorial — la portion entre `*…*` passe en italique Soleil. */
+  /** Titre éditorial — la portion entre `*…*` passe en italique Brand. */
   title: string;
   description: string;
   /** Chemin de l'illustration (servie depuis `public/`). */
@@ -80,7 +80,7 @@ export interface AuthMarketing {
 
 /** Dégradé radial des « soleils » décoratifs du panneau marketing. */
 const SUN = (stop: string) =>
-  `radial-gradient(circle, var(--color-soleil-200) 0%, transparent ${stop})`;
+  `radial-gradient(circle, var(--color-brand-200) 0%, transparent ${stop})`;
 
 export function AuthScreen({
   marketing,
@@ -90,7 +90,7 @@ export function AuthScreen({
   children: ReactNode;
 }) {
   return (
-    <main className="bg-terre-25 flex min-h-screen flex-col md:flex-row">
+    <main className="bg-base-25 flex min-h-screen flex-col md:flex-row">
       {/* Panneau formulaire — logo en haut, contenu centré */}
       <div className="flex flex-1 flex-col px-6 py-10 sm:px-14">
         <AuthLogo />
@@ -102,7 +102,7 @@ export function AuthScreen({
       </div>
 
       {/* Panneau marketing */}
-      <aside className="bg-terre-100 animate-in fade-in zoom-in-95 relative hidden flex-1 flex-col justify-between gap-10 overflow-hidden p-14 duration-500 ease-out md:flex">
+      <aside className="bg-base-100 animate-in fade-in zoom-in-95 relative hidden flex-1 flex-col justify-between gap-10 overflow-hidden p-14 duration-500 ease-out md:flex">
         {/* Soleils décoratifs */}
         <span
           aria-hidden="true"
@@ -115,11 +115,11 @@ export function AuthScreen({
           style={{ background: SUN('60%') }}
         />
         <div className="relative flex flex-col gap-5">
-          <p className="text-soleil-700 text-[11px] font-medium tracking-[1.6px] uppercase">
+          <p className="text-brand-700 text-[11px] font-medium tracking-[1.6px] uppercase">
             {marketing.eyebrow}
           </p>
           <EditorialTitle text={marketing.title} />
-          <p className="text-terre-700 max-w-[480px] text-[1rem] leading-[1.55] text-pretty">
+          <p className="text-base-700 max-w-[480px] text-[1rem] leading-[1.55] text-pretty">
             {marketing.description}
           </p>
         </div>
@@ -139,11 +139,11 @@ export function AuthScreen({
 export function FormHeader({ title, subtitle }: { title: string; subtitle?: ReactNode }) {
   return (
     <header className="flex flex-col gap-2">
-      <h1 className="text-terre-900 font-display text-[2rem] leading-[1.05] font-light tracking-tighter sm:text-[2.25rem]">
+      <h1 className="text-base-900 font-display text-[2rem] leading-[1.05] font-light tracking-tighter sm:text-[2.25rem]">
         {title}
       </h1>
       {subtitle ? (
-        <p className="text-terre-600 text-[0.875rem] leading-[1.55]">{subtitle}</p>
+        <p className="text-base-600 text-[0.875rem] leading-[1.55]">{subtitle}</p>
       ) : null}
     </header>
   );
@@ -172,7 +172,7 @@ export const IconInput = forwardRef<HTMLInputElement, IconInputProps>(function I
   return (
     <div className="relative">
       {Leading ? (
-        <Leading className="text-terre-500 pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
+        <Leading className="text-base-500 pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
       ) : null}
       <Input
         ref={ref}
@@ -184,7 +184,7 @@ export const IconInput = forwardRef<HTMLInputElement, IconInputProps>(function I
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
-          className="text-terre-500 hover:text-terre-700 absolute top-1/2 right-3 -translate-y-1/2"
+          className="text-base-500 hover:text-base-700 absolute top-1/2 right-3 -translate-y-1/2"
           aria-label={show ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
         >
           {show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -252,7 +252,7 @@ export function OAuthRow({ callbackURL }: { callbackURL: string }) {
         type="button"
         disabled={busy}
         onClick={() => connect('google')}
-        className="border-border bg-card text-terre-900 hover:bg-muted flex h-[46px] items-center justify-center gap-2.5 rounded-[12px] border text-sm font-medium transition-colors disabled:opacity-50"
+        className="border-border bg-card text-base-900 hover:bg-muted flex h-[46px] items-center justify-center gap-2.5 rounded-[12px] border text-sm font-medium transition-colors disabled:opacity-50"
       >
         <GoogleIcon />
         Google
@@ -261,7 +261,7 @@ export function OAuthRow({ callbackURL }: { callbackURL: string }) {
         type="button"
         disabled={busy}
         onClick={() => connect('microsoft')}
-        className="border-border bg-card text-terre-900 hover:bg-muted flex h-[46px] items-center justify-center gap-2.5 rounded-[12px] border text-sm font-medium transition-colors disabled:opacity-50"
+        className="border-border bg-card text-base-900 hover:bg-muted flex h-[46px] items-center justify-center gap-2.5 rounded-[12px] border text-sm font-medium transition-colors disabled:opacity-50"
       >
         <MicrosoftIcon />
         Microsoft
@@ -272,10 +272,10 @@ export function OAuthRow({ callbackURL }: { callbackURL: string }) {
 
 export function AuthDivider({ label }: { label: string }) {
   return (
-    <div className="text-terre-500 flex items-center gap-3">
-      <span className="bg-terre-200 h-px flex-1" />
+    <div className="text-base-500 flex items-center gap-3">
+      <span className="bg-base-200 h-px flex-1" />
       <span className="text-xs tracking-[0.3px]">{label}</span>
-      <span className="bg-terre-200 h-px flex-1" />
+      <span className="bg-base-200 h-px flex-1" />
     </div>
   );
 }
@@ -291,11 +291,11 @@ const PWD_CRITERIA = [
 
 const PWD_LABELS = ['Trop court', 'Faible', 'Moyen', 'Bon', 'Fort'];
 const PWD_BAR = [
-  'bg-terre-200',
-  'bg-brique-400',
-  'bg-mil-400',
-  'bg-palmeraie-400',
-  'bg-palmeraie-600',
+  'bg-base-200',
+  'bg-danger-400',
+  'bg-warning-400',
+  'bg-success-400',
+  'bg-success-600',
 ];
 
 /** Indicateur de force du mot de passe + check-list des 4 critères. */
@@ -304,23 +304,23 @@ export function PasswordStrength({ password }: { password: string }) {
   const score = passed.filter(Boolean).length;
   const labelColor =
     score === 0
-      ? 'text-terre-500'
+      ? 'text-base-500'
       : score <= 1
-        ? 'text-brique-800'
+        ? 'text-danger-800'
         : score <= 2
-          ? 'text-mil-600'
-          : 'text-palmeraie-800';
+          ? 'text-warning-600'
+          : 'text-success-800';
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between text-xs font-medium">
-        <span className="text-terre-600">Force du mot de passe</span>
+        <span className="text-base-600">Force du mot de passe</span>
         <span className={labelColor}>{PWD_LABELS[score]}</span>
       </div>
       <div className="flex gap-1.5">
         {[0, 1, 2, 3].map((i) => (
           <span
             key={i}
-            className={`h-1 flex-1 rounded-full ${i < score ? PWD_BAR[score] : 'bg-terre-200'}`}
+            className={`h-1 flex-1 rounded-full ${i < score ? PWD_BAR[score] : 'bg-base-200'}`}
           />
         ))}
       </div>
@@ -328,11 +328,11 @@ export function PasswordStrength({ password }: { password: string }) {
         {PWD_CRITERIA.map((c, i) => (
           <li
             key={c.key}
-            className={`flex items-center gap-1.5 text-xs ${passed[i] ? 'text-palmeraie-800' : 'text-terre-500'}`}
+            className={`flex items-center gap-1.5 text-xs ${passed[i] ? 'text-success-800' : 'text-base-500'}`}
           >
             <span
               className={`flex size-3.5 shrink-0 items-center justify-center rounded-full ${
-                passed[i] ? 'bg-palmeraie-600' : 'bg-terre-200'
+                passed[i] ? 'bg-success-600' : 'bg-base-200'
               }`}
             >
               {passed[i] ? <Check className="size-2.5 text-white" strokeWidth={3} /> : null}
@@ -427,11 +427,11 @@ export function PhoneOtpForm({
               onValueChange={setPhone}
               defaultCountry="SN"
             />
-            <p className="text-terre-500 text-xs">
+            <p className="text-base-500 text-xs">
               Un code de vérification à 6 chiffres vous sera envoyé par SMS.
             </p>
           </div>
-          {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+          {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
           <LoadingButton
             type="button"
             size="lg"
@@ -448,9 +448,9 @@ export function PhoneOtpForm({
           <div className="flex flex-col gap-1.5">
             <Label>Code de vérification</Label>
             <OtpField value={code} onChange={setCode} autoFocus />
-            <p className="text-terre-500 text-xs">Code envoyé au {phone}.</p>
+            <p className="text-base-500 text-xs">Code envoyé au {phone}.</p>
           </div>
-          {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+          {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
           <LoadingButton
             type="button"
             size="lg"

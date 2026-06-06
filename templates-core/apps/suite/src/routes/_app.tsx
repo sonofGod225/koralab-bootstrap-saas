@@ -45,7 +45,7 @@ import { isNetworkError, isOffline } from '../lib/network';
 export const Route = createFileRoute('/_app')({ component: AppShellRoute });
 
 /** Couleur signature appliquée aux items actifs du rail / bottom nav. */
-const ACCENT = 'var(--color-soleil-400)';
+const ACCENT = 'var(--color-brand-400)';
 
 /** Libellé français d'un rôle d'organisation. */
 function roleLabel(role: string | undefined): string {
@@ -230,10 +230,10 @@ function AppShellRoute() {
                         {user?.name.charAt(0).toUpperCase() ?? '?'}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-terre-900 hidden max-w-[140px] truncate text-sm font-medium sm:block">
+                    <span className="text-base-900 hidden max-w-[140px] truncate text-sm font-medium sm:block">
                       {user?.name ?? '…'}
                     </span>
-                    <ChevronDown className="text-terre-500 h-4 w-4" />
+                    <ChevronDown className="text-base-500 h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">

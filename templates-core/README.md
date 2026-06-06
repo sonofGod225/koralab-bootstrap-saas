@@ -13,7 +13,7 @@ __PROJECT_NAME__ est un SaaS B2B mobile-first qui regroupe **CRM + Facturation S
 - **FNE Côte d'Ivoire** (Facture Normalisée Électronique) certifiée auto via API DGI, asynchrone via Cloudflare Workers Queues
 - **Multi-tenancy** triple couche (middleware Hono + Drizzle scope + RLS Postgres)
 - **i18n** FR-FR / FR-AF / EN / WO (Paraglide JS)
-- **Design system** propre — Terre & Soleil v3.0 (Fraunces éditorial, palette sahélienne, sentence case partout)
+- **Design system** propre — Base & Brand v3.0 (Fraunces éditorial, palette sahélienne, sentence case partout)
 - **Onboarding 8 étapes** + onboarding par module
 
 7 modules **post-MVP** prévus : Comptabilité SYSCOHADA, Achats, Inventaire, RH+Paie, POS mobile, Helpdesk, Immobilisations.
@@ -102,7 +102,7 @@ __PROJECT_SLUG__/
 │   └── api/         # Backend Hono + tRPC + queues + cron
 ├── packages/
 │   ├── config/      # tsconfig + eslint + prettier partagés
-│   ├── ui/          # Design system Terre & Soleil (tokens + shadcn Epic 2)
+│   ├── ui/          # Design system Base & Brand (tokens + shadcn Epic 2)
 │   ├── types/       # Branded IDs + Money + AppError
 │   ├── db/          # Drizzle ORM + Neon driver + schemas (1/module)
 │   ├── rpc/         # tRPC server + middleware (auth, audit, rate-limit)
@@ -110,7 +110,7 @@ __PROJECT_SLUG__/
 │   └── notifications/ # Channel stubs (Email/WhatsApp/SMS/Push)
 ├── docs/
 │   ├── adrs/        # 9 décisions architecture actées
-│   ├── design-system/ # Source design Terre & Soleil v3.0
+│   ├── design-system/ # Source design Base & Brand v3.0
 │   ├── setup/       # Checklists ops (Cloudflare, Neon EU)
 │   └── ui-designs/  # Designs Claude Code Design par Epic
 ├── _bmad-output/

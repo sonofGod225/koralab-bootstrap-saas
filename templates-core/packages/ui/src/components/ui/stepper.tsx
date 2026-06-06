@@ -33,9 +33,9 @@ const circleVariants = cva(
     variants: {
       status: {
         pending: 'border-border text-muted-foreground border bg-muted',
-        current: 'bg-primary text-primary-foreground ring-soleil-400/40 ring-2',
+        current: 'bg-primary text-primary-foreground ring-brand-400/40 ring-2',
         done: 'bg-primary text-primary-foreground',
-        error: 'bg-brique-600 text-terre-25',
+        error: 'bg-danger-600 text-base-25',
       },
     },
   },
@@ -93,7 +93,7 @@ const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(
                   className={cn(
                     'text-sm font-medium',
                     status === 'pending' ? 'text-muted-foreground' : 'text-foreground',
-                    status === 'error' && 'text-brique-700',
+                    status === 'error' && 'text-danger-700',
                   )}
                 >
                   {step.label}

@@ -69,6 +69,14 @@ Both outputs are buildable as-is. There is also a CLI wrapper (`bin/cli.mjs`, pu
 `create-koralab-saas`) with interactive prompts; in `full` mode it snapshots a private
 `--source` repo at runtime. The default output is real, interconnected code, renamed.
 
+**Design system (core variant):** the user can define the theme at init via
+`--theme <preset>` or custom `--primary/--accent <hex>` (+ `--success/--danger/--warning`),
+`--font fraunces|inter|geist|system`, `--radius sharp|default|rounded`, `--mode system|light|dark`.
+`scripts/design.mjs` (zero-dep OKLCH→sRGB) generates the palette scales and `scripts/apply-theme.mjs`
+rewrites `packages/ui/src/styles/tokens.css` (generic palettes `base/brand/success/danger/warning`
++ semantic `--bs-*` + radius + fonts) and recolors logo/favicon/manifest. No theme flags ⇒ the
+default reproduces the original "Terre & Soleil" look. Theming applies to `core` only.
+
 ### 3. Non-default stack variants (hybrid step)
 If the user picked a non-default value for front / deploy target / db driver, AFTER running
 the generator apply the recipe in `reference/stack-variants.md`. Those recipes scaffold the

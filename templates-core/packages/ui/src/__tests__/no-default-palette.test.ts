@@ -2,7 +2,7 @@
  * Story 2.2 — garde anti-fuite de la palette Tailwind par défaut.
  *
  * `tokens.css` purge la palette par défaut (`--color-*: initial`) : seule la
- * palette __PROJECT_NAME__ (terre / soleil / palmeraie / brique / mil) existe comme
+ * palette __PROJECT_NAME__ (base / brand / success / danger / warning) existe comme
  * classes utilitaires. Ce test verrouille l'intention côté code source —
  * il échoue si une classe `text-orange-500`, `bg-slate-100`, etc. est écrite
  * dans les apps ou dans `packages/ui` (elle serait inerte, mais interdite).

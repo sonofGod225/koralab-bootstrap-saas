@@ -1,10 +1,10 @@
 /**
- * <EditorialQuote /> — Citation éditoriale Fraunces italic Soleil 600.
+ * <EditorialQuote /> — Citation éditoriale Fraunces italic Brand 600.
  *
  * Règle non-négociable (docs/design-system/project/SKILL.md) :
  * **maximum 2 occurrences par page**. C'est un accent éditorial, pas
  * un style courant. Si tu en mets 3, tu déséquilibres la signature
- * Soleil 400 ≤ 15%.
+ * Brand 400 ≤ 15%.
  *
  * Usage typique : tagline marketing, intro de section, mise en avant
  * de citation client. Pas pour du texte courant (qui reste Inter).
@@ -23,7 +23,7 @@ export interface EditorialQuoteProps {
 export function EditorialQuote({ children, attribution, className }: EditorialQuoteProps) {
   return (
     <figure className={cn('flex flex-col gap-2', className)}>
-      <blockquote className="font-display text-soleil-600 text-2xl leading-snug tracking-tight italic">
+      <blockquote className="font-display text-brand-600 text-2xl leading-snug tracking-tight italic">
         {children}
       </blockquote>
       {attribution ? (

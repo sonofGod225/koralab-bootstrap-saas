@@ -2,11 +2,11 @@
  * Génération des icônes PWA __PROJECT_NAME__ (Story 1.10).
  *
  * Produit :
- * - icon-192.png        (192x192, purpose "any") — bordée arrondie brand Terre 900.
+ * - icon-192.png        (192x192, purpose "any") — bordée arrondie brand Base 900.
  * - icon-512.png        (512x512, purpose "any") — idem haute résolution.
  * - icon-maskable-512.png (512x512, purpose "maskable") — safe zone 80%, bord plein.
  *
- * Le SVG source est le PetalSymbol __PROJECT_NAME__ (Terre 900 base, Soleil 400 accent),
+ * Le SVG source est le PetalSymbol __PROJECT_NAME__ (Base 900 base, Brand 400 accent),
  * inliné ici pour rester indépendant de l'arborescence apps/.
  *
  * Usage :
@@ -38,7 +38,7 @@ const TERRE_100 = '#F4E4CC';
  * @param {object} options
  * @param {string} options.bg — couleur fond carré.
  * @param {string} options.base — couleur des 3 pétales principales.
- * @param {string} options.accent — couleur de la pétale Soleil (bottom-right).
+ * @param {string} options.accent — couleur de la pétale Brand (bottom-right).
  * @param {number} options.padding — marge interne (% du viewport, 0–1).
  * @param {number} options.cornerRadius — radius arrondi du carré fond (px).
  * @returns {string} SVG source.

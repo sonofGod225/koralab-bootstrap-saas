@@ -149,8 +149,8 @@ export function ImageUpload({
           onClick={() => inputRef.current?.click()}
           aria-label="Choisir une image"
           style={{ width: size, height: size, borderRadius: isCircle ? 9999 : radius }}
-          className={`bg-terre-100 text-terre-400 flex items-center justify-center overflow-hidden border-[0.5px] transition-colors ${
-            dragOver ? 'border-soleil-400' : 'border-border-subtle'
+          className={`bg-base-100 text-base-400 flex items-center justify-center overflow-hidden border-[0.5px] transition-colors ${
+            dragOver ? 'border-brand-400' : 'border-border-subtle'
           }`}
         >
           {shownUrl ? (
@@ -159,26 +159,26 @@ export function ImageUpload({
             (fallback ?? <Camera className="h-6 w-6" />)
           )}
         </button>
-        <span className="border-card bg-terre-900 text-terre-25 pointer-events-none absolute -right-1.5 -bottom-1.5 inline-flex h-[30px] w-[30px] items-center justify-center rounded-full border-[2.5px] shadow-sm">
+        <span className="border-card bg-base-900 text-base-25 pointer-events-none absolute -right-1.5 -bottom-1.5 inline-flex h-[30px] w-[30px] items-center justify-center rounded-full border-[2.5px] shadow-sm">
           <Camera className="h-[15px] w-[15px]" />
         </span>
       </div>
       <div className="min-w-0">
-        <div className="text-terre-900 text-[13.5px] font-medium">{hint}</div>
-        <div className="text-terre-500 mt-0.5 text-[12px] leading-snug">{caption}</div>
+        <div className="text-base-900 text-[13.5px] font-medium">{hint}</div>
+        <div className="text-base-500 mt-0.5 text-[12px] leading-snug">{caption}</div>
         <div className="mt-2.5 flex items-center gap-2">
           <button
             type="button"
             disabled={uploading}
             onClick={() => inputRef.current?.click()}
-            className="bg-terre-50 text-terre-800 border-border-default inline-flex items-center gap-1.5 rounded-[9px] border-[0.5px] px-3 py-1.5 text-[12.5px] font-medium disabled:opacity-60"
+            className="bg-base-50 text-base-800 border-border-default inline-flex items-center gap-1.5 rounded-[9px] border-[0.5px] px-3 py-1.5 text-[12.5px] font-medium disabled:opacity-60"
           >
-            <Upload className="text-terre-600 h-3.5 w-3.5" />
+            <Upload className="text-base-600 h-3.5 w-3.5" />
             {uploading ? 'Téléversement…' : 'Téléverser'}
           </button>
-          <span className="text-terre-400 text-[12px]">ou glisser-déposer</span>
+          <span className="text-base-400 text-[12px]">ou glisser-déposer</span>
         </div>
-        {error ? <div className="text-brique-700 mt-1.5 text-[11px]">{error}</div> : null}
+        {error ? <div className="text-danger-700 mt-1.5 text-[11px]">{error}</div> : null}
       </div>
       <input
         ref={inputRef}

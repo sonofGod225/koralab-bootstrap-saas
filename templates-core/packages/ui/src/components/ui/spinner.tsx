@@ -1,5 +1,5 @@
 /**
- * <Spinner /> — Indicateur de chargement SVG Terre & Soleil.
+ * <Spinner /> — Indicateur de chargement SVG Base & Brand.
  *
  * Anneau SVG `animate-spin` : cercle de fond opaque 20% + arc avant.
  * Prop `size` contrôle le diamètre en px (défaut 16).

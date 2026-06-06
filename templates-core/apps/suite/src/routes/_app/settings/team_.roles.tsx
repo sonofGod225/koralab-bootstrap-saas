@@ -115,16 +115,16 @@ function RolesPage() {
       ) : phase === 'forbidden' ? (
         <SectionCard>
           <div className="flex flex-col items-center gap-3 py-8 text-center">
-            <Lock className="text-terre-400 h-8 w-8" />
-            <p className="text-terre-900 font-medium">Accès réservé aux propriétaires</p>
-            <p className="text-terre-600 max-w-md text-sm">
+            <Lock className="text-base-400 h-8 w-8" />
+            <p className="text-base-900 font-medium">Accès réservé aux propriétaires</p>
+            <p className="text-base-600 max-w-md text-sm">
               La gestion des rôles est restreinte au rôle <strong>Propriétaire</strong> de
               l'organisation. Contactez votre propriétaire pour qu'il vous y donne accès.
             </p>
           </div>
         </SectionCard>
       ) : phase === 'error' ? (
-        <p className="text-brique-700 text-sm">{error}</p>
+        <p className="text-danger-700 text-sm">{error}</p>
       ) : (
         <div className="flex flex-col gap-5">
           <SectionCard
@@ -231,7 +231,7 @@ function RoleCard({
     <button
       type="button"
       onClick={onOpen}
-      className="border-border bg-card hover:border-soleil-300 flex items-start gap-3 rounded-[14px] border p-4 text-left shadow-xs transition-colors"
+      className="border-border bg-card hover:border-brand-300 flex items-start gap-3 rounded-[14px] border p-4 text-left shadow-xs transition-colors"
     >
       <span
         className={`inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] ${toneIconBox(tone)}`}
@@ -240,21 +240,21 @@ function RoleCard({
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-terre-900 text-sm font-medium">{roleLabel(role.name)}</span>
+          <span className="text-base-900 text-sm font-medium">{roleLabel(role.name)}</span>
           {locked ? (
-            <span className="bg-terre-100 text-terre-600 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
+            <span className="bg-base-100 text-base-600 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
               Prédéfini
             </span>
           ) : (
-            <span className="bg-soleil-100 text-soleil-800 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
+            <span className="bg-brand-100 text-brand-800 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
               Personnalisé
             </span>
           )}
         </div>
         {role.description ? (
-          <p className="text-terre-600 mt-1 text-xs leading-[1.5]">{role.description}</p>
+          <p className="text-base-600 mt-1 text-xs leading-[1.5]">{role.description}</p>
         ) : null}
-        <div className="text-terre-500 mt-2.5 flex flex-wrap items-center gap-3 text-[11px]">
+        <div className="text-base-500 mt-2.5 flex flex-wrap items-center gap-3 text-[11px]">
           <span className="inline-flex items-center gap-1">
             <Users className="h-3 w-3" />
             {role.memberCount} membre{role.memberCount > 1 ? 's' : ''}
@@ -268,9 +268,9 @@ function RoleCard({
         </div>
       </div>
       {locked ? (
-        <Lock className="text-terre-400 h-3.5 w-3.5 shrink-0" />
+        <Lock className="text-base-400 h-3.5 w-3.5 shrink-0" />
       ) : (
-        <ChevronRight className="text-terre-400 h-3.5 w-3.5 shrink-0" />
+        <ChevronRight className="text-base-400 h-3.5 w-3.5 shrink-0" />
       )}
     </button>
   );
@@ -281,11 +281,11 @@ function RoleCard({
 function CustomRolesEmptyState({ onCreate }: { onCreate: () => void }) {
   return (
     <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
-      <span className="bg-terre-100 text-terre-600 inline-flex h-12 w-12 items-center justify-center rounded-[14px]">
+      <span className="bg-base-100 text-base-600 inline-flex h-12 w-12 items-center justify-center rounded-[14px]">
         <ShieldCheck className="h-6 w-6" />
       </span>
-      <p className="text-terre-900 text-sm font-medium">Aucun rôle personnalisé</p>
-      <p className="text-terre-600 max-w-md text-[13px] leading-[1.5]">
+      <p className="text-base-900 text-sm font-medium">Aucun rôle personnalisé</p>
+      <p className="text-base-600 max-w-md text-[13px] leading-[1.5]">
         Les rôles personnalisés ont été réinitialisés. Créez-en un pour définir des accès sur
         mesure, module par module.
       </p>
@@ -302,18 +302,18 @@ function CustomRolesEmptyState({ onCreate }: { onCreate: () => void }) {
 function UpsellCustomRoles() {
   const navigate = useNavigate();
   return (
-    <div className="border-soleil-300 from-terre-100 to-soleil-50 flex items-start gap-3.5 rounded-[14px] border border-dashed bg-gradient-to-br p-4">
-      <span className="bg-soleil-400 text-terre-900 inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]">
+    <div className="border-brand-300 from-base-100 to-brand-50 flex items-start gap-3.5 rounded-[14px] border border-dashed bg-gradient-to-br p-4">
+      <span className="bg-brand-400 text-base-900 inline-flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]">
         <Sparkles className="h-[18px] w-[18px]" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="text-terre-900 text-sm font-medium">Créer un rôle personnalisé</span>
-          <span className="bg-soleil-100 text-soleil-800 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
+          <span className="text-base-900 text-sm font-medium">Créer un rôle personnalisé</span>
+          <span className="bg-brand-100 text-brand-800 rounded-pill px-1.5 py-px text-[10px] font-semibold tracking-[0.4px] uppercase">
             Pro
           </span>
         </div>
-        <p className="text-terre-700 mt-1 max-w-[420px] text-xs leading-[1.5]">
+        <p className="text-base-700 mt-1 max-w-[420px] text-xs leading-[1.5]">
           Définissez précisément qui peut voir, créer ou supprimer dans chaque module. Disponible à
           partir du plan Croissance.
         </p>

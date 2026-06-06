@@ -114,10 +114,10 @@ function InvitationsPage() {
         />
 
         {phase === 'loading' ? (
-          <p className="text-terre-600 text-sm">Chargement…</p>
+          <p className="text-base-600 text-sm">Chargement…</p>
         ) : items.length === 0 ? (
           <div className="flex flex-col gap-4">
-            <p className="text-terre-600 text-sm">Vous n'avez aucune invitation en attente.</p>
+            <p className="text-base-600 text-sm">Vous n'avez aucune invitation en attente.</p>
             <div className="flex flex-col gap-2.5">
               <Button asChild size="lg" className="w-full">
                 <a href="/onboarding?create=true">Créer une organisation</a>
@@ -129,15 +129,15 @@ function InvitationsPage() {
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+            {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
             {items.map((inv) => (
               <div
                 key={inv.id}
-                className="border-terre-200 flex flex-col gap-3 rounded-xl border p-4"
+                className="border-base-200 flex flex-col gap-3 rounded-xl border p-4"
               >
                 <div>
-                  <p className="text-terre-900 font-medium">{inv.organizationName}</p>
-                  <p className="text-terre-600 text-sm">Rôle proposé : {roleLabel(inv.role)}</p>
+                  <p className="text-base-900 font-medium">{inv.organizationName}</p>
+                  <p className="text-base-600 text-sm">Rôle proposé : {roleLabel(inv.role)}</p>
                 </div>
                 <div className="flex gap-2.5">
                   <LoadingButton

@@ -1,12 +1,12 @@
 /**
- * <Calendar /> — react-day-picker v10 adapté Terre & Soleil.
+ * <Calendar /> — react-day-picker v10 adapté Base & Brand.
  *
  * Locale française par défaut (lundi en premier).
  * Style via `classNames` prop (API v10 : clés = valeurs de l'enum UI / DayFlag / SelectionState).
- * Jour sélectionné : bg-terre-900, texte terre-25, rounded-lg.
- * Aujourd'hui : marqué d'un dot soleil-400.
+ * Jour sélectionné : bg-base-900, texte base-25, rounded-lg.
+ * Aujourd'hui : marqué d'un dot brand-400.
  * Boutons nav : buttonVariants({ variant: 'ghost' }).
- * Conteneur : bg blanc, rounded-2xl, border terre-100.
+ * Conteneur : bg blanc, rounded-2xl, border base-100.
  */
 
 import * as React from 'react';

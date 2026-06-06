@@ -32,7 +32,7 @@ references:
 
 ### Niveau 3 — Design & UI
 
-5. **[`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)** — point d'entrée design system Terre et Soleil v3.0
+5. **[`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)** — point d'entrée design system Base et Brand v3.0
 6. **[`design-system/project/README.md`](./design-system/project/README.md)** — spec exhaustive (brand pillars, content fundamentals, visual foundations, iconography)
 7. **[`design-system/project/SKILL.md`](./design-system/project/SKILL.md)** — non-négociables résumés
 8. **[`design-system/project/tokens/__PROJECT_SLUG__-tokens.css`](./design-system/project/tokens/__PROJECT_SLUG__-tokens.css)** — Tailwind v4 `@theme` block (source of truth tokens)
@@ -65,8 +65,8 @@ references:
 ### B. Design system (depuis design-system/project/README.md)
 
 1. **Sentence case partout.** JAMAIS `ALL CAPS`, JAMAIS `Title Case On Sentences`
-2. **Soleil 400 ≤ 15% de toute surface.** Signature, pas remplissage
-3. **Italic Fraunces en Soleil 600 — max 2 par page.** Réservé moments éditoriaux
+2. **Brand 400 ≤ 15% de toute surface.** Signature, pas remplissage
+3. **Italic Fraunces en Brand 600 — max 2 par page.** Réservé moments éditoriaux
 4. **Pill buttons (radius 100px)** — JAMAIS sharp corners
 5. **Card radii 16-20px, input radii 12px** — JAMAIS 0 ni 4px
 6. **No emoji** dans UI. Status via dots colorés + badges + copy
@@ -75,7 +75,7 @@ references:
 9. **Invoice numbers** : JetBrains Mono `text-sm` : `FAC-2026-0142`
 10. **Tabular numerals** obligatoires dans tables et dashboards
 11. **Dates long form** : `12 mai 2026`. Court UI tight : `12/05`
-12. **Skeleton screens** en Terre 100 (JAMAIS spinners, JAMAIS progress dots)
+12. **Skeleton screens** en Base 100 (JAMAIS spinners, JAMAIS progress dots)
 13. **Lucide icons stroke 1.5px**, rounded caps. Color follows text
 14. **Sidebars 240-280px**, jamais 320px
 
@@ -136,7 +136,7 @@ references:
    ↓
 6. Implémenter en React/TS avec @__SCOPE__/ui :
    ├─ Composants shadcn + primitives __PROJECT_NAME__ (MoneyDisplay, KPI, EditorialQuote, etc.)
-   ├─ Tokens Tailwind Terre et Soleil
+   ├─ Tokens Tailwind Base et Brand
    ├─ tRPC procedures dans packages/rpc/src/routers/<module>.ts
    ├─ Business logic dans packages/<module>/
    └─ Schemas Drizzle dans packages/db/src/schemas/<module>.ts
@@ -153,7 +153,7 @@ references:
 ## 📋 Checklist avant de commit
 
 - [ ] Patterns __PROJECT_NAME__ respectés (naming, types, money via Dinero, multi-tenant, etc.)
-- [ ] Design system Terre et Soleil respecté (sentence case, Soleil ≤ 15%, pill buttons, etc.)
+- [ ] Design system Base et Brand respecté (sentence case, Brand ≤ 15%, pill buttons, etc.)
 - [ ] Composants depuis `@__SCOPE__/ui/*` (pas de recoding)
 - [ ] Tests `*.test.ts` co-localisés, > 80% couverture sur sync/paiements/auth
 - [ ] Pas de `any` TypeScript, pas de `console.log` oublié

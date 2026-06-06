@@ -6,7 +6,7 @@
  * son `Dialog`/`Drawer` divergent du design (radius 24, close absolu, pas de puce-icône,
  * bottom-sheet). On reconstruit donc deux shells fidèles sur les primitives Radix :
  *  - [[CenterDialog]] : modale centrée (création/édition + confirmations), puce-icône tonale,
- *    titre Fraunces 500/20, close-chip terre-50 dans l'en-tête, footer bordé.
+ *    titre Fraunces 500/20, close-chip base-50 dans l'en-tête, footer bordé.
  *  - [[SidePanel]] : panneau ancré à droite (460px) pour « Affecter » / « Inviter ».
  * + atomes partagés (établissements & équipe) : ToneIconChip, InlineNotice, PrincipalBadge,
  *   RoleBadge, MemberAvatar.
@@ -17,17 +17,17 @@ import { X } from 'lucide-react';
 
 /* ─── Tons partagés ───────────────────────────────────────────────────────── */
 
-export type Tone = 'soleil' | 'palmeraie' | 'brique' | 'terre';
+export type Tone = 'brand' | 'success' | 'danger' | 'base';
 
 const ICON_CHIP_TONE: Record<Tone, string> = {
-  soleil: 'bg-soleil-50 text-soleil-600',
-  palmeraie: 'bg-palmeraie-50 text-palmeraie-600',
-  brique: 'bg-brique-50 text-brique-600',
-  terre: 'bg-terre-100 text-terre-700',
+  brand: 'bg-brand-50 text-brand-600',
+  success: 'bg-success-50 text-success-600',
+  danger: 'bg-danger-50 text-danger-600',
+  base: 'bg-base-100 text-base-700',
 };
 
 /** Puce-icône 42×42 r12 colorée par ton — en-tête des CenterDialog. */
-export function ToneIconChip({ tone = 'soleil', children }: { tone?: Tone; children: ReactNode }) {
+export function ToneIconChip({ tone = 'brand', children }: { tone?: Tone; children: ReactNode }) {
   return (
     <span
       className={`inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[12px] ${ICON_CHIP_TONE[tone]}`}
@@ -37,12 +37,12 @@ export function ToneIconChip({ tone = 'soleil', children }: { tone?: Tone; child
   );
 }
 
-/** Bouton « close » 32×32 r8 terre-50 (en-tête dialog/panel). */
+/** Bouton « close » 32×32 r8 base-50 (en-tête dialog/panel). */
 function CloseChip() {
   return (
     <Dialog.Close
       aria-label="Fermer"
-      className="bg-terre-50 text-terre-700 hover:bg-terre-100 focus-visible:ring-soleil-400/40 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] transition-colors focus:outline-none focus-visible:ring-2"
+      className="bg-base-50 text-base-700 hover:bg-base-100 focus-visible:ring-brand-400/40 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] transition-colors focus:outline-none focus-visible:ring-2"
     >
       <X className="h-3.5 w-3.5" />
     </Dialog.Close>
@@ -70,7 +70,7 @@ export function CenterDialog({
   onOpenChange,
   width = 520,
   icon,
-  iconTone = 'soleil',
+  iconTone = 'brand',
   title,
   description,
   footer,
@@ -79,20 +79,20 @@ export function CenterDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-terre-950/45 fixed inset-0 z-50 backdrop-blur-[2px]" />
+        <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-base-950/45 fixed inset-0 z-50 backdrop-blur-[2px]" />
         <Dialog.Content
           {...(description ? {} : { 'aria-describedby': undefined })}
           style={{ width, maxWidth: '90vw' }}
-          className="bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 border-terre-900/12 fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-[20px] border shadow-[0_24px_64px_rgba(42,26,15,0.28)] duration-200"
+          className="bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 border-base-900/12 fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-[20px] border shadow-[0_24px_64px_rgba(42,26,15,0.28)] duration-200"
         >
           <div className="flex items-start gap-3.5 px-6 pt-[22px] pb-2">
             {icon ? <ToneIconChip tone={iconTone}>{icon}</ToneIconChip> : null}
             <div className="min-w-0 flex-1">
-              <Dialog.Title className="font-display text-terre-900 m-0 text-[20px] font-medium tracking-[-0.4px]">
+              <Dialog.Title className="font-display text-base-900 m-0 text-[20px] font-medium tracking-[-0.4px]">
                 {title}
               </Dialog.Title>
               {description ? (
-                <Dialog.Description className="text-terre-600 mt-1.5 text-[13px] leading-[1.5]">
+                <Dialog.Description className="text-base-600 mt-1.5 text-[13px] leading-[1.5]">
                   {description}
                 </Dialog.Description>
               ) : null}
@@ -135,17 +135,17 @@ export function SidePanel({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-terre-950/35 fixed inset-0 z-50 backdrop-blur-[2px]" />
-        <Dialog.Content className="bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right border-terre-900/12 fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-[100vw] flex-col border-l shadow-[-12px_0_32px_rgba(42,26,15,0.18)] duration-300 sm:w-[460px]">
+        <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-base-950/35 fixed inset-0 z-50 backdrop-blur-[2px]" />
+        <Dialog.Content className="bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right border-base-900/12 fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-[100vw] flex-col border-l shadow-[-12px_0_32px_rgba(42,26,15,0.18)] duration-300 sm:w-[460px]">
           <div className="border-border border-b px-[22px] pt-[18px] pb-3.5">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 {eyebrow ? (
-                  <div className="text-terre-500 mb-1.5 text-[10px] font-semibold tracking-[1.4px] uppercase">
+                  <div className="text-base-500 mb-1.5 text-[10px] font-semibold tracking-[1.4px] uppercase">
                     {eyebrow}
                   </div>
                 ) : null}
-                <Dialog.Title className="font-display text-terre-900 m-0 text-[18px] font-medium tracking-[-0.3px]">
+                <Dialog.Title className="font-display text-base-900 m-0 text-[18px] font-medium tracking-[-0.3px]">
                   {title}
                 </Dialog.Title>
               </div>
@@ -167,27 +167,27 @@ export function SidePanel({
 /* ─── InlineNotice (bandeaux en-tête de dialog) ───────────────────────────── */
 
 const NOTICE_TONE: Record<Tone, { box: string; icon: string; text: string }> = {
-  soleil: {
-    box: 'bg-soleil-50 border-soleil-200',
-    icon: 'text-soleil-700',
-    text: 'text-terre-900',
+  brand: {
+    box: 'bg-brand-50 border-brand-200',
+    icon: 'text-brand-700',
+    text: 'text-base-900',
   },
-  palmeraie: {
-    box: 'bg-palmeraie-50 border-palmeraie-200',
-    icon: 'text-palmeraie-600',
-    text: 'text-palmeraie-800',
+  success: {
+    box: 'bg-success-50 border-success-200',
+    icon: 'text-success-600',
+    text: 'text-success-800',
   },
-  brique: {
-    box: 'bg-brique-50 border-brique-200',
-    icon: 'text-brique-600',
-    text: 'text-brique-800',
+  danger: {
+    box: 'bg-danger-50 border-danger-200',
+    icon: 'text-danger-600',
+    text: 'text-danger-800',
   },
-  terre: { box: 'bg-terre-50 border-border', icon: 'text-terre-500', text: 'text-terre-700' },
+  base: { box: 'bg-base-50 border-border', icon: 'text-base-500', text: 'text-base-700' },
 };
 
 /** Bandeau d'information dans un dialog (premier établissement, succès, erreur…). */
 export function InlineNotice({
-  tone = 'palmeraie',
+  tone = 'success',
   icon,
   children,
 }: {
@@ -206,11 +206,11 @@ export function InlineNotice({
 
 /* ─── Badges & avatars partagés ───────────────────────────────────────────── */
 
-/** Badge « Principal » — palmeraie + pastille (le `dot` n'existe pas sur Badge). */
+/** Badge « Principal » — success + pastille (le `dot` n'existe pas sur Badge). */
 export function PrincipalBadge() {
   return (
-    <span className="bg-palmeraie-50 text-palmeraie-800 rounded-pill inline-flex items-center gap-1.5 px-2.5 py-[3px] text-[11px] font-medium">
-      <span className="bg-palmeraie-600 h-1.5 w-1.5 rounded-full" />
+    <span className="bg-success-50 text-success-800 rounded-pill inline-flex items-center gap-1.5 px-2.5 py-[3px] text-[11px] font-medium">
+      <span className="bg-success-600 h-1.5 w-1.5 rounded-full" />
       Principal
     </span>
   );
@@ -224,14 +224,14 @@ export const ROLE_LABELS: Record<string, string> = {
 };
 
 const ROLE_BADGE_TONE: Record<string, string> = {
-  owner: 'bg-soleil-50 text-soleil-800',
-  admin: 'bg-terre-100 text-terre-700',
+  owner: 'bg-brand-50 text-brand-800',
+  admin: 'bg-base-100 text-base-700',
 };
 
 /** Badge de rôle org — couleurs exactes du design. */
 export function RoleBadge({ role }: { role: string }) {
   const label = ROLE_LABELS[role] ?? role;
-  const tone = ROLE_BADGE_TONE[role] ?? 'border border-border text-terre-700';
+  const tone = ROLE_BADGE_TONE[role] ?? 'border border-border text-base-700';
   return (
     <span
       className={`rounded-pill inline-flex items-center px-2.5 py-[3px] text-[11px] font-medium ${tone}`}
@@ -241,22 +241,22 @@ export function RoleBadge({ role }: { role: string }) {
   );
 }
 
-export type AvatarTone = 'soleil' | 'mil' | 'palmeraie' | 'terre' | 'brique';
+export type AvatarTone = 'brand' | 'warning' | 'success' | 'base' | 'danger';
 
 const AVATAR_TONE: Record<AvatarTone, string> = {
-  soleil: 'bg-soleil-100 text-terre-900',
-  mil: 'bg-mil-50 text-mil-600',
-  palmeraie: 'bg-palmeraie-50 text-palmeraie-800',
-  terre: 'bg-terre-200 text-terre-800',
-  brique: 'bg-brique-50 text-brique-800',
+  brand: 'bg-brand-100 text-base-900',
+  warning: 'bg-warning-50 text-warning-600',
+  success: 'bg-success-50 text-success-800',
+  base: 'bg-base-200 text-base-800',
+  danger: 'bg-danger-50 text-danger-800',
 };
 
-/** Ton d'avatar dérivé du rôle (owner=soleil, admin=mil) sinon cyclé par index. */
+/** Ton d'avatar dérivé du rôle (owner=brand, admin=warning) sinon cyclé par index. */
 export function avatarTone(role: string, index = 0): AvatarTone {
-  if (role === 'owner') return 'soleil';
-  if (role === 'admin') return 'mil';
-  const cycle: AvatarTone[] = ['palmeraie', 'terre', 'brique'];
-  return cycle[index % 3] ?? 'palmeraie';
+  if (role === 'owner') return 'brand';
+  if (role === 'admin') return 'warning';
+  const cycle: AvatarTone[] = ['success', 'base', 'danger'];
+  return cycle[index % 3] ?? 'success';
 }
 
 /** Avatar initiale teinté par ton (membres affectés / drawers). */

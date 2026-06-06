@@ -1,14 +1,14 @@
 /**
- * <Command /> — Palette de commandes cmdk adapté Terre & Soleil.
+ * <Command /> — Palette de commandes cmdk adapté Base & Brand.
  *
  * Exports : `Command`, `CommandDialog`, `CommandInput`, `CommandList`,
  *   `CommandEmpty`, `CommandGroup`, `CommandItem`, `CommandShortcut`,
  *   `CommandSeparator`.
  * Style :
- * - Conteneur : bg-terre-25, rounded-2xl, overflow-hidden
- * - Input : icône Search lucide, border-b terre-100
- * - Item sélectionné : bg-terre-50
- * - Headings groupes : text-xs text-terre-500
+ * - Conteneur : bg-base-25, rounded-2xl, overflow-hidden
+ * - Input : icône Search lucide, border-b base-100
+ * - Item sélectionné : bg-base-50
+ * - Headings groupes : text-xs text-base-500
  */
 
 import * as React from 'react';

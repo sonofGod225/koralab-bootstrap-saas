@@ -43,7 +43,7 @@ export function MaintenanceBanner() {
     <a
       href="/status"
       className={`block px-4 py-2 text-center text-sm font-medium no-underline ${
-        banner.kind === 'incident' ? 'bg-brique-600 text-white' : 'bg-mil-400 text-terre-900'
+        banner.kind === 'incident' ? 'bg-danger-600 text-white' : 'bg-warning-400 text-base-900'
       }`}
     >
       {banner.text} — voir le statut →

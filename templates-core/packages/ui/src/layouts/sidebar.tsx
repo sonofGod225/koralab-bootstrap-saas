@@ -3,7 +3,7 @@
  *
  * Exports :
  * - `SidebarRail`    : rail d'icônes 64px (Sidebar1 dans le design).
- * - `NavIcon`        : bouton 44×44 avec ergot actif Soleil 400.
+ * - `NavIcon`        : bouton 44×44 avec ergot actif Brand 400.
  * - `Sidebar`        : panneau de sous-navigation 256px (Sidebar2).
  * - `SidebarHeader`  : en-tête avec filet accent 3px + eyebrow + titre.
  * - `SidebarSection` : groupe d'items avec label en petite capitale.
@@ -45,7 +45,7 @@ const SidebarRail = React.forwardRef<HTMLElement, SidebarRailProps>(
 SidebarRail.displayName = 'SidebarRail';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// NavIcon — bouton 44×44, ergot actif Soleil 400 à droite
+// NavIcon — bouton 44×44, ergot actif Brand 400 à droite
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface NavIconBadge {
@@ -58,10 +58,10 @@ export interface NavIconProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   icon: React.ReactNode;
   /** Libellé accessible (aria-label). */
   label: string;
-  /** Item actif — fond couleur signature + ergot Soleil. */
+  /** Item actif — fond couleur signature + ergot Brand. */
   active?: boolean;
   /**
-   * Couleur de signature du module (ex: `var(--color-soleil-400)` ou classe Tailwind arbitraire).
+   * Couleur de signature du module (ex: `var(--color-brand-400)` ou classe Tailwind arbitraire).
    * Utilisée comme fond du bouton quand actif, et comme couleur d'icône quand inactif.
    */
   signatureColor?: string;
@@ -86,7 +86,7 @@ const NavIcon = React.forwardRef<HTMLButtonElement, NavIconProps>(
             'relative inline-flex items-center justify-center',
             'h-11 w-11 rounded-[12px] border-none',
             'cursor-pointer transition-colors duration-[120ms]',
-            'focus-visible:ring-soleil-400/40 focus-visible:ring-2 focus-visible:outline-none',
+            'focus-visible:ring-brand-400/40 focus-visible:ring-2 focus-visible:outline-none',
             // Inactif : fond transparent, hover bg-muted
             !active && 'hover:bg-muted text-muted-foreground hover:text-foreground bg-transparent',
             className,
@@ -102,7 +102,7 @@ const NavIcon = React.forwardRef<HTMLButtonElement, NavIconProps>(
               className={cn(
                 'absolute top-[7px] right-[7px]',
                 'h-4 min-w-4 rounded-full px-1',
-                'bg-soleil-400 text-terre-900',
+                'bg-brand-400 text-base-900',
                 'font-mono text-[10px] font-semibold',
                 'inline-flex items-center justify-center',
                 'ring-card ring-2',
@@ -118,7 +118,7 @@ const NavIcon = React.forwardRef<HTMLButtonElement, NavIconProps>(
           <motion.span
             layoutId="nav-rail-ergot"
             transition={ACTIVE_SPRING}
-            className="bg-soleil-400 absolute top-[10px] right-[-8px] h-6 w-1 rounded-l-[4px]"
+            className="bg-brand-400 absolute top-[10px] right-[-8px] h-6 w-1 rounded-l-[4px]"
             aria-hidden="true"
           />
         )}
@@ -161,7 +161,7 @@ export interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement>
   title?: string;
   /**
    * Couleur du filet supérieur 3px et de l'eyebrow.
-   * Valeur CSS arbitraire (ex: `var(--color-soleil-400)` ou `#E89B5A`).
+   * Valeur CSS arbitraire (ex: `var(--color-brand-400)` ou `#E89B5A`).
    */
   accent?: string;
 }
@@ -256,8 +256,8 @@ const sidebarItemBadgeVariants = cva(
   {
     variants: {
       tone: {
-        late: 'bg-brique-50 text-brique-800',
-        pending: 'bg-soleil-50 text-soleil-800',
+        late: 'bg-danger-50 text-danger-800',
+        pending: 'bg-brand-50 text-brand-800',
         default: 'bg-muted text-muted-foreground',
       },
     },
@@ -281,7 +281,7 @@ const SidebarItem = React.forwardRef<HTMLButtonElement, SidebarItemProps>(
           'flex items-center gap-2.5',
           'cursor-pointer rounded-lg border-none px-3 py-2',
           'text-[13px] tracking-[-0.1px] transition-colors duration-[120ms]',
-          'focus-visible:ring-soleil-400/40 focus-visible:ring-2 focus-visible:outline-none',
+          'focus-visible:ring-brand-400/40 focus-visible:ring-2 focus-visible:outline-none',
           active
             ? 'text-foreground font-medium'
             : 'text-muted-foreground hover:bg-card/50 hover:text-foreground bg-transparent font-normal',

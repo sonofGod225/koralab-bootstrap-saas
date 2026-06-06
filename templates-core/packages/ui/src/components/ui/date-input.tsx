@@ -1,5 +1,5 @@
 /**
- * <DateInput /> — Champ date avec popover calendrier Terre & Soleil.
+ * <DateInput /> — Champ date avec popover calendrier Base & Brand.
  *
  * Props :
  * - `value`         : Date | undefined

@@ -1,6 +1,6 @@
 # `@__SCOPE__/ui`
 
-> Design system **Terre & Soleil v3.0** de __PROJECT_NAME__ — source de vérité unique
+> Design system **Base & Brand v3.0** de __PROJECT_NAME__ — source de vérité unique
 > des tokens, fontes, primitives shadcn thémées et primitives custom, partagée
 > par `apps/suite` et `apps/admin`.
 
@@ -20,7 +20,7 @@ Décisions de référence : [ADR 0007](../../docs/adrs/0007-shadcn-monorepo-mode
 3. **JAMAIS de dossier `apps/*/src/components/ui/`** — les primitives vivent ici.
 4. **JAMAIS modifier un composant shadcn copié sans ADR.** Pour étendre, créer
    un wrapper dans `src/primitives/`.
-5. **Soleil 400 ≤ 15 % de surface** · pill buttons (radius 100px) · sentence
+5. **Brand 400 ≤ 15 % de surface** · pill buttons (radius 100px) · sentence
    case · pas d'emoji · italique Fraunces éditoriale max 2/page.
 
 ---
@@ -58,7 +58,7 @@ t('form.amountMin', { min: formatNumber(1000) }); // « Le montant doit être au
 ## Tokens
 
 Source : `src/styles/tokens.css` (Tailwind v4 `@theme`). Exposés comme classes
-utilitaires (`bg-terre-900`, `rounded-pill`, `shadow-md`, `font-display`…).
+utilitaires (`bg-base-900`, `rounded-pill`, `shadow-md`, `font-display`…).
 
 **Dark mode** — les composants consomment des tokens **sémantiques**
 (`bg-background`, `text-foreground`, `bg-card`, `bg-muted`, `border-border`,
@@ -69,17 +69,17 @@ manuellement via la classe `.dark` / `.light` sur `<html>`.
 
 | Famille       | Rôle                                                      | Échelle                     |
 | ------------- | --------------------------------------------------------- | --------------------------- |
-| **Soleil**    | Couleur signature (≤ 15 % surface) — `soleil-400 #E89B5A` | 50 → 900                    |
-| **Terre**     | Texte, fonds, CTA primaire                                | 25 → 950                    |
-| **Palmeraie** | Succès / payé                                             | 50, 200, 400, 600, 800, 900 |
-| **Brique**    | Danger / retard                                           | 50, 200, 400, 600, 800, 900 |
-| **Mil**       | Avertissement                                             | 50, 200, 400, 600           |
+| **Brand**    | Couleur signature (≤ 15 % surface) — `brand-400 #E89B5A` | 50 → 900                    |
+| **Base**     | Texte, fonds, CTA primaire                                | 25 → 950                    |
+| **Success** | Succès / payé                                             | 50, 200, 400, 600, 800, 900 |
+| **Danger**    | Danger / retard                                           | 50, 200, 400, 600, 800, 900 |
+| **Warning**       | Avertissement                                             | 50, 200, 400, 600           |
 
 ### Radii · Typo · Ombres
 
 | Radii                                                                                             | Typographie                                                                                             | Ombres                                                                            |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `sm 8` · `md 12` (inputs) · `lg 16` · `xl 20` (cards) · `2xl 24` · `3xl 32` · `pill 100` · `full` | `font-display` Fraunces · `font-sans` Inter · `font-mono` JetBrains Mono · échelle `text-xs`→`text-6xl` | `shadow-xs`/`sm`/`md`/`lg` (warm, jamais noir pur) · `shadow-focus` (ring Soleil) |
+| `sm 8` · `md 12` (inputs) · `lg 16` · `xl 20` (cards) · `2xl 24` · `3xl 32` · `pill 100` · `full` | `font-display` Fraunces · `font-sans` Inter · `font-mono` JetBrains Mono · échelle `text-xs`→`text-6xl` | `shadow-xs`/`sm`/`md`/`lg` (warm, jamais noir pur) · `shadow-focus` (ring Brand) |
 
 ---
 

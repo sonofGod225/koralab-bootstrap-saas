@@ -161,7 +161,7 @@ function ConsentStep() {
         subtitle="__PROJECT_NAME__ est conforme OHADA, ARTCI et CDP Sénégal. Confirmez votre accord pour finaliser votre compte."
       />
 
-      <div className="bg-terre-50 border-border overflow-hidden rounded-2xl border">
+      <div className="bg-base-50 border-border overflow-hidden rounded-2xl border">
         {ITEMS.map((c, i) => {
           const checked = checks[c.id];
           const Icon = c.icon;
@@ -169,7 +169,7 @@ function ConsentStep() {
             <label
               key={c.id}
               className={`flex cursor-pointer items-start gap-3.5 px-5 py-4 transition-colors ${
-                checked ? 'bg-soleil-50/40' : ''
+                checked ? 'bg-brand-50/40' : ''
               } ${i < ITEMS.length - 1 ? 'border-border border-b' : ''}`}
             >
               <input
@@ -181,37 +181,37 @@ function ConsentStep() {
               {/* Faux-checkbox visuel */}
               <span
                 className={`mt-0.5 inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] transition-colors ${
-                  checked ? 'bg-terre-900 border-transparent' : 'bg-card border-border border'
+                  checked ? 'bg-base-900 border-transparent' : 'bg-card border-border border'
                 }`}
                 aria-hidden
               >
                 {checked ? <Check className="h-3 w-3 text-[#F4E4CC]" strokeWidth={2.5} /> : null}
               </span>
-              <span className="bg-soleil-50 text-soleil-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+              <span className="bg-brand-50 text-brand-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
                 <Icon className="h-[15px] w-[15px]" />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <span className="font-display text-terre-900 text-[15px] font-medium tracking-tight">
+                  <span className="font-display text-base-900 text-[15px] font-medium tracking-tight">
                     {c.title}
                   </span>
                   {c.required ? (
-                    <span className="text-brique-600 text-[10px] font-medium tracking-wide">
+                    <span className="text-danger-600 text-[10px] font-medium tracking-wide">
                       · Obligatoire
                     </span>
                   ) : (
-                    <span className="text-terre-500 text-[10px] font-medium tracking-wide">
+                    <span className="text-base-500 text-[10px] font-medium tracking-wide">
                       · Facultatif
                     </span>
                   )}
                 </div>
-                <div className="text-terre-600 text-xs leading-relaxed">{c.body}</div>
+                <div className="text-base-600 text-xs leading-relaxed">{c.body}</div>
                 <a
                   href={c.linkHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-soleil-700 mt-1.5 inline-block text-xs font-medium underline underline-offset-2"
+                  className="text-brand-700 mt-1.5 inline-block text-xs font-medium underline underline-offset-2"
                 >
                   {c.linkLabel} →
                 </a>
@@ -221,7 +221,7 @@ function ConsentStep() {
         })}
       </div>
 
-      {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+      {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
 
       <StepActions
         onBack={() => void navigate({ to: '/onboarding/user' })}

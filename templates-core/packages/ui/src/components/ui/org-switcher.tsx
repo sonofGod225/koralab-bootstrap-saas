@@ -3,7 +3,7 @@
  *
  * Déclencheur (monogramme + nom + rôle) ouvrant un menu : liste des
  * organisations de l'utilisateur — l'organisation active est surlignée et
- * cochée (pastille Soleil) — puis actions « créer une organisation » /
+ * cochée (pastille Brand) — puis actions « créer une organisation » /
  * « accepter une invitation ».
  *
  * Construit exclusivement sur les primitives shadcn `DropdownMenu` + `Avatar`.
@@ -22,7 +22,7 @@ import {
 } from './dropdown-menu';
 import { Avatar, AvatarFallback } from './avatar';
 
-export type OrgTone = 'soleil' | 'terre' | 'palmeraie' | 'brique' | 'mil';
+export type OrgTone = 'brand' | 'base' | 'success' | 'danger' | 'warning';
 
 export interface Organization {
   id: string;
@@ -31,7 +31,7 @@ export interface Organization {
   role: string;
   /** Monogramme affiché — défaut : 1re lettre du nom. */
   initial?: string;
-  /** Teinte de l'avatar. Défaut : `terre`. */
+  /** Teinte de l'avatar. Défaut : `base`. */
   tone?: OrgTone;
 }
 
@@ -45,18 +45,18 @@ export interface OrgSwitcherProps {
 }
 
 const TONE_CLASS: Record<OrgTone, string> = {
-  soleil: 'bg-soleil-100 text-terre-900',
-  terre: 'bg-subtle text-foreground',
-  palmeraie: 'bg-palmeraie-50 text-palmeraie-800',
-  brique: 'bg-brique-50 text-brique-800',
-  mil: 'bg-mil-50 text-mil-600',
+  brand: 'bg-brand-100 text-base-900',
+  base: 'bg-subtle text-foreground',
+  success: 'bg-success-50 text-success-800',
+  danger: 'bg-danger-50 text-danger-800',
+  warning: 'bg-warning-50 text-warning-600',
 };
 
 function OrgAvatar({ org, className }: { org: Organization; className?: string }) {
   return (
     <Avatar className={className}>
       <AvatarFallback
-        className={cn('font-display text-sm font-medium', TONE_CLASS[org.tone ?? 'terre'])}
+        className={cn('font-display text-sm font-medium', TONE_CLASS[org.tone ?? 'base'])}
       >
         {org.initial ?? org.name.charAt(0)}
       </AvatarFallback>
@@ -74,7 +74,7 @@ const OrgSwitcher = React.forwardRef<HTMLButtonElement, OrgSwitcherProps>(
           <button
             ref={ref}
             type="button"
-            className="hover:bg-muted focus-visible:ring-soleil-400/40 inline-flex items-center gap-2.5 rounded-[10px] py-1.5 pr-2.5 pl-1.5 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            className="hover:bg-muted focus-visible:ring-brand-400/40 inline-flex items-center gap-2.5 rounded-[10px] py-1.5 pr-2.5 pl-1.5 transition-colors focus-visible:ring-2 focus-visible:outline-none"
           >
             {active && <OrgAvatar org={active} className="size-7" />}
             <span className="flex flex-col items-start">
@@ -110,8 +110,8 @@ const OrgSwitcher = React.forwardRef<HTMLButtonElement, OrgSwitcherProps>(
                   <span className="text-muted-foreground text-[11px]">{org.role}</span>
                 </span>
                 {isActive && (
-                  <span className="bg-soleil-400 flex size-[22px] shrink-0 items-center justify-center rounded-full">
-                    <Check className="text-terre-900 size-3" strokeWidth={2.5} />
+                  <span className="bg-brand-400 flex size-[22px] shrink-0 items-center justify-center rounded-full">
+                    <Check className="text-base-900 size-3" strokeWidth={2.5} />
                   </span>
                 )}
               </DropdownMenuItem>

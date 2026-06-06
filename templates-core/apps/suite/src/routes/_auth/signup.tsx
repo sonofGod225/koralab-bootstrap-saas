@@ -177,7 +177,7 @@ function EmailMode({
                         onCheckedChange={(v) => field.onChange(v === true)}
                       />
                     </FormControl>
-                    <Label className="text-terre-700 text-sm font-normal">
+                    <Label className="text-base-700 text-sm font-normal">
                       J'accepte les conditions d'utilisation et la politique de confidentialité.
                     </Label>
                   </div>
@@ -185,7 +185,7 @@ function EmailMode({
                 </FormItem>
               )}
             />
-            {serverError ? <p className="text-brique-700 text-sm">{serverError}</p> : null}
+            {serverError ? <p className="text-danger-700 text-sm">{serverError}</p> : null}
             <div className="flex flex-col gap-2.5">
               <LoadingButton
                 type="submit"
@@ -232,12 +232,12 @@ function SignupPage() {
           />
         )}
 
-        <p className="text-terre-600 text-sm">
+        <p className="text-base-600 text-sm">
           Vous avez déjà un compte ?{' '}
           <Link
             to="/signin"
             search={nextUrl === DEFAULT_POST_SIGNUP_URL ? undefined : { redirect: nextUrl }}
-            className="text-terre-900 font-medium underline"
+            className="text-base-900 font-medium underline"
           >
             Se connecter
           </Link>

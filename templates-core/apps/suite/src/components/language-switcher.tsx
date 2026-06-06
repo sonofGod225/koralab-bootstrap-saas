@@ -1,5 +1,5 @@
 /**
- * <LanguageSwitcher /> -- Selecteur de langue Terre & Soleil.
+ * <LanguageSwitcher /> -- Selecteur de langue Base & Brand.
  *
  * Affiche les 4 locales __PROJECT_NAME__ avec leurs noms natifs. Au changement :
  *  1. persiste localStorage `budi_locale` + cookie `budi_locale` (1 an),
@@ -44,7 +44,7 @@ export function LanguageSwitcher({
       <select
         value={value}
         onChange={handleChange}
-        className="border-terre-200 bg-terre-25 text-terre-900 focus-visible:ring-soleil-400/40 h-10 rounded-[12px] border px-3 text-sm focus:outline-none focus-visible:ring-2"
+        className="border-base-200 bg-base-25 text-base-900 focus-visible:ring-brand-400/40 h-10 rounded-[12px] border px-3 text-sm focus:outline-none focus-visible:ring-2"
         aria-label="Choisir la langue"
       >
         {LOCALES.map((loc) => (

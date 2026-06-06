@@ -28,18 +28,18 @@ export function TagInput({ value, onChange, placeholder, max = 50 }: TagInputPro
   const remove = (t: string) => onChange(value.filter((x) => x !== t));
 
   return (
-    <div className="border-border bg-card focus-within:ring-soleil-400/40 flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-[12px] border px-2 py-1.5 transition-shadow focus-within:ring-2">
+    <div className="border-border bg-card focus-within:ring-brand-400/40 flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-[12px] border px-2 py-1.5 transition-shadow focus-within:ring-2">
       {value.map((t) => (
         <span
           key={t}
-          className="bg-terre-100 text-terre-700 inline-flex items-center gap-1 rounded-full py-0.5 pr-1 pl-2.5 text-[12px] font-medium"
+          className="bg-base-100 text-base-700 inline-flex items-center gap-1 rounded-full py-0.5 pr-1 pl-2.5 text-[12px] font-medium"
         >
           {t}
           <button
             type="button"
             onClick={() => remove(t)}
             aria-label={`Retirer ${t}`}
-            className="hover:bg-terre-200 inline-flex h-4 w-4 items-center justify-center rounded-full"
+            className="hover:bg-base-200 inline-flex h-4 w-4 items-center justify-center rounded-full"
           >
             <X className="h-3 w-3" />
           </button>
@@ -58,7 +58,7 @@ export function TagInput({ value, onChange, placeholder, max = 50 }: TagInputPro
         }}
         onBlur={() => add(draft)}
         placeholder={value.length ? '' : placeholder}
-        className="text-terre-900 placeholder:text-terre-400 min-w-[80px] flex-1 bg-transparent px-1 text-sm outline-none"
+        className="text-base-900 placeholder:text-base-400 min-w-[80px] flex-1 bg-transparent px-1 text-sm outline-none"
       />
     </div>
   );

@@ -109,22 +109,22 @@ function CountryBadge({ code, sm }: { code: string | null; sm?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2">
       <span
-        className={`bg-terre-100 text-terre-700 inline-flex items-center justify-center rounded-[7px] font-mono font-medium tracking-wide ${sm ? 'h-5 w-5 text-[9px]' : 'h-6 w-6 text-[10px]'}`}
+        className={`bg-base-100 text-base-700 inline-flex items-center justify-center rounded-[7px] font-mono font-medium tracking-wide ${sm ? 'h-5 w-5 text-[9px]' : 'h-6 w-6 text-[10px]'}`}
       >
         {code ?? '··'}
       </span>
-      <span className={`text-terre-900 ${sm ? 'text-[13px]' : 'text-sm'}`}>
+      <span className={`text-base-900 ${sm ? 'text-[13px]' : 'text-sm'}`}>
         {countryLabel(code)}
       </span>
     </span>
   );
 }
 
-/** Pastille « Vue active » — Soleil discret (jamais un badge plein). */
+/** Pastille « Vue active » — Brand discret (jamais un badge plein). */
 function ActiveViewPill() {
   return (
-    <span className="bg-soleil-50 border-soleil-200 text-soleil-800 rounded-pill inline-flex items-center gap-2 border px-3 py-1.5 text-xs font-medium whitespace-nowrap">
-      <span className="bg-soleil-400 ring-soleil-400/20 h-[7px] w-[7px] rounded-full ring-[3px]" />
+    <span className="bg-brand-50 border-brand-200 text-brand-800 rounded-pill inline-flex items-center gap-2 border px-3 py-1.5 text-xs font-medium whitespace-nowrap">
+      <span className="bg-brand-400 ring-brand-400/20 h-[7px] w-[7px] rounded-full ring-[3px]" />
       Vue active
     </span>
   );
@@ -298,7 +298,7 @@ function EstablishmentDetailPage() {
       <div>
         <BackLink onClick={back} />
         <NoticeCard
-          tone="brique"
+          tone="danger"
           icon={<TriangleAlert className="h-7 w-7" />}
           title="Impossible de charger l'établissement"
           description={
@@ -373,7 +373,7 @@ function EstablishmentDetailPage() {
         onOpenChange={setDeleteOpen}
         width={480}
         icon={<Trash2 className="h-5 w-5" />}
-        iconTone="brique"
+        iconTone="danger"
         title="Supprimer cet établissement ?"
         description="Les affectations associées seront retirées. Cette action est définitive."
         footer={
@@ -396,7 +396,7 @@ function EstablishmentDetailPage() {
         }
       >
         {blockedReason ? (
-          <InlineNotice tone="brique" icon={<TriangleAlert className="h-4 w-4" />}>
+          <InlineNotice tone="danger" icon={<TriangleAlert className="h-4 w-4" />}>
             {blockedReason}
           </InlineNotice>
         ) : null}
@@ -407,7 +407,7 @@ function EstablishmentDetailPage() {
         onOpenChange={(v) => !v && setRemoveTarget(null)}
         width={480}
         icon={<UserMinus className="h-5 w-5" />}
-        iconTone="soleil"
+        iconTone="brand"
         title={`Retirer ${removeTarget?.name ?? ''} de cet établissement ?`}
         description={`${removeTarget?.name ?? 'Ce membre'} n'aura plus accès à ce périmètre. Il reste membre de l'organisation.`}
         footer={
@@ -498,7 +498,7 @@ function DesktopDetail({
               <Pencil className="mr-1.5 h-3.5 w-3.5" />
               Modifier
             </Button>
-            <Button variant="ghost" size="sm" className="text-brique-700" onClick={on.del}>
+            <Button variant="ghost" size="sm" className="text-danger-700" onClick={on.del}>
               <Trash2 className="mr-1.5 h-3.5 w-3.5" />
               Supprimer
             </Button>
@@ -506,7 +506,7 @@ function DesktopDetail({
         }
       />
 
-      {error ? <p className="text-brique-700 mb-3 text-sm">{error}</p> : null}
+      {error ? <p className="text-danger-700 mb-3 text-sm">{error}</p> : null}
 
       <div className="flex flex-col gap-5">
         <SectionCard
@@ -554,13 +554,13 @@ function DesktopDetail({
                   <MemberAvatar name={m.name} role={m.role} index={i} size={38} />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-terre-900 text-sm font-medium">{m.name}</span>
+                      <span className="text-base-900 text-sm font-medium">{m.name}</span>
                       <RoleBadge role={m.role} />
                     </div>
-                    <div className="text-terre-500 mt-0.5 truncate text-xs">{m.email}</div>
+                    <div className="text-base-500 mt-0.5 truncate text-xs">{m.email}</div>
                   </div>
                   {m.pinned ? (
-                    <span className="text-terre-400 inline-flex items-center gap-1.5 pr-1.5 text-[11px]">
+                    <span className="text-base-400 inline-flex items-center gap-1.5 pr-1.5 text-[11px]">
                       <Lock className="h-3 w-3" />
                       Accès permanent
                     </span>
@@ -568,7 +568,7 @@ function DesktopDetail({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-brique-600"
+                      className="text-danger-600"
                       onClick={() => on.removeMember(m)}
                     >
                       <UserMinus className="mr-1.5 h-3.5 w-3.5" />
@@ -583,12 +583,12 @@ function DesktopDetail({
 
         <OutlookCard />
 
-        <div className="border-brique-200 bg-brique-50 flex flex-wrap items-center justify-between gap-5 rounded-[18px] border px-6 py-5">
+        <div className="border-danger-200 bg-danger-50 flex flex-wrap items-center justify-between gap-5 rounded-[18px] border px-6 py-5">
           <div className="max-w-[560px] min-w-0">
-            <div className="font-display text-brique-800 mb-1 text-base font-medium">
+            <div className="font-display text-danger-800 mb-1 text-base font-medium">
               Supprimer cet établissement
             </div>
-            <p className="text-brique-800/85 text-[13px] leading-[1.5]">
+            <p className="text-danger-800/85 text-[13px] leading-[1.5]">
               {blockedReason ??
                 'Les affectations associées seront retirées. Cette action est définitive.'}
             </p>
@@ -608,16 +608,16 @@ function DesktopDetail({
 function MobileActionPill({
   icon,
   label,
-  tone = 'terre',
+  tone = 'base',
   onClick,
 }: {
   icon: ReactNode;
   label: string;
-  tone?: 'terre' | 'brique';
+  tone?: 'base' | 'danger';
   onClick: () => void;
 }) {
   const cls =
-    tone === 'brique' ? 'border-brique-200 text-brique-600' : 'border-border text-terre-900';
+    tone === 'danger' ? 'border-danger-200 text-danger-600' : 'border-border text-base-900';
   return (
     <button
       type="button"
@@ -652,18 +652,18 @@ function MobileDetail({
       <button
         type="button"
         onClick={back}
-        className="text-terre-500 mb-3 inline-flex items-center gap-1.5 text-xs font-medium"
+        className="text-base-500 mb-3 inline-flex items-center gap-1.5 text-xs font-medium"
       >
         <ChevronLeft className="h-3.5 w-3.5" />
         Établissements
       </button>
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="font-display text-terre-900 m-0 text-[28px] leading-[1.1] font-light tracking-[-1px]">
+          <h1 className="font-display text-base-900 m-0 text-[28px] leading-[1.1] font-light tracking-[-1px]">
             {est.name}
           </h1>
           {est.city || est.address ? (
-            <p className="text-terre-600 mt-1.5 text-[13px]">
+            <p className="text-base-600 mt-1.5 text-[13px]">
               {[est.city, est.address].filter(Boolean).join(' · ')}
             </p>
           ) : null}
@@ -671,7 +671,7 @@ function MobileDetail({
         {est.isPrimary ? <PrincipalBadge /> : null}
       </div>
 
-      {error ? <p className="text-brique-700 mb-3 text-sm">{error}</p> : null}
+      {error ? <p className="text-danger-700 mb-3 text-sm">{error}</p> : null}
 
       <div className="mb-3.5">
         {isActive ? (
@@ -706,14 +706,14 @@ function MobileDetail({
         <MobileActionPill
           icon={<Trash2 className="h-3.5 w-3.5" />}
           label="Supprimer"
-          tone="brique"
+          tone="danger"
           onClick={on.del}
         />
       </div>
 
       {/* Identité */}
       <div className="bg-card border-border mb-3.5 rounded-[16px] border p-[18px]">
-        <div className="font-display text-terre-900 mb-3.5 text-base font-medium">Identité</div>
+        <div className="font-display text-base-900 mb-3.5 text-base font-medium">Identité</div>
         <div className="flex flex-col gap-3.5">
           {[
             { label: 'Adresse', value: est.address || '—' },
@@ -722,10 +722,10 @@ function MobileDetail({
             { label: 'Créé le', value: formatDate(est.createdAt) },
           ].map((r) => (
             <div key={r.label} className="flex items-center justify-between gap-4">
-              <span className="text-terre-500 text-[11px] font-semibold tracking-[1px] uppercase">
+              <span className="text-base-500 text-[11px] font-semibold tracking-[1px] uppercase">
                 {r.label}
               </span>
-              <span className="text-terre-900 text-right text-[13px]">{r.value}</span>
+              <span className="text-base-900 text-right text-[13px]">{r.value}</span>
             </div>
           ))}
         </div>
@@ -733,8 +733,8 @@ function MobileDetail({
 
       {/* Membres */}
       <div className="bg-card border-border mb-3.5 rounded-[16px] border p-[18px]">
-        <div className="font-display text-terre-900 text-base font-medium">Membres affectés</div>
-        <p className="text-terre-500 mt-1 mb-3.5 text-xs leading-[1.5]">
+        <div className="font-display text-base-900 text-base font-medium">Membres affectés</div>
+        <p className="text-base-500 mt-1 mb-3.5 text-xs leading-[1.5]">
           Ils ne voient que le périmètre de cet établissement.
         </p>
         {members.length === 0 ? (
@@ -749,7 +749,7 @@ function MobileDetail({
                 >
                   <MemberAvatar name={m.name} role={m.role} index={i} size={36} />
                   <div className="min-w-0 flex-1">
-                    <div className="text-terre-900 text-[13px] font-medium">{m.name}</div>
+                    <div className="text-base-900 text-[13px] font-medium">{m.name}</div>
                     <div className="mt-1">
                       <RoleBadge role={m.role} />
                     </div>
@@ -759,7 +759,7 @@ function MobileDetail({
                       type="button"
                       aria-label={`Retirer ${m.name}`}
                       onClick={() => on.removeMember(m)}
-                      className="bg-brique-50 text-brique-600 inline-flex h-8 w-8 items-center justify-center rounded-[8px]"
+                      className="bg-danger-50 text-danger-600 inline-flex h-8 w-8 items-center justify-center rounded-[8px]"
                     >
                       <UserMinus className="h-[15px] w-[15px]" />
                     </button>
@@ -776,11 +776,11 @@ function MobileDetail({
       </div>
 
       {/* Danger zone */}
-      <div className="border-brique-200 bg-brique-50 rounded-[16px] border p-[18px]">
-        <div className="font-display text-brique-800 mb-1 text-[15px] font-medium">
+      <div className="border-danger-200 bg-danger-50 rounded-[16px] border p-[18px]">
+        <div className="font-display text-danger-800 mb-1 text-[15px] font-medium">
           Supprimer cet établissement
         </div>
-        <p className="text-brique-800/85 mb-3.5 text-xs leading-[1.5]">
+        <p className="text-danger-800/85 mb-3.5 text-xs leading-[1.5]">
           {est.isPrimary
             ? "Désignez d'abord un autre établissement principal."
             : 'Les affectations associées seront retirées. Action définitive.'}
@@ -813,10 +813,10 @@ function IdentityRow({
 }) {
   return (
     <div className={`flex flex-col gap-1.5 ${span2 ? 'sm:col-span-2' : ''}`}>
-      <dt className="text-terre-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
+      <dt className="text-base-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
         {label}
       </dt>
-      <dd className="text-terre-900 m-0 text-sm">{value}</dd>
+      <dd className="text-base-900 m-0 text-sm">{value}</dd>
     </div>
   );
 }
@@ -826,14 +826,14 @@ function EmptyMembers({ onAssign, compact }: { onAssign: () => void; compact?: b
     <div
       className={`flex flex-col items-center gap-3 text-center ${compact ? 'py-6' : 'px-4 py-10'}`}
     >
-      <span className="bg-terre-100 text-terre-600 inline-flex h-14 w-14 items-center justify-center rounded-[18px]">
+      <span className="bg-base-100 text-base-600 inline-flex h-14 w-14 items-center justify-center rounded-[18px]">
         <Users className="h-[26px] w-[26px]" />
       </span>
-      <p className="font-display text-terre-900 text-[18px] font-medium tracking-[-0.3px]">
+      <p className="font-display text-base-900 text-[18px] font-medium tracking-[-0.3px]">
         Aucun membre affecté{compact ? '' : " pour l'instant"}
       </p>
       {!compact ? (
-        <p className="text-terre-600 max-w-[360px] text-[13px] leading-[1.5]">
+        <p className="text-base-600 max-w-[360px] text-[13px] leading-[1.5]">
           Affectez des collaborateurs pour leur ouvrir le périmètre de cet établissement. Vous
           pourrez les retirer à tout moment.
         </p>
@@ -853,7 +853,7 @@ function OutlookCard() {
       description="Disponible quand les modules métier seront branchés sur cet établissement."
       padding={24}
       action={
-        <span className="border-border text-terre-700 rounded-pill inline-flex items-center border px-2.5 py-[3px] text-[11px] font-medium">
+        <span className="border-border text-base-700 rounded-pill inline-flex items-center border px-2.5 py-[3px] text-[11px] font-medium">
           Bientôt
         </span>
       }
@@ -866,14 +866,14 @@ function OutlookCard() {
         ].map((t) => (
           <div
             key={t.label}
-            className="border-border bg-terre-25 flex flex-col gap-2.5 rounded-[14px] border border-dashed p-[18px] opacity-70"
+            className="border-border bg-base-25 flex flex-col gap-2.5 rounded-[14px] border border-dashed p-[18px] opacity-70"
           >
-            <span className="bg-terre-100 text-terre-400 inline-flex h-8 w-8 items-center justify-center rounded-[9px]">
+            <span className="bg-base-100 text-base-400 inline-flex h-8 w-8 items-center justify-center rounded-[9px]">
               {t.icon}
             </span>
             <div>
-              <div className="font-display text-terre-300 text-3xl leading-none font-light">—</div>
-              <div className="text-terre-500 mt-1.5 text-xs">{t.label}</div>
+              <div className="font-display text-base-300 text-3xl leading-none font-light">—</div>
+              <div className="text-base-500 mt-1.5 text-xs">{t.label}</div>
             </div>
           </div>
         ))}
@@ -887,7 +887,7 @@ function BackLink({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="text-terre-500 hover:text-terre-800 mb-3.5 inline-flex items-center gap-1.5 text-xs font-medium transition-colors"
+      className="text-base-500 hover:text-base-800 mb-3.5 inline-flex items-center gap-1.5 text-xs font-medium transition-colors"
     >
       <ArrowLeft className="h-3.5 w-3.5" />
       Tous les établissements
@@ -897,18 +897,18 @@ function BackLink({ onClick }: { onClick: () => void }) {
 
 function NoticeCard({
   icon,
-  tone = 'terre',
+  tone = 'base',
   title,
   description,
   action,
 }: {
   icon: ReactNode;
-  tone?: 'terre' | 'brique';
+  tone?: 'base' | 'danger';
   title: string;
   description: string;
   action?: ReactNode;
 }) {
-  const chip = tone === 'brique' ? 'bg-brique-50 text-brique-600' : 'bg-terre-100 text-terre-700';
+  const chip = tone === 'danger' ? 'bg-danger-50 text-danger-600' : 'bg-base-100 text-base-700';
   return (
     <div className="bg-card border-border flex flex-col items-center gap-3.5 rounded-[20px] border px-6 py-14 text-center shadow-xs">
       <span
@@ -916,10 +916,10 @@ function NoticeCard({
       >
         {icon}
       </span>
-      <div className="font-display text-terre-900 text-[22px] font-medium tracking-[-0.4px]">
+      <div className="font-display text-base-900 text-[22px] font-medium tracking-[-0.4px]">
         {title}
       </div>
-      <p className="text-terre-600 max-w-[420px] text-sm leading-[1.55]">{description}</p>
+      <p className="text-base-600 max-w-[420px] text-sm leading-[1.55]">{description}</p>
       {action}
     </div>
   );
@@ -1007,7 +1007,7 @@ function EditEstablishmentDialog({
       onOpenChange={onOpenChange}
       width={540}
       icon={<Pencil className="h-5 w-5" />}
-      iconTone="soleil"
+      iconTone="brand"
       title="Modifier l'établissement"
       description="Mettez à jour le nom, la ville, l'adresse ou le pays."
       footer={
@@ -1030,10 +1030,10 @@ function EditEstablishmentDialog({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5 sm:col-span-2">
           <Label>
-            Nom <span className="text-soleil-600">*</span>
+            Nom <span className="text-brand-600">*</span>
           </Label>
           <Input value={name} onChange={(e) => setName(e.target.value)} maxLength={120} />
-          <div className="text-terre-500 text-right font-mono text-[11px]">{name.length}/120</div>
+          <div className="text-base-500 text-right font-mono text-[11px]">{name.length}/120</div>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label>Ville</Label>
@@ -1047,7 +1047,7 @@ function EditEstablishmentDialog({
           <Label>Adresse</Label>
           <Input value={address} onChange={(e) => setAddress(e.target.value)} maxLength={200} />
         </div>
-        {err ? <p className="text-brique-700 text-sm sm:col-span-2">{err}</p> : null}
+        {err ? <p className="text-danger-700 text-sm sm:col-span-2">{err}</p> : null}
       </div>
     </CenterDialog>
   );
@@ -1145,21 +1145,21 @@ function AssignUsersPanel({
         </Button>
       }
     >
-      <p className="text-terre-600 mb-4 text-[13px] leading-[1.55]">
+      <p className="text-base-600 mb-4 text-[13px] leading-[1.55]">
         Cochez les membres autorisés sur ce périmètre. Les propriétaires et administrateurs y
         accèdent toujours.
       </p>
       {err ? (
         <div className="mb-3">
-          <InlineNotice tone="brique" icon={<TriangleAlert className="h-4 w-4" />}>
+          <InlineNotice tone="danger" icon={<TriangleAlert className="h-4 w-4" />}>
             {err}
           </InlineNotice>
         </div>
       ) : null}
       {loading ? (
-        <p className="text-terre-500 py-6 text-center text-sm">Chargement…</p>
+        <p className="text-base-500 py-6 text-center text-sm">Chargement…</p>
       ) : rows.length === 0 ? (
-        <p className="text-terre-600 py-6 text-center text-sm">Aucun membre dans l'organisation.</p>
+        <p className="text-base-600 py-6 text-center text-sm">Aucun membre dans l'organisation.</p>
       ) : (
         <div className="flex flex-col">
           {rows.map((m, i) => (
@@ -1170,13 +1170,13 @@ function AssignUsersPanel({
               <MemberAvatar name={m.name} role={m.role} index={i} size={36} />
               <span className="min-w-0 flex-1">
                 <span className="flex flex-wrap items-center gap-2">
-                  <span className="text-terre-900 text-[13px] font-medium">{m.name}</span>
+                  <span className="text-base-900 text-[13px] font-medium">{m.name}</span>
                   <RoleBadge role={m.role} />
                 </span>
-                <span className="text-terre-500 block truncate text-xs">{m.email}</span>
+                <span className="text-base-500 block truncate text-xs">{m.email}</span>
               </span>
               {m.pinned ? (
-                <span className="text-terre-400 inline-flex items-center gap-1.5 pr-1 text-[11px]">
+                <span className="text-base-400 inline-flex items-center gap-1.5 pr-1 text-[11px]">
                   <Lock className="h-3 w-3" />
                   Accès permanent
                 </span>
@@ -1192,8 +1192,8 @@ function AssignUsersPanel({
         </div>
       )}
       {!loading && rows.length > 0 ? (
-        <div className="text-terre-500 mt-4 inline-flex items-center gap-1.5 text-xs">
-          <Info className="text-terre-400 h-3 w-3" />
+        <div className="text-base-500 mt-4 inline-flex items-center gap-1.5 text-xs">
+          <Info className="text-base-400 h-3 w-3" />
           {extra} membre{extra > 1 ? 's' : ''} affecté{extra > 1 ? 's' : ''} en plus des accès
           permanents.
         </div>

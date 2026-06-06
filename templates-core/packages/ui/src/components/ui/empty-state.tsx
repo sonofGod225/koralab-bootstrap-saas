@@ -1,5 +1,5 @@
 /**
- * <EmptyState /> — État vide centré Terre & Soleil.
+ * <EmptyState /> — État vide centré Base & Brand.
  *
  * Affiché lorsqu'une liste ou un tableau ne contient aucune donnée.
  * Jamais du texte brut — toujours illustration + titre + description optionnelle

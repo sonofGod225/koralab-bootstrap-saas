@@ -183,7 +183,7 @@ function OrgPage() {
       {phase === 'loading' ? (
         <OrgPageSkeleton />
       ) : phase === 'error' ? (
-        <p className="text-brique-700 text-sm">{error}</p>
+        <p className="text-danger-700 text-sm">{error}</p>
       ) : (
         <form
           onSubmit={onSubmit}
@@ -360,7 +360,7 @@ function OrgPage() {
               </div>
             </SectionCard>
 
-            {error ? <p className="text-brique-700 text-sm">{error}</p> : null}
+            {error ? <p className="text-danger-700 text-sm">{error}</p> : null}
           </div>
 
           {/* Aside : logo + zone danger */}
@@ -387,7 +387,7 @@ function OrgPage() {
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="text-brique-700 hover:text-brique-900 hover:bg-brique-50 w-full justify-start"
+                className="text-danger-700 hover:text-danger-900 hover:bg-danger-50 w-full justify-start"
                 disabled
               >
                 <Trash2 className="mr-2 h-4 w-4" />

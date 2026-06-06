@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.__PROJECT_SLUG__.com/design-tokens/v3.json",
-  "name": "__PROJECT_NAME__ Design Tokens — Terre et Soleil",
+  "name": "__PROJECT_NAME__ Design Tokens — Base et Brand",
   "version": "3.0.0",
-  "description": "Moderne et chaleureux, ancré dans l'esthétique sahélienne. Soleil signature à 15% max.",
+  "description": "Moderne et chaleureux, ancré dans l'esthétique sahélienne. Brand signature à 15% max.",
   "colors": {
-    "soleil": {
+    "brand": {
       "50": "#FDF1DD",
       "100": "#FBE2BA",
       "200": "#F5C994",
@@ -16,7 +16,7 @@
       "800": "#6B3A12",
       "900": "#3D200A"
     },
-    "terre": {
+    "base": {
       "25": "#FCF7EE",
       "50": "#F8EFDF",
       "100": "#F4E4CC",
@@ -30,7 +30,7 @@
       "900": "#2A1A0F",
       "950": "#1A0F08"
     },
-    "palmeraie": {
+    "success": {
       "50": "#E8F0DC",
       "200": "#A8C083",
       "400": "#6A9C42",
@@ -38,7 +38,7 @@
       "800": "#2C4F1F",
       "900": "#1A3010"
     },
-    "brique": {
+    "danger": {
       "50": "#FAE8E0",
       "200": "#E6A084",
       "400": "#D85F36",
@@ -46,7 +46,7 @@
       "800": "#7A2A0E",
       "900": "#4A180A"
     },
-    "mil": {
+    "warning": {
       "50": "#FFF5D9",
       "200": "#FFDF8C",
       "400": "#EFC548",
@@ -145,10 +145,10 @@
   "brandRules": {
     "soleilMaxSurface": "15%",
     "petalCount": 4,
-    "petalAccent": "Le pétale accent (cuivre soleil) symbolise le module actif ou l'aboutissement (paiement reçu)",
-    "ctaPrimary": "Background Terre 900, text Terre 100, pill shape (border-radius pill)",
-    "ctaAccent": "Background Soleil 400, text Terre 900, pill shape",
-    "ctaSecondary": "Background transparent, text Terre 900, no border",
+    "petalAccent": "Le pétale accent (cuivre brand) symbolise le module actif ou l'aboutissement (paiement reçu)",
+    "ctaPrimary": "Background Base 900, text Base 100, pill shape (border-radius pill)",
+    "ctaAccent": "Background Brand 400, text Base 900, pill shape",
+    "ctaSecondary": "Background transparent, text Base 900, no border",
     "displayWeight": "Fraunces 300 (light) sur display 40px+, 400 (regular) sur 24-32px, 500 (medium) sur titres courts",
     "italicUsage": "Fraunces italic réservé aux moments éditoriaux poétiques uniquement",
     "caseRule": "sentence case partout, jamais ALL CAPS",

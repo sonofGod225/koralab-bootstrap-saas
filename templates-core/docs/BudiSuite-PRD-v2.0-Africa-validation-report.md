@@ -73,7 +73,7 @@ visionRevisionV2_2:
     - 'POS mobile Phase 4 : note ajoutée que reconstruction couche offline sera nécessaire'
   mvpScope: 'INCHANGÉ — trio CRM + Facturation + Encaissements + foundations + onboarding'
   prdVersion: '2.2'
-  designSystemIntegrated: '__PROJECT_NAME__ Terre et Soleil v3.0 — docs/design-system/'
+  designSystemIntegrated: '__PROJECT_NAME__ Base et Brand v3.0 — docs/design-system/'
 
 visionRevisionV2_3:
   date: '2026-05-14'

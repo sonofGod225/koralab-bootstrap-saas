@@ -121,21 +121,21 @@ function SessionsPage() {
           const isCurrent = s.token === currentToken;
           return (
             <div className="flex items-center gap-3">
-              <span className="bg-terre-50 text-terre-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
+              <span className="bg-base-50 text-base-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
                 <DeviceIcon ua={s.userAgent} />
               </span>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-terre-900 text-[13px] font-medium">
+                  <span className="text-base-900 text-[13px] font-medium">
                     {deviceLabel(s.userAgent)}
                   </span>
                   {isCurrent ? (
-                    <span className="bg-soleil-50 text-soleil-600 rounded-full px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.4px] uppercase">
+                    <span className="bg-brand-50 text-brand-600 rounded-full px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.4px] uppercase">
                       Cet appareil
                     </span>
                   ) : null}
                 </div>
-                <div className="text-terre-500 text-[11px]">
+                <div className="text-base-500 text-[11px]">
                   Ouverte le {formatDate(s.createdAt)}
                 </div>
               </div>
@@ -147,13 +147,13 @@ function SessionsPage() {
         id: 'ipAddress',
         width: '1.2fr',
         header: 'IP',
-        cell: (s) => <span className="text-terre-600 font-mono text-xs">{s.ipAddress ?? '—'}</span>,
+        cell: (s) => <span className="text-base-600 font-mono text-xs">{s.ipAddress ?? '—'}</span>,
       },
       {
         id: 'activity',
         width: '1fr',
         header: 'Activité',
-        cell: (s) => <span className="text-terre-600 text-xs">{timeAgo(s.updatedAt)}</span>,
+        cell: (s) => <span className="text-base-600 text-xs">{timeAgo(s.updatedAt)}</span>,
       },
       {
         id: 'actions',
@@ -161,13 +161,13 @@ function SessionsPage() {
         cellClassName: 'flex justify-end',
         cell: (s) =>
           s.token === currentToken ? (
-            <span className="text-terre-400 text-xs">—</span>
+            <span className="text-base-400 text-xs">—</span>
           ) : (
             <LoadingButton
               type="button"
               variant="ghost"
               size="sm"
-              className="text-brique-700 hover:text-brique-900"
+              className="text-danger-700 hover:text-danger-900"
               loading={revoking === s.token}
               onClick={() => revokeOne(s.token)}
             >
@@ -183,29 +183,29 @@ function SessionsPage() {
     const isCurrent = s.token === currentToken;
     return (
       <article className="bg-card border-border-subtle flex items-center gap-3 rounded-2xl border-[0.5px] p-3.5">
-        <span className="bg-terre-50 text-terre-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
+        <span className="bg-base-50 text-base-700 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]">
           <DeviceIcon ua={s.userAgent} />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-terre-900 text-sm font-medium">{deviceLabel(s.userAgent)}</span>
+            <span className="text-base-900 text-sm font-medium">{deviceLabel(s.userAgent)}</span>
             {isCurrent ? (
-              <span className="bg-soleil-50 text-soleil-600 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-[0.4px] uppercase">
+              <span className="bg-brand-50 text-brand-600 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-[0.4px] uppercase">
                 Cet appareil
               </span>
             ) : null}
           </div>
-          <div className="text-terre-500 mt-0.5 truncate text-xs">
+          <div className="text-base-500 mt-0.5 truncate text-xs">
             Ouverte le {formatDate(s.createdAt)}
           </div>
-          <div className="text-terre-500 mt-1 flex items-center gap-2 text-[11px]">
+          <div className="text-base-500 mt-1 flex items-center gap-2 text-[11px]">
             <span className="font-mono">{s.ipAddress ?? '—'}</span>
             <span aria-hidden>·</span>
             <span>{timeAgo(s.updatedAt)}</span>
           </div>
         </div>
         {isCurrent ? (
-          <span className="text-terre-400 shrink-0 text-xs">—</span>
+          <span className="text-base-400 shrink-0 text-xs">—</span>
         ) : (
           <LoadingButton
             type="button"
@@ -213,7 +213,7 @@ function SessionsPage() {
             size="sm"
             loading={revoking === s.token}
             onClick={() => revokeOne(s.token)}
-            className="text-brique-700 hover:text-brique-900 shrink-0"
+            className="text-danger-700 hover:text-danger-900 shrink-0"
           >
             Révoquer
           </LoadingButton>
@@ -233,7 +233,7 @@ function SessionsPage() {
       />
 
       <div className="mb-3.5 flex items-center justify-between gap-3">
-        <h3 className="text-terre-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
+        <h3 className="text-base-500 text-[10px] font-semibold tracking-[1.2px] uppercase">
           {sessions === null ? 'Sessions actives' : `Sessions actives · ${sessions.length}`}
         </h3>
         {others.length > 0 ? (
@@ -241,7 +241,7 @@ function SessionsPage() {
             type="button"
             variant="ghost"
             size="sm"
-            className="text-brique-700 hover:text-brique-900"
+            className="text-danger-700 hover:text-danger-900"
             loading={revoking === 'others'}
             disabled={revoking !== null}
             onClick={revokeOthers}
@@ -252,7 +252,7 @@ function SessionsPage() {
       </div>
 
       {sessions !== null && sessions.length === 0 ? (
-        <div className="bg-card border-border-subtle text-terre-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
+        <div className="bg-card border-border-subtle text-base-600 rounded-[14px] border-[0.5px] p-6 text-center text-sm">
           Aucune session active. Relancez la page si l'erreur persiste.
         </div>
       ) : (

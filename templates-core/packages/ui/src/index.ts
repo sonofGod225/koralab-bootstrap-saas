@@ -12,7 +12,7 @@ export * from './lib/utils';
 export * from './lib/use-ui-messages';
 export * from './primitives';
 
-/* === shadcn primitives — design system Terre & Soleil === */
+/* === shadcn primitives — design system Base & Brand === */
 export * from './components/ui/accordion';
 export * from './components/ui/alert';
 export * from './components/ui/alert-dialog';

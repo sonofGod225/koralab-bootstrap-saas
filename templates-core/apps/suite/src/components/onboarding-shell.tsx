@@ -84,17 +84,17 @@ const stepIndexById = (id: OnboardingStepId): number => STEPS_FLAT.findIndex((s)
 function SidebarIndicator({ currentId }: { currentId: OnboardingStepId }) {
   const currentIdx = stepIndexById(currentId);
   return (
-    <aside className="bg-terre-25 border-border flex h-full w-[280px] flex-col gap-6 border-r px-6 py-8">
+    <aside className="bg-base-25 border-border flex h-full w-[280px] flex-col gap-6 border-r px-6 py-8">
       <__PROJECT_NAME__Logo size={32} />
 
       {/* Progression globale */}
       <div className="flex flex-col gap-2">
-        <div className="text-terre-500 text-[11px] font-medium tracking-[1.4px] uppercase">
+        <div className="text-base-500 text-[11px] font-medium tracking-[1.4px] uppercase">
           Configuration · {currentIdx + 1} sur {TOTAL_STEPS}
         </div>
-        <div className="bg-terre-100 h-1 overflow-hidden rounded-full">
+        <div className="bg-base-100 h-1 overflow-hidden rounded-full">
           <div
-            className="bg-soleil-400 h-full transition-[width] duration-200 ease-out"
+            className="bg-brand-400 h-full transition-[width] duration-200 ease-out"
             style={{ width: `${((currentIdx + 1) / TOTAL_STEPS) * 100}%` }}
           />
         </div>
@@ -114,10 +114,10 @@ function SidebarIndicator({ currentId }: { currentId: OnboardingStepId }) {
                 <span
                   className={`inline-flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg ${
                     sectionState === 'done'
-                      ? 'bg-soleil-400 text-terre-900'
+                      ? 'bg-brand-400 text-base-900'
                       : sectionState === 'active'
-                        ? 'bg-terre-900 text-terre-100'
-                        : 'bg-terre-100 text-terre-500'
+                        ? 'bg-base-900 text-base-100'
+                        : 'bg-base-100 text-base-500'
                   }`}
                 >
                   {sectionState === 'done' ? (
@@ -128,7 +128,7 @@ function SidebarIndicator({ currentId }: { currentId: OnboardingStepId }) {
                 </span>
                 <span
                   className={`text-[13px] font-semibold tracking-tight ${
-                    sectionState === 'upcoming' ? 'text-terre-500' : 'text-terre-900'
+                    sectionState === 'upcoming' ? 'text-base-500' : 'text-base-900'
                   }`}
                 >
                   {sec.title}
@@ -147,24 +147,24 @@ function SidebarIndicator({ currentId }: { currentId: OnboardingStepId }) {
                         key={st.id}
                         className={`flex items-center gap-2.5 text-xs leading-tight ${
                           stState === 'current'
-                            ? 'text-terre-900 font-medium'
+                            ? 'text-base-900 font-medium'
                             : stState === 'done'
-                              ? 'text-terre-600'
-                              : 'text-terre-400'
+                              ? 'text-base-600'
+                              : 'text-base-400'
                         }`}
                       >
                         <span
                           className={`h-2 w-2 shrink-0 rounded-full ${
                             stState === 'done'
-                              ? 'bg-soleil-400'
+                              ? 'bg-brand-400'
                               : stState === 'current'
-                                ? 'bg-terre-900'
+                                ? 'bg-base-900'
                                 : 'border-border bg-transparent ring-1 ring-current/30 ring-inset'
                           }`}
                         />
                         <span>{st.label}</span>
                         {st.optional && stState !== 'done' && (
-                          <span className="text-terre-400 ml-auto text-[10px]">facultatif</span>
+                          <span className="text-base-400 ml-auto text-[10px]">facultatif</span>
                         )}
                       </li>
                     );
@@ -186,18 +186,18 @@ function MobileIndicator({ currentId }: { currentId: OnboardingStepId }) {
   const cur = STEPS_FLAT[currentIdx];
   const sectionForCur = ONBOARDING_SECTIONS.find((s) => s.steps.some((st) => st.id === cur?.id));
   return (
-    <div className="bg-terre-25 border-border sticky top-0 z-10 flex flex-col gap-2.5 border-b px-5 pt-3.5 pb-4">
+    <div className="bg-base-25 border-border sticky top-0 z-10 flex flex-col gap-2.5 border-b px-5 pt-3.5 pb-4">
       <div className="flex items-center justify-between">
         <__PROJECT_NAME__Logo size={28} />
-        <span className="text-terre-600 font-mono text-[11px] font-medium tabular-nums">
+        <span className="text-base-600 font-mono text-[11px] font-medium tabular-nums">
           {currentIdx + 1} / {TOTAL_STEPS}
         </span>
       </div>
       <div className="flex flex-col gap-1.5">
-        <div className="text-soleil-700 text-[10px] font-medium tracking-[1.3px] uppercase">
+        <div className="text-brand-700 text-[10px] font-medium tracking-[1.3px] uppercase">
           {sectionForCur?.title}
         </div>
-        <div className="text-terre-900 font-display text-[18px] leading-tight font-normal tracking-tight">
+        <div className="text-base-900 font-display text-[18px] leading-tight font-normal tracking-tight">
           {cur?.label}
         </div>
       </div>
@@ -206,7 +206,7 @@ function MobileIndicator({ currentId }: { currentId: OnboardingStepId }) {
           <span
             key={s.id}
             className={`h-[3px] flex-1 rounded-full transition-colors ${
-              i <= currentIdx ? 'bg-soleil-400' : 'bg-terre-100'
+              i <= currentIdx ? 'bg-brand-400' : 'bg-base-100'
             }`}
           />
         ))}
@@ -252,10 +252,10 @@ function OnboardingTopbar() {
                   {user?.name.charAt(0).toUpperCase() ?? '?'}
                 </AvatarFallback>
               </Avatar>
-              <span className="text-terre-900 hidden max-w-[140px] truncate text-sm font-medium sm:block">
+              <span className="text-base-900 hidden max-w-[140px] truncate text-sm font-medium sm:block">
                 {user?.name ?? '…'}
               </span>
-              <ChevronDown className="text-terre-500 h-4 w-4" />
+              <ChevronDown className="text-base-500 h-4 w-4" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
@@ -326,15 +326,15 @@ export function StepHeaderV2({
   return (
     <div className="flex flex-col gap-2">
       {eyebrow ? (
-        <span className="text-soleil-700 hidden text-[11px] font-medium tracking-[1.4px] uppercase md:inline">
+        <span className="text-brand-700 hidden text-[11px] font-medium tracking-[1.4px] uppercase md:inline">
           {eyebrow}
         </span>
       ) : null}
-      <h1 className="font-display text-terre-900 max-w-[560px] text-[26px] leading-[1.05] font-light tracking-tight text-pretty md:text-[34px]">
+      <h1 className="font-display text-base-900 max-w-[560px] text-[26px] leading-[1.05] font-light tracking-tight text-pretty md:text-[34px]">
         {title}
       </h1>
       {subtitle ? (
-        <p className="text-terre-600 max-w-[540px] text-[13px] leading-relaxed text-pretty md:text-sm">
+        <p className="text-base-600 max-w-[540px] text-[13px] leading-relaxed text-pretty md:text-sm">
           {subtitle}
         </p>
       ) : null}
@@ -371,7 +371,7 @@ export function StepActions({
         <button
           type="button"
           onClick={onBack}
-          className="text-terre-700 hover:text-terre-900 inline-flex items-center gap-1 text-sm font-medium"
+          className="text-base-700 hover:text-base-900 inline-flex items-center gap-1 text-sm font-medium"
         >
           <ArrowLeft className="h-4 w-4" />
           Retour
@@ -384,7 +384,7 @@ export function StepActions({
           <button
             type="button"
             onClick={onSkip}
-            className="text-terre-600 hover:text-terre-900 px-2 text-sm font-medium"
+            className="text-base-600 hover:text-base-900 px-2 text-sm font-medium"
           >
             {skipLabel}
           </button>
@@ -393,7 +393,7 @@ export function StepActions({
           type={primaryType}
           onClick={primaryType === 'button' ? onPrimary : undefined}
           disabled={primaryDisabled || primaryLoading}
-          className="bg-terre-900 hover:bg-terre-800 text-terre-50 inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-base-900 hover:bg-base-800 text-base-50 inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
         >
           {primaryLoading ? 'Envoi…' : primaryLabel}
           <ArrowRight className="h-4 w-4" />
@@ -451,8 +451,8 @@ export function RadioCardGrid<TValue extends string>({
               compact ? 'px-3.5 py-3' : 'px-4 py-3.5'
             } ${
               sel
-                ? 'bg-terre-900 text-terre-100 border-transparent shadow-sm'
-                : 'bg-card text-terre-900 border-border hover:border-terre-300 hover:shadow-sm'
+                ? 'bg-base-900 text-base-100 border-transparent shadow-sm'
+                : 'bg-card text-base-900 border-border hover:border-base-300 hover:shadow-sm'
             }`}
           >
             <input
@@ -466,7 +466,7 @@ export function RadioCardGrid<TValue extends string>({
             {Icon ? (
               <span
                 className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                  sel ? 'text-soleil-300 bg-white/10' : 'bg-soleil-50 text-soleil-700'
+                  sel ? 'text-brand-300 bg-white/10' : 'bg-brand-50 text-brand-700'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -478,7 +478,7 @@ export function RadioCardGrid<TValue extends string>({
               </div>
               {opt.description ? (
                 <div
-                  className={`text-xs leading-snug ${sel ? 'text-terre-200' : 'text-terre-500'}`}
+                  className={`text-xs leading-snug ${sel ? 'text-base-200' : 'text-base-500'}`}
                 >
                   {opt.description}
                 </div>
@@ -487,11 +487,11 @@ export function RadioCardGrid<TValue extends string>({
             {/* Cercle radio visuel (le vrai input est sr-only ci-dessus). */}
             <span
               className={`mt-0.5 inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full ${
-                sel ? 'bg-soleil-400' : 'border-border border bg-transparent'
+                sel ? 'bg-brand-400' : 'border-border border bg-transparent'
               }`}
               aria-hidden
             >
-              {sel ? <Check className="text-terre-900 h-2.5 w-2.5" strokeWidth={3} /> : null}
+              {sel ? <Check className="text-base-900 h-2.5 w-2.5" strokeWidth={3} /> : null}
             </span>
           </label>
         );
@@ -522,7 +522,7 @@ export function SegmentedControl<TValue extends string>({
   return (
     <div
       role="radiogroup"
-      className="bg-terre-50 border-border inline-flex w-fit gap-0.5 rounded-full border p-1"
+      className="bg-base-50 border-border inline-flex w-fit gap-0.5 rounded-full border p-1"
     >
       {options.map((opt) => {
         const sel = opt.value === value;
@@ -530,7 +530,7 @@ export function SegmentedControl<TValue extends string>({
           <label
             key={opt.value}
             className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-colors ${
-              sel ? 'bg-background text-terre-900 shadow-sm' : 'text-terre-600 hover:text-terre-900'
+              sel ? 'bg-background text-base-900 shadow-sm' : 'text-base-600 hover:text-base-900'
             }`}
           >
             <input
@@ -543,7 +543,7 @@ export function SegmentedControl<TValue extends string>({
             />
             {opt.label}
             {opt.badge ? (
-              <span className="bg-soleil-400 text-terre-900 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-wide">
+              <span className="bg-brand-400 text-base-900 rounded-full px-1.5 py-px text-[9px] font-semibold tracking-wide">
                 {opt.badge}
               </span>
             ) : null}

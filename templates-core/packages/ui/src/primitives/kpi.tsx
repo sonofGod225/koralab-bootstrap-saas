@@ -1,11 +1,11 @@
 /**
- * <KPI /> — Indicateur clé Terre & Soleil.
+ * <KPI /> — Indicateur clé Base & Brand.
  *
  * Layout :
- * - Label en petite capitale espacée (terre 500, uppercase, tracking widest).
+ * - Label en petite capitale espacée (base 500, uppercase, tracking widest).
  *   Note : "uppercase" ici est *typographique* (caps small) acceptable car
  *   c'est un label de KPI, pas une phrase. Cf. SKILL.md règle sentence case.
- * - Valeur en Fraunces light 3xl Terre 900.
+ * - Valeur en Fraunces light 3xl Base 900.
  * - Trend optionnel (haut/bas/plat) avec icône Lucide + couleur sémantique.
  */
 
@@ -27,8 +27,8 @@ export interface KPIProps {
 }
 
 const trendStyles: Record<KPITrend['direction'], { color: string; Icon: typeof TrendingUp }> = {
-  up: { color: 'text-palmeraie-600', Icon: TrendingUp },
-  down: { color: 'text-brique-600', Icon: TrendingDown },
+  up: { color: 'text-success-600', Icon: TrendingUp },
+  down: { color: 'text-danger-600', Icon: TrendingDown },
   flat: { color: 'text-muted-foreground', Icon: Minus },
 };
 

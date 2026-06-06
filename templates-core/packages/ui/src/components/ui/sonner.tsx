@@ -1,11 +1,11 @@
 /**
- * <Toaster /> — Notifications Sonner adapté Terre & Soleil.
+ * <Toaster /> — Notifications Sonner adapté Base & Brand.
  *
  * Utilise le package `sonner`. Configuration :
  * - Position : top-right (bureau) / bottom-center (mobile)
  * - richColors activé pour les variantes success/error/warning/info
  * - closeButton visible
- * - Thème Terre & Soleil via CSS vars injectées sur le conteneur
+ * - Thème Base & Brand via CSS vars injectées sur le conteneur
  * - Re-export de `toast` pour usage direct
  */
 
@@ -32,10 +32,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
           closeButton:
             'group-[.toast]:bg-muted group-[.toast]:border-border group-[.toast]:text-muted-foreground group-[.toast]:hover:text-foreground group-[.toast]:hover:bg-subtle group-[.toast]:rounded-lg',
           icon: 'group-[.toast]:text-muted-foreground',
-          success: 'group-[.toaster]:border-palmeraie-200',
-          error: 'group-[.toaster]:border-brique-200',
-          warning: 'group-[.toaster]:border-mil-200',
-          info: 'group-[.toaster]:border-soleil-200',
+          success: 'group-[.toaster]:border-success-200',
+          error: 'group-[.toaster]:border-danger-200',
+          warning: 'group-[.toaster]:border-warning-200',
+          info: 'group-[.toaster]:border-brand-200',
         },
       }}
       {...props}

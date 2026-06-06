@@ -53,14 +53,14 @@ export function EstablishmentSwitcher() {
   if (list.length === 1) {
     return (
       <span className="border-border bg-card inline-flex items-center gap-2 rounded-[10px] border py-1.5 pr-2.5 pl-2">
-        <span className="bg-soleil-100 text-soleil-700 inline-flex h-[26px] w-[26px] items-center justify-center rounded-[8px]">
+        <span className="bg-brand-100 text-brand-700 inline-flex h-[26px] w-[26px] items-center justify-center rounded-[8px]">
           <Building2 className="h-3.5 w-3.5" />
         </span>
         <span className="hidden flex-col items-start sm:flex">
-          <span className="text-terre-500 text-[9px] leading-none font-semibold tracking-[1px] uppercase">
+          <span className="text-base-500 text-[9px] leading-none font-semibold tracking-[1px] uppercase">
             Vue
           </span>
-          <span className="text-terre-900 max-w-[160px] truncate text-[13px] leading-tight font-medium">
+          <span className="text-base-900 max-w-[160px] truncate text-[13px] leading-tight font-medium">
             {active?.name}
           </span>
         </span>
@@ -84,21 +84,21 @@ export function EstablishmentSwitcher() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="border-border bg-card hover:bg-terre-50 focus-visible:ring-soleil-400/40 inline-flex items-center gap-2 rounded-[10px] border py-1.5 pr-2.5 pl-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          className="border-border bg-card hover:bg-base-50 focus-visible:ring-brand-400/40 inline-flex items-center gap-2 rounded-[10px] border py-1.5 pr-2.5 pl-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
           aria-label="Changer d'établissement"
         >
-          <span className="bg-soleil-100 text-soleil-700 inline-flex h-[26px] w-[26px] items-center justify-center rounded-[8px]">
+          <span className="bg-brand-100 text-brand-700 inline-flex h-[26px] w-[26px] items-center justify-center rounded-[8px]">
             <Building2 className="h-3.5 w-3.5" />
           </span>
           <span className="hidden flex-col items-start sm:flex">
-            <span className="text-terre-500 text-[9px] leading-none font-semibold tracking-[1px] uppercase">
+            <span className="text-base-500 text-[9px] leading-none font-semibold tracking-[1px] uppercase">
               Vue
             </span>
-            <span className="text-terre-900 max-w-[160px] truncate text-[13px] leading-tight font-medium">
+            <span className="text-base-900 max-w-[160px] truncate text-[13px] leading-tight font-medium">
               {active?.name ?? 'Établissement'}
             </span>
           </span>
-          <ChevronsUpDown className="text-terre-500 h-3.5 w-3.5 shrink-0" />
+          <ChevronsUpDown className="text-base-500 h-3.5 w-3.5 shrink-0" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[240px]">
@@ -110,9 +110,9 @@ export function EstablishmentSwitcher() {
           >
             <span className="truncate">
               {e.name}
-              {e.isPrimary ? <span className="text-terre-400 text-[11px]"> · siège</span> : null}
+              {e.isPrimary ? <span className="text-base-400 text-[11px]"> · siège</span> : null}
             </span>
-            {e.id === active?.id ? <Check className="text-soleil-600 h-4 w-4 shrink-0" /> : null}
+            {e.id === active?.id ? <Check className="text-brand-600 h-4 w-4 shrink-0" /> : null}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

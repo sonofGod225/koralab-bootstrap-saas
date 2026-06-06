@@ -1,8 +1,8 @@
 /**
- * <Sheet /> — Panneau latéral Radix Dialog adapté Terre & Soleil.
+ * <Sheet /> — Panneau latéral Radix Dialog adapté Base & Brand.
  *
  * Utilise @radix-ui/react-dialog (shadcn Sheet pattern).
- * - Overlay : bg-terre-950/55 backdrop-blur-sm
+ * - Overlay : bg-base-950/55 backdrop-blur-sm
  * - Contenu : fond background, bordure border, shadow-lg
  * - Variantes de côté : top / bottom / left / right (slide + fade)
  * - Titre : font-display
@@ -26,7 +26,7 @@ const SheetOverlay = React.forwardRef<
   <SheetPrimitive.Overlay
     ref={ref}
     className={cn(
-      'bg-terre-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
+      'bg-base-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
       className,
     )}
     {...props}
@@ -65,7 +65,7 @@ const SheetContent = React.forwardRef<
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
-      <SheetPrimitive.Close className="rounded-pill text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-soleil-400/40 absolute top-4 right-4 p-1 transition-colors focus:outline-none focus-visible:ring-2 disabled:pointer-events-none">
+      <SheetPrimitive.Close className="rounded-pill text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-brand-400/40 absolute top-4 right-4 p-1 transition-colors focus:outline-none focus-visible:ring-2 disabled:pointer-events-none">
         <X className="h-4 w-4" />
         <span className="sr-only">Fermer</span>
       </SheetPrimitive.Close>

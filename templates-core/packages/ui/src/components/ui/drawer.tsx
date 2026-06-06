@@ -1,8 +1,8 @@
 /**
- * <Drawer /> — Tiroir bas d'écran mobile-first adapté Terre & Soleil.
+ * <Drawer /> — Tiroir bas d'écran mobile-first adapté Base & Brand.
  *
  * Utilise le package `vaul` (pattern shadcn Drawer).
- * - Overlay : bg-terre-950/55 backdrop-blur-sm
+ * - Overlay : bg-base-950/55 backdrop-blur-sm
  * - Contenu : fond background, bordure border, rounded-t-2xl, shadow-lg
  * - Grab handle centré en haut du panneau
  */
@@ -29,7 +29,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn('bg-terre-950/55 fixed inset-0 z-50 backdrop-blur-sm', className)}
+    className={cn('bg-base-950/55 fixed inset-0 z-50 backdrop-blur-sm', className)}
     {...props}
   />
 ));

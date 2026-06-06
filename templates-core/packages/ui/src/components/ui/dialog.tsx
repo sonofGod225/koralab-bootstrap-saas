@@ -1,8 +1,8 @@
 /**
- * <Dialog /> — Radix Dialog adapté Terre & Soleil.
+ * <Dialog /> — Radix Dialog adapté Base & Brand.
  *
  * Patron shadcn/ui v2 new-york. Style :
- * - Overlay : bg-terre-950/55 backdrop-blur-sm
+ * - Overlay : bg-base-950/55 backdrop-blur-sm
  * - Content : rounded-2xl, bg-card, border-border, shadow-lg warm
  * - Close icon : Lucide X, text-muted-foreground → text-foreground hover
  */
@@ -24,7 +24,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'bg-terre-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
+      'bg-base-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
       className,
     )}
     {...props}
@@ -47,7 +47,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="rounded-pill text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-soleil-400/40 absolute top-4 right-4 p-1 transition-colors focus:outline-none focus-visible:ring-2 disabled:pointer-events-none">
+      <DialogPrimitive.Close className="rounded-pill text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-brand-400/40 absolute top-4 right-4 p-1 transition-colors focus:outline-none focus-visible:ring-2 disabled:pointer-events-none">
         <X className="h-4 w-4" />
         <span className="sr-only">Fermer</span>
       </DialogPrimitive.Close>

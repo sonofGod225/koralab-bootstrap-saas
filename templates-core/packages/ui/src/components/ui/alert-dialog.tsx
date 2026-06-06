@@ -1,8 +1,8 @@
 /**
- * <AlertDialog /> — Boîte de confirmation Radix adapté Terre & Soleil.
+ * <AlertDialog /> — Boîte de confirmation Radix adapté Base & Brand.
  *
  * Patron shadcn/ui v2 new-york. Style :
- * - Overlay : bg-terre-950/55 backdrop-blur-sm
+ * - Overlay : bg-base-950/55 backdrop-blur-sm
  * - Contenu : rounded-2xl, fond background, border border, shadow-lg
  * - Action : buttonVariants({ variant: 'default' })
  * - Cancel : buttonVariants({ variant: 'outline' })
@@ -25,7 +25,7 @@ const AlertDialogOverlay = React.forwardRef<
   <AlertDialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'bg-terre-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
+      'bg-base-950/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm',
       className,
     )}
     {...props}

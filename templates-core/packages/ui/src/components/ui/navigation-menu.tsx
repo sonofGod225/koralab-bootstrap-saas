@@ -1,10 +1,10 @@
 /**
- * <NavigationMenu /> — Radix NavigationMenu adapté Terre & Soleil.
+ * <NavigationMenu /> — Radix NavigationMenu adapté Base & Brand.
  *
  * Patron shadcn/ui new-york. Style :
- * - Déclencheurs : texte terre-700, hover bg-terre-50 + texte terre-900,
+ * - Déclencheurs : texte base-700, hover bg-base-50 + texte base-900,
  *   icône ChevronDown animée à l'ouverture.
- * - Panneau contenu : bg-white, rounded-2xl, shadow-lg, border terre-100/50.
+ * - Panneau contenu : bg-white, rounded-2xl, shadow-lg, border base-100/50.
  * - Animations entrée/sortie via data-[motion] + Tailwind animate-in/out.
  * - Viewport positionné sous la liste avec transition douce.
  */
@@ -53,7 +53,7 @@ const NavigationMenuItem = NavigationMenuPrimitive.Item;
 /* ─── navigationMenuTriggerStyle ────────────────────────────────────────── */
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium text-foreground tracking-tight transition-colors duration-120 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-soleil-400/40 disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-muted data-[state=open]:bg-muted',
+  'group inline-flex h-10 w-max items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium text-foreground tracking-tight transition-colors duration-120 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/40 disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-muted data-[state=open]:bg-muted',
 );
 
 /* ─── NavigationMenuTrigger ─────────────────────────────────────────────── */

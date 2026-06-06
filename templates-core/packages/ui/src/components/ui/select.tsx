@@ -1,10 +1,10 @@
 /**
- * <Select /> — Radix Select adapté Terre & Soleil.
+ * <Select /> — Radix Select adapté Base & Brand.
  *
  * Style :
  * - Trigger : input-like (radius 12px, border-border, bg-background)
  * - Content : popover bg-card, border-border, shadow-md, radius 16px
- * - Items : hover bg-muted, focus Soleil 50, check icon Soleil 600
+ * - Items : hover bg-muted, focus Brand 50, check icon Brand 600
  */
 
 import * as React from 'react';
@@ -23,7 +23,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'border-border bg-card text-foreground placeholder:text-muted-foreground focus-visible:ring-soleil-400/40 focus-visible:ring-offset-background flex h-10 w-full items-center justify-between rounded-[12px] border px-3.5 py-2 text-sm transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      'border-border bg-card text-foreground placeholder:text-muted-foreground focus-visible:ring-brand-400/40 focus-visible:ring-offset-background flex h-10 w-full items-center justify-between rounded-[12px] border px-3.5 py-2 text-sm transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
       className,
     )}
     {...props}
@@ -131,7 +131,7 @@ const SelectItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="text-soleil-600 h-4 w-4" />
+        <Check className="text-brand-600 h-4 w-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

@@ -1,5 +1,5 @@
 /**
- * <MoneyInput /> — Saisie monétaire Terre & Soleil.
+ * <MoneyInput /> — Saisie monétaire Base & Brand.
  *
  * Accepte la saisie libre : "145000", "145 000", "145,000".
  * Normalise vers bigint (unités mineures) : XOF/XAF → 0 décimale,
