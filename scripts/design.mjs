@@ -1,14 +1,11 @@
 /**
  * design.mjs — theme generator for the `core` boilerplate (zero-dep).
  *
- * Given a theme spec (preset or custom seed colors + font + radius + mode), it
- * produces the full `packages/ui/src/styles/tokens.css` content: palette scales
+ * Given a theme spec (preset, custom seeds, or an imported design's tokens) it
+ * renders the full `packages/ui/src/styles/tokens.css`: palette scales
  * (base / brand / success / danger / warning), the semantic `--bs-*` layer
- * (light + dark), typography, radius, shadows, and the @font-face / font tokens.
- *
- * Color scales are generated in OKLCH (perceptually-even lightness ramp at the
- * seed's hue) then converted to sRGB hex. The `terre-soleil` preset ships the
- * exact original hex so the default look is unchanged.
+ * (light + dark), optional extended colors + gradients, typography, radius,
+ * shadows, and @font-face. Color scales are generated in OKLCH from a seed hue.
  */
 
 /* ───────────────────────── OKLCH ↔ sRGB ───────────────────────── */
@@ -27,7 +24,6 @@ export function rgbToHex(r, g, b) {
   return `#${to(r)}${to(g)}${to(b)}`;
 }
 
-/** sRGB hex → OKLab {L,a,b}. */
 export function hexToOklab(hex) {
   const [R, G, B] = hexToRgb(hex).map((v) => srgbToLinear(v / 255));
   const l = 0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B;
@@ -40,8 +36,6 @@ export function hexToOklab(hex) {
     b: 0.0259040371 * l_ + 0.7827717662 * m_ - 0.808675766 * s_,
   };
 }
-
-/** OKLab {L,a,b} → sRGB hex (gamut-clamped). */
 export function oklabToHex({ L, a, b }) {
   const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
   const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
@@ -52,7 +46,6 @@ export function oklabToHex({ L, a, b }) {
   const B = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
   return rgbToHex(linearToSrgb(clamp01(R)), linearToSrgb(clamp01(G)), linearToSrgb(clamp01(B)));
 }
-
 export function hexToLch(hex) {
   const { L, a, b } = hexToOklab(hex);
   return { L, C: Math.hypot(a, b), H: Math.atan2(b, a) };
@@ -63,12 +56,10 @@ export function lchToHex(L, C, H) {
 
 /* ───────────────────────── scale generation ───────────────────────── */
 
-// Perceptual lightness target per step (OKLCH L).
 const L_TARGET = {
   25: 0.985, 50: 0.967, 100: 0.935, 200: 0.872, 300: 0.8, 400: 0.72,
   500: 0.64, 600: 0.56, 700: 0.48, 800: 0.4, 900: 0.32, 950: 0.23,
 };
-// Chroma taper per step (vivid in the mid, calmer at the extremes).
 const C_TAPER = {
   25: 0.3, 50: 0.45, 100: 0.65, 200: 0.85, 300: 0.95, 400: 1.0,
   500: 1.0, 600: 0.95, 700: 0.85, 800: 0.72, 900: 0.58, 950: 0.46,
@@ -81,7 +72,6 @@ const STEPS = {
   warning: [50, 200, 400, 600],
 };
 
-/** Generate a step→hex scale from a seed hex. `neutral` keeps very low chroma. */
 export function genScale(seedHex, steps, { neutral = false } = {}) {
   const { C, H } = hexToLch(seedHex);
   const baseC = neutral ? Math.min(C, 0.028) : C;
@@ -92,7 +82,6 @@ export function genScale(seedHex, steps, { neutral = false } = {}) {
 
 /* ───────────────────────── presets ───────────────────────── */
 
-// Original "Terre & Soleil" hex — default preset reproduces the look exactly.
 const TERRE_SOLEIL = {
   base: { 25: '#fcf7ee', 50: '#f8efdf', 100: '#f4e4cc', 200: '#e5d2b5', 300: '#bfa378', 400: '#a18560', 500: '#8c6f4f', 600: '#6b4423', 700: '#4a2f18', 800: '#3a2412', 900: '#2a1a0f', 950: '#1a0f08' },
   brand: { 50: '#fdf1dd', 100: '#fbe2ba', 200: '#f5c994', 300: '#efb071', 400: '#e89b5a', 500: '#d6843e', 600: '#b86a28', 700: '#95531c', 800: '#6b3a12', 900: '#3d200a' },
@@ -112,12 +101,14 @@ const SEMANTIC_DEFAULTS = { success: '#16a34a', danger: '#dc2626', warning: '#d9
 
 /* ───────────────────────── fonts & radius ───────────────────────── */
 
+const MONO = `'JetBrains Mono', 'Fira Code', Consolas, monospace`;
+
 export const FONTS = {
   fraunces: {
     selfHostedFraunces: true,
     display: `'Fraunces', Georgia, 'Times New Roman', serif`,
     sans: `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`,
-    googleHref: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    googleHref: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
   },
   inter: {
     selfHostedFraunces: false,
@@ -138,7 +129,6 @@ export const FONTS = {
     googleHref: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap',
   },
 };
-const MONO = `'JetBrains Mono', 'Fira Code', Consolas, monospace`;
 
 export const RADII = {
   sharp: { sm: 4, md: 6, lg: 8, xl: 10, '2xl': 12, '3xl': 16, pill: 100, input: 6, tile: 8, card: 10 },
@@ -156,8 +146,9 @@ export function resolveSpec(opts = {}) {
   const mode = opts.mode || 'system';
 
   let scales;
-  if (opts.primary || opts.accent) {
-    // Custom seeds override the preset.
+  if (opts.scales) {
+    scales = opts.scales;
+  } else if (opts.primary || opts.accent) {
     const primary = opts.primary || '#3f3f46';
     const accent = opts.accent || '#6366f1';
     scales = {
@@ -178,7 +169,21 @@ export function resolveSpec(opts = {}) {
       warning: genScale(SEMANTIC_DEFAULTS.warning, STEPS.warning),
     };
   }
-  return { preset: presetKey, scales, font, radius, mode };
+  return {
+    preset: presetKey,
+    scales,
+    mode,
+    // font: a FONTS key (string) OR an object { display, sans, mono?, selfHosted:[{family,file,style}] }
+    font: opts.fontSpec || font,
+    // radius: a RADII key (string) OR an object of px values
+    radius: opts.radiusValues || radius,
+    // exact semantic overrides: { light:{...}, dark:{...} } using camelCase keys (optional)
+    semantic: opts.semantic || null,
+    // extended palette + gradients: { colors:{name:hex}, gradients:{name:value} } (optional)
+    extended: opts.extended || null,
+    // asset paths for apply-theme to copy (optional): { logos:[], symbols:[], favicon }
+    assets: opts.assets || null,
+  };
 }
 
 /* ───────────────────────── tokens.css renderer ───────────────────────── */
@@ -188,17 +193,63 @@ const paletteBlock = (name, scale, title) =>
   `  /* === ${title} === */\n` +
   Object.entries(scale).map(([k, v]) => `  --color-${name}-${k}: ${v};`).join('\n');
 
-export function renderTokensCss(spec) {
-  const { scales: s, font: fontKey, radius: radiusKey } = spec;
-  const font = FONTS[fontKey] || FONTS.fraunces;
-  const r = RADII[radiusKey] || RADII.default;
-  const base900rgb = rgbTriplet(s.base[900]);
-  const base50rgb = rgbTriplet(s.base[50]);
-  const brand200 = s.brand[200];
-  const brand400rgb = rgbTriplet(s.brand[400]);
+const BS_KEYS = [
+  ['--bs-background', 'background'], ['--bs-foreground', 'foreground'], ['--bs-card', 'card'],
+  ['--bs-popover', 'popover'], ['--bs-muted', 'muted'], ['--bs-muted-foreground', 'mutedForeground'],
+  ['--bs-subtle', 'subtle'], ['--bs-subtle-foreground', 'subtleForeground'], ['--bs-primary', 'primary'],
+  ['--bs-primary-foreground', 'primaryForeground'], ['--bs-secondary', 'secondary'],
+  ['--bs-border', 'border'], ['--bs-border-subtle', 'borderSubtle'],
+];
 
-  const fontFace = font.selfHostedFraunces
-    ? `@font-face {
+function lightDefaults(s, base900rgb) {
+  return {
+    background: s.base[25], foreground: s.base[900], card: '#ffffff', popover: '#ffffff',
+    muted: s.base[50], mutedForeground: s.base[600], subtle: s.base[100], subtleForeground: s.base[700],
+    primary: s.base[900], primaryForeground: s.base[25], secondary: s.base[100],
+    border: `rgb(${base900rgb} / 0.12)`, borderSubtle: `rgb(${base900rgb} / 0.06)`,
+    fieldBg: '#ffffff', fieldBgHover: s.base[25], fieldBorder: 'var(--color-base-200)',
+    fieldPlaceholder: 'var(--color-base-400)', fieldIcon: 'var(--color-base-500)',
+    fieldShadow: 'inset 0 0.5px 0 rgb(255 255 255 / 0.5)',
+  };
+}
+function darkDefaults(s, base50rgb) {
+  return {
+    background: s.base[950], foreground: s.base[50], card: s.base[900], popover: s.base[800],
+    muted: s.base[900], mutedForeground: s.base[300], subtle: s.base[800], subtleForeground: s.base[200],
+    primary: s.base[50], primaryForeground: s.base[900], secondary: s.base[800],
+    border: `rgb(${base50rgb} / 0.14)`, borderSubtle: `rgb(${base50rgb} / 0.07)`,
+    fieldBg: s.base[900], fieldBgHover: s.base[800], fieldBorder: `rgb(${base50rgb} / 0.14)`,
+    fieldPlaceholder: 'var(--color-base-400)', fieldIcon: 'var(--color-base-300)',
+    fieldShadow: 'inset 0 0.5px 0 rgb(255 255 255 / 0.06)',
+  };
+}
+function semBlock(defaults, override, indent) {
+  const v = { ...defaults, ...(override || {}) };
+  const L = (k, val) => `${indent}${k}: ${val};`;
+  return [
+    ...BS_KEYS.map(([css, key]) => L(css, v[key])),
+    '',
+    L('--field-bg', v.fieldBg), L('--field-bg-hover', v.fieldBgHover), L('--field-border', v.fieldBorder),
+    L('--field-placeholder', v.fieldPlaceholder), L('--field-icon', v.fieldIcon),
+    L('--field-shadow-inset', v.fieldShadow),
+  ].join('\n');
+}
+
+function fontFaceBlock(font) {
+  if (font.selfHosted && font.selfHosted.length) {
+    return (
+      font.selfHosted
+        .map((f) => {
+          const fmt = /\.ttf$/i.test(f.file) ? 'truetype-variations'
+            : /\.woff2$/i.test(f.file) ? 'woff2-variations'
+            : /\.otf$/i.test(f.file) ? 'opentype' : 'woff2';
+          return `@font-face {\n  font-family: '${f.family}';\n  font-style: ${f.style || 'normal'};\n  font-weight: 100 900;\n  font-display: swap;\n  src: url('../../fonts/${f.file}') format('${fmt}');\n}`;
+        })
+        .join('\n\n') + '\n\n'
+    );
+  }
+  if (font.selfHostedFraunces) {
+    return `@font-face {
   font-family: 'Fraunces';
   font-style: normal;
   font-weight: 100 900;
@@ -214,8 +265,32 @@ export function renderTokensCss(spec) {
   font-display: swap;
   src: url('../../fonts/Fraunces-Italic-VariableFont.woff2') format('woff2-variations');
   unicode-range: U+0000-017F, U+2000-206F, U+20A0-20CF;
-}\n\n`
-    : `/* Fonts loaded via <link> in each app's <head> (see app root). */\n\n`;
+}\n\n`;
+  }
+  return `/* Fonts loaded via <link> in each app's <head> (see app root). */\n\n`;
+}
+
+function extendedBlock(extended) {
+  if (!extended) return '';
+  const colors = Object.entries(extended.colors || {})
+    .map(([k, v]) => `  --color-${k}: ${v};`).join('\n');
+  const grads = Object.entries(extended.gradients || {})
+    .map(([k, v]) => `  --${k.startsWith('gradient') ? k : `gradient-${k}`}: ${v};`).join('\n');
+  if (!colors && !grads) return '';
+  return `\n\n  /* === EXTENDED — imported design palette + gradients ===\n     Editorial colors / signature gradients carried over from the design. */\n${[colors, grads].filter(Boolean).join('\n')}`;
+}
+
+export function renderTokensCss(spec) {
+  const s = spec.scales;
+  const font = typeof spec.font === 'object' && spec.font ? spec.font : (FONTS[spec.font] || FONTS.fraunces);
+  const r = typeof spec.radius === 'object' && spec.radius
+    ? { ...RADII.default, ...spec.radius }
+    : (RADII[spec.radius] || RADII.default);
+  const radiusLabel = typeof spec.radius === 'string' ? spec.radius : 'custom';
+  const base900rgb = rgbTriplet(s.base[900]);
+  const base50rgb = rgbTriplet(s.base[50]);
+  const brand400rgb = rgbTriplet(s.brand[400]);
+  const sem = spec.semantic || {};
 
   return `/**
  * Design tokens — generated by create-koralab-saas (scripts/design.mjs).
@@ -224,7 +299,7 @@ export function renderTokensCss(spec) {
  * Re-theme: re-run the generator, or edit the palette/semantic blocks below.
  */
 
-${fontFace}@theme {
+${fontFaceBlock(font)}@theme {
   /* Default Tailwind palette purged — only the palettes below exist as utilities. */
   --color-*: initial;
   --color-white: #ffffff;
@@ -241,7 +316,7 @@ ${paletteBlock('success', s.success, 'SUCCESS')}
 
 ${paletteBlock('danger', s.danger, 'DANGER')}
 
-${paletteBlock('warning', s.warning, 'WARNING')}
+${paletteBlock('warning', s.warning, 'WARNING')}${extendedBlock(spec.extended)}
 
   /* === SEMANTIC TOKENS (dark-mode aware via --bs-* below) === */
   --color-background: var(--bs-background);
@@ -271,7 +346,7 @@ ${paletteBlock('warning', s.warning, 'WARNING')}
   --font-display: ${font.display};
   --font-display--font-feature-settings: 'ss01', 'ss02';
   --font-sans: ${font.sans};
-  --font-mono: ${MONO};
+  --font-mono: ${font.mono || MONO};
 
   --text-xs: 11px;
   --text-sm: 13px;
@@ -292,7 +367,7 @@ ${paletteBlock('warning', s.warning, 'WARNING')}
   --tracking-wide: 0.5px;
   --tracking-widest: 1.5px;
 
-  /* === BORDER RADIUS (${radiusKey}) === */
+  /* === BORDER RADIUS (${radiusLabel}) === */
   --radius-sm: ${r.sm}px;
   --radius-md: ${r.md}px;
   --radius-lg: ${r.lg}px;
@@ -317,36 +392,17 @@ ${paletteBlock('warning', s.warning, 'WARNING')}
 /* === Semantic runtime values — light (default) === */
 :root {
   color-scheme: light dark;
-  --bs-background: ${s.base[25]};
-  --bs-foreground: ${s.base[900]};
-  --bs-card: #ffffff;
-  --bs-popover: #ffffff;
-  --bs-muted: ${s.base[50]};
-  --bs-muted-foreground: ${s.base[600]};
-  --bs-subtle: ${s.base[100]};
-  --bs-subtle-foreground: ${s.base[700]};
-  --bs-primary: ${s.base[900]};
-  --bs-primary-foreground: ${s.base[25]};
-  --bs-secondary: ${s.base[100]};
-  --bs-border: rgb(${base900rgb} / 0.12);
-  --bs-border-subtle: rgb(${base900rgb} / 0.06);
-
-  --field-bg: #ffffff;
-  --field-bg-hover: ${s.base[25]};
-  --field-border: var(--color-base-200);
-  --field-placeholder: var(--color-base-400);
-  --field-icon: var(--color-base-500);
-  --field-shadow-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.5);
+${semBlock(lightDefaults(s, base900rgb), sem.light, '  ')}
 }
 
-/* === Dark values — base palette inverted === */
+/* === Dark values === */
 .dark {
-${darkBlock(s, base50rgb)}
+${semBlock(darkDefaults(s, base50rgb), sem.dark, '  ')}
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-${darkBlock(s, base50rgb, '    ')}
+${semBlock(darkDefaults(s, base50rgb), sem.dark, '    ')}
   }
 }
 
@@ -388,30 +444,4 @@ body {
   border-color: rgb(${base900rgb} / 0.06);
 }
 `;
-}
-
-function darkBlock(s, base50rgb, indent = '  ') {
-  const L = (k, v) => `${indent}${k}: ${v};`;
-  return [
-    L('--bs-background', s.base[950]),
-    L('--bs-foreground', s.base[50]),
-    L('--bs-card', s.base[900]),
-    L('--bs-popover', s.base[800]),
-    L('--bs-muted', s.base[900]),
-    L('--bs-muted-foreground', s.base[300]),
-    L('--bs-subtle', s.base[800]),
-    L('--bs-subtle-foreground', s.base[200]),
-    L('--bs-primary', s.base[50]),
-    L('--bs-primary-foreground', s.base[900]),
-    L('--bs-secondary', s.base[800]),
-    L('--bs-border', `rgb(${base50rgb} / 0.14)`),
-    L('--bs-border-subtle', `rgb(${base50rgb} / 0.07)`),
-    '',
-    L('--field-bg', s.base[900]),
-    L('--field-bg-hover', s.base[800]),
-    L('--field-border', `rgb(${base50rgb} / 0.14)`),
-    L('--field-placeholder', 'var(--color-base-400)'),
-    L('--field-icon', 'var(--color-base-300)'),
-    L('--field-shadow-inset', 'inset 0 0.5px 0 rgb(255 255 255 / 0.06)'),
-  ].join('\n');
 }

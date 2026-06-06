@@ -91,6 +91,13 @@ async function main() {
     // theme (core variant only)
     const theme = {};
     if (variant === 'core') {
+      // Optional: import a Claude Design bundle (its tokens/fonts/logos become the theme).
+      const designUrl = val('--design-url') || (rl ? await ask('Import a Claude Design bundle? (paste URL, or leave blank):', '') : '');
+      if (val('--spec')) theme.spec = val('--spec');
+      else if (val('--design-dir')) theme['design-dir'] = val('--design-dir');
+      else if (designUrl) theme['design-url'] = designUrl;
+    }
+    if (variant === 'core' && !theme.spec && !theme['design-dir'] && !theme['design-url']) {
       const presetKeys = Object.keys(PRESETS);
       if (val('--primary') || val('--accent')) {
         theme.primary = val('--primary');

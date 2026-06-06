@@ -40,6 +40,23 @@ Applied by `scripts/design.mjs` (zero-dep OKLCH→sRGB) + `scripts/apply-theme.m
 swaps the Google-Fonts `<link>`, sets the default color mode, and recolors the logo/favicon/manifest
 (a generic initial mark). Presets: `terre-soleil` (default), `slate-blue`, `zinc-violet`, `stone-emerald`.
 
+### Import a design system from a Claude Design bundle
+Paste a Claude Design URL and the generated project adopts that design system (colors, fonts,
+radius, logos). The endpoint returns a `tar.gz` of the whole design project.
+```bash
+node bin/cli.mjs my-app --variant core --design-url https://api.anthropic.com/v1/design/h/<hash> --yes
+# or step by step (also the agent path):
+node scripts/fetch-design.mjs <url> /tmp/kb > /tmp/kb/manifest.json   # download + untar + manifest
+node scripts/extract-theme.mjs /tmp/kb/manifest.json > /tmp/kb/spec.json   # heuristic token → spec
+node scripts/generate.mjs --variant core --name my-app --design-dir /tmp/kb --out ./my-app
+```
+Imports: exact semantic colors → `--bs-*`, generated utility scales (seeds), extended editorial
+colors + gradients, the bundle's self-hosted fonts (`.ttf`), and brand logos/favicon. The heuristic
+mapper logs its decisions; for unusual token names, let the agent refine the spec (see SKILL.md).
+
+> Claude Design bundle URLs are **short-lived** — fetch promptly. Once downloaded, work from the
+> extracted dir (`--design-dir`) or a saved spec (`--spec`), which never expire.
+
 ## Layout
 ```
 bin/cli.mjs                  # the CLI (interactive + flags), orchestrates the scripts
@@ -48,6 +65,8 @@ scripts/snapshot.mjs         # maintenance: tokenise a source repo → templates
 scripts/generate.mjs         # runtime: materialise a project (--variant core|full + theme flags)
 scripts/design.mjs           # theme generator: OKLCH scales + presets + tokens.css renderer
 scripts/apply-theme.mjs      # applies a theme to a generated core project (tokens/logo/fonts/mode)
+scripts/fetch-design.mjs     # download + untar a Claude Design bundle → JSON manifest
+scripts/extract-theme.mjs    # heuristic: map a design bundle's tokens → a theme spec
 templates-core/              # COMMITTED generic build-green boilerplate (bundled in npm)
 templates/                   # gitignored: tokenised faithful copy of a private source repo
 overrides-slim/              # full-variant --slim overrides (single module-example)

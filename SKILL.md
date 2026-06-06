@@ -77,6 +77,22 @@ rewrites `packages/ui/src/styles/tokens.css` (generic palettes `base/brand/succe
 + semantic `--bs-*` + radius + fonts) and recolors logo/favicon/manifest. No theme flags ⇒ the
 default reproduces the original "Terre & Soleil" look. Theming applies to `core` only.
 
+**Import a design system from a Claude Design bundle (core variant):** when the user pastes a
+Claude Design instruction (an `https://api.anthropic.com/v1/design/h/<hash>` URL — the endpoint
+returns a `tar.gz` of the whole design project), the boilerplate can adopt that design system.
+- **CLI / deterministic**: `generate.mjs --variant core --design-url <url>` runs
+  `scripts/fetch-design.mjs` (download + untar + manifest) → `scripts/extract-theme.mjs` (heuristic
+  token mapping) → a theme spec → `apply-theme`. Imports: exact semantic colors into `--bs-*`,
+  generated utility scales (seeds), extended editorial colors + gradients, self-hosted fonts (the
+  bundle's `.ttf`), and the brand logos/favicon. Also `--design-dir <fetched-dir>` and `--spec <file>`.
+- **Agent path (best fidelity)**: run `node scripts/fetch-design.mjs <url> /tmp/kb` then **read**
+  `/tmp/kb/extracted/**/styles/tokens.css` + `uploads/*brand*.md`, and write a refined theme-spec
+  JSON (map the design's roles: signature accent → `accent`, neutral/text → `primary`, semantic
+  greens/reds/ambers → `success/danger/warning`, surfaces/text → `semantic.light/dark`, editorial
+  colors + gradients → `extended`, fonts → `fontSpec.selfHosted`, logos → `assets`). Then
+  `generate.mjs --variant core --spec /tmp/kb/spec.json …`. The agent mapping beats the heuristic
+  when token names are unusual. Spec schema: see `scripts/design.mjs` `resolveSpec`.
+
 ### 3. Non-default stack variants (hybrid step)
 If the user picked a non-default value for front / deploy target / db driver, AFTER running
 the generator apply the recipe in `reference/stack-variants.md`. Those recipes scaffold the

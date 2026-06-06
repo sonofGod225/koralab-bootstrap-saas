@@ -26,10 +26,11 @@
  *   --no-git          skip `git init`
  *   --dry-run         print what would happen, write nothing
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, readdirSync, statSync, existsSync, rmSync } from 'node:fs';
 import { join, relative, dirname, basename, extname } from 'node:path';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import { resolveSpec } from './design.mjs';
 import { applyTheme } from './apply-theme.mjs';
 
@@ -196,9 +197,36 @@ if (SLIM && VARIANT === 'full') {
 }
 
 // ---- theme (core variant only) --------------------------------------------
+// Optional design-bundle import: --spec <file> (precomputed), --design-dir <dir>
+// (a fetch-design output with manifest.json), or --design-url <url> (fetch+extract).
+function designImportOpts() {
+  const SELF = dirname(fileURLToPath(import.meta.url));
+  if (val('--spec')) return JSON.parse(readFileSync(val('--spec'), 'utf8'));
+  let manifestPath;
+  if (val('--design-url')) {
+    const tmp = mkdtempSync(join(tmpdir(), 'koralab-design-'));
+    const manifest = execFileSync('node', [join(SELF, 'fetch-design.mjs'), val('--design-url'), tmp], { encoding: 'utf8' });
+    manifestPath = join(tmp, 'manifest.json');
+    writeFileSync(manifestPath, manifest);
+  } else if (val('--design-dir')) {
+    manifestPath = join(val('--design-dir'), 'manifest.json');
+    if (!existsSync(manifestPath)) {
+      // classify the dir on the fly via fetch-design's logic is not available; require manifest.
+      console.error(`✖ --design-dir expects a fetch-design output containing manifest.json (${manifestPath} missing).`);
+      process.exit(1);
+    }
+  }
+  if (!manifestPath) return null;
+  const spec = execFileSync('node', [join(SELF, 'extract-theme.mjs'), manifestPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
+  return JSON.parse(spec);
+}
+
 let themeSpec = null;
 if (!DRY && VARIANT === 'core') {
-  themeSpec = resolveSpec(THEME);
+  const designOpts = designImportOpts();
+  // Explicit theme flags override the imported design.
+  const flagOpts = Object.fromEntries(Object.entries(THEME).filter(([, v]) => v));
+  themeSpec = resolveSpec({ ...(designOpts || {}), ...flagOpts });
   applyTheme(OUT, themeSpec, { scope: SCOPE, name: NAME, display: DISPLAY });
 }
 
