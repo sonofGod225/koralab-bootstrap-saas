@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t d">
+  <title id="t">L&#39;arbre qui s&#39;élargit</title>
+  <desc id="d">Réseau de cercles connectés représentant l&#39;équipe qui s&#39;agrandit avec un nouveau membre.</desc>
+  
+  <g stroke="#2A1A0F" fill="none" stroke-width="1.5" opacity="0.3">
+    <path d="M 240 240 Q 230 165 240 100"></path>
+    <path d="M 240 240 Q 320 230 380 240"></path>
+    <path d="M 240 240 Q 290 300 320 370"></path>
+    <path d="M 240 240 Q 170 255 100 280"></path>
+  </g>
+  
+  <path d="M 240 240 Q 180 195 140 120" stroke="#E89B5A" stroke-width="2" fill="none" stroke-dasharray="4 6" opacity="0.85"></path>
+  
+  <circle cx="240" cy="240" r="65" fill="#2A1A0F"></circle>
+  
+  <g transform="translate(240 240) scale(0.85)">
+    <path d="M -28 0 L -28 -10 Q -28 -20 -18 -20 L -8 -20 L -8 0 Z" fill="#F4E4CC"></path>
+    <path d="M -6 0 L -6 -20 L 18 -20 Q 28 -20 28 -10 L 28 0 Z" fill="#F4E4CC"></path>
+    <path d="M -28 2 L -8 2 L -8 22 L -18 22 Q -28 22 -28 12 Z" fill="#F4E4CC"></path>
+    <path d="M -6 2 L 28 2 L 28 12 Q 28 22 18 22 L -6 22 Z" fill="#E89B5A"></path>
+  </g>
+  
+  
+  <g transform="translate(240 100)">
+    <circle r="34" fill="#E89B5A"></circle>
+    <text y="11" font-family="Fraunces, serif" font-weight="400" font-size="32" fill="#2A1A0F" text-anchor="middle">K</text>
+  </g>
+  
+  <g transform="translate(380 240)">
+    <circle r="34" fill="#E5D2B5"></circle>
+    <text y="11" font-family="Fraunces, serif" font-weight="400" font-size="32" fill="#2A1A0F" text-anchor="middle">A</text>
+  </g>
+  
+  <g transform="translate(320 370)">
+    <circle r="34" fill="#BFA378"></circle>
+    <text y="11" font-family="Fraunces, serif" font-weight="400" font-size="32" fill="#2A1A0F" text-anchor="middle">M</text>
+  </g>
+  
+  <g transform="translate(100 280)">
+    <circle r="34" fill="#F4E4CC"></circle>
+    <text y="11" font-family="Fraunces, serif" font-weight="400" font-size="32" fill="#2A1A0F" text-anchor="middle">F</text>
+  </g>
+  
+  <g transform="translate(140 120)">
+    <circle r="32" fill="#FCF7EE" stroke="#E89B5A" stroke-width="2.5" stroke-dasharray="6 6"></circle>
+    <path d="M 0 -12 L 0 12 M -12 0 L 12 0" stroke="#E89B5A" stroke-width="3" stroke-linecap="round"></path>
+  </g>
+  
+  <g fill="#E89B5A">
+    <circle cx="60" cy="180" r="4" opacity="0.55"></circle>
+    <circle cx="420" cy="130" r="5" opacity="0.7"></circle>
+    <circle cx="400" cy="380" r="4" opacity="0.5"></circle>
+    <circle cx="80" cy="400" r="6" opacity="0.7"></circle>
+  </g>
+</svg>

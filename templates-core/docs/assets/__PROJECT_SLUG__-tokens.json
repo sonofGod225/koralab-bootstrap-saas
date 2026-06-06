@@ -1,0 +1,157 @@
+{
+  "$schema": "https://schemas.__PROJECT_SLUG__.com/design-tokens/v3.json",
+  "name": "__PROJECT_NAME__ Design Tokens — Terre et Soleil",
+  "version": "3.0.0",
+  "description": "Moderne et chaleureux, ancré dans l'esthétique sahélienne. Soleil signature à 15% max.",
+  "colors": {
+    "soleil": {
+      "50": "#FDF1DD",
+      "100": "#FBE2BA",
+      "200": "#F5C994",
+      "300": "#EFB071",
+      "400": "#E89B5A",
+      "500": "#D6843E",
+      "600": "#B86A28",
+      "700": "#95531C",
+      "800": "#6B3A12",
+      "900": "#3D200A"
+    },
+    "terre": {
+      "25": "#FCF7EE",
+      "50": "#F8EFDF",
+      "100": "#F4E4CC",
+      "200": "#E5D2B5",
+      "300": "#BFA378",
+      "400": "#A18560",
+      "500": "#8C6F4F",
+      "600": "#6B4423",
+      "700": "#4A2F18",
+      "800": "#3A2412",
+      "900": "#2A1A0F",
+      "950": "#1A0F08"
+    },
+    "palmeraie": {
+      "50": "#E8F0DC",
+      "200": "#A8C083",
+      "400": "#6A9C42",
+      "600": "#4A7C36",
+      "800": "#2C4F1F",
+      "900": "#1A3010"
+    },
+    "brique": {
+      "50": "#FAE8E0",
+      "200": "#E6A084",
+      "400": "#D85F36",
+      "600": "#B8421A",
+      "800": "#7A2A0E",
+      "900": "#4A180A"
+    },
+    "mil": {
+      "50": "#FFF5D9",
+      "200": "#FFDF8C",
+      "400": "#EFC548",
+      "600": "#BD9420"
+    }
+  },
+  "semanticColors": {
+    "background": {
+      "base": "#FCF7EE",
+      "warm": "#F4E4CC",
+      "elevated": "#FFFFFF",
+      "inverse": "#2A1A0F",
+      "brand": "#E89B5A",
+      "cta": "#2A1A0F"
+    },
+    "text": {
+      "primary": "#2A1A0F",
+      "secondary": "#6B4423",
+      "tertiary": "#8C6F4F",
+      "inverse": "#F4E4CC",
+      "brand": "#B86A28",
+      "success": "#2C4F1F",
+      "danger": "#7A2A0E"
+    },
+    "border": {
+      "subtle": "rgba(42, 26, 15, 0.06)",
+      "default": "rgba(42, 26, 15, 0.12)",
+      "strong": "rgba(42, 26, 15, 0.20)",
+      "brand": "#E89B5A",
+      "focus": "#EFB071"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": "Fraunces, Georgia, serif",
+      "sans": "Inter, -apple-system, sans-serif",
+      "mono": "JetBrains Mono, Consolas, monospace"
+    },
+    "fontSize": {
+      "xs": "11px",
+      "sm": "13px",
+      "base": "14px",
+      "md": "15px",
+      "lg": "17px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "4xl": "40px",
+      "5xl": "56px",
+      "6xl": "72px"
+    },
+    "fontWeight": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600
+    },
+    "lineHeight": {
+      "display": 1.0,
+      "tight": 1.1,
+      "snug": 1.3,
+      "normal": 1.55,
+      "relaxed": 1.7
+    },
+    "letterSpacing": {
+      "display": "-2px",
+      "tighter": "-1.2px",
+      "tight": "-0.6px",
+      "normal": "-0.2px",
+      "wide": "0.5px",
+      "widest": "1.5px"
+    }
+  },
+  "spacing": {
+    "1": "4px", "2": "8px", "3": "12px", "4": "16px", "5": "20px",
+    "6": "24px", "7": "28px", "8": "32px", "10": "40px", "12": "48px",
+    "14": "56px", "16": "64px", "20": "80px", "24": "96px"
+  },
+  "borderRadius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "2xl": "24px",
+    "3xl": "32px",
+    "pill": "100px",
+    "full": "9999px"
+  },
+  "shadow": {
+    "xs": "0 1px 2px 0 rgb(42 26 15 / 0.04)",
+    "sm": "0 1px 3px 0 rgb(42 26 15 / 0.06), 0 1px 2px -1px rgb(42 26 15 / 0.04)",
+    "md": "0 4px 8px -2px rgb(42 26 15 / 0.06), 0 2px 4px -2px rgb(42 26 15 / 0.04)",
+    "lg": "0 12px 20px -4px rgb(42 26 15 / 0.08), 0 4px 8px -4px rgb(42 26 15 / 0.04)",
+    "focus": "0 0 0 3px rgb(232 155 90 / 0.25)"
+  },
+  "brandRules": {
+    "soleilMaxSurface": "15%",
+    "petalCount": 4,
+    "petalAccent": "Le pétale accent (cuivre soleil) symbolise le module actif ou l'aboutissement (paiement reçu)",
+    "ctaPrimary": "Background Terre 900, text Terre 100, pill shape (border-radius pill)",
+    "ctaAccent": "Background Soleil 400, text Terre 900, pill shape",
+    "ctaSecondary": "Background transparent, text Terre 900, no border",
+    "displayWeight": "Fraunces 300 (light) sur display 40px+, 400 (regular) sur 24-32px, 500 (medium) sur titres courts",
+    "italicUsage": "Fraunces italic réservé aux moments éditoriaux poétiques uniquement",
+    "caseRule": "sentence case partout, jamais ALL CAPS",
+    "organicCorners": "Border-radius généreux (16-24px sur cards, pill sur boutons)"
+  }
+}

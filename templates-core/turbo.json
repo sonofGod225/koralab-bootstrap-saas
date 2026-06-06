@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".output/**", ".tanstack/**", ".vinxi/**"],
+      "env": ["NODE_ENV", "CI"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": ["**/*.tsbuildinfo"]
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "outputs": ["coverage/**"]
+    },
+    "test:bundle": {
+      "dependsOn": ["build"],
+      "inputs": ["dist/**", "scripts/assert-module-split.mjs", "module-split.config.json"],
+      "outputs": []
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "outputs": ["playwright-report/**", "test-results/**"]
+    },
+    "clean": {
+      "cache": false
+    }
+  },
+  "globalEnv": ["NODE_ENV"],
+  "globalDependencies": ["**/.env.*local", "tsconfig.json"]
+}

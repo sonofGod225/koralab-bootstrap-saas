@@ -1,0 +1,50 @@
+{
+  "name": "@__SCOPE__/db",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — Drizzle ORM + Neon driver. Multi-schema par module, naming snake_case, FK organization_id obligatoire.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas/identity": "./src/schemas/identity.ts",
+    "./schemas/audit": "./src/schemas/audit.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:migrate:staging": "DOTENV_CONFIG_PATH=.env.staging drizzle-kit migrate",
+    "db:migrate:production": "DOTENV_CONFIG_PATH=.env.production drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "pnpm db:seed:rbac && pnpm db:seed:plans && pnpm db:seed:modules && pnpm db:seed:features && pnpm db:seed:tax-profiles",
+    "db:seed:rbac": "tsx scripts/seed-rbac.ts",
+    "db:backfill:establishments": "tsx scripts/backfill-establishments.ts",
+    "db:reset-custom-roles": "tsx scripts/reset-custom-roles.ts",
+    "db:seed:plans": "tsx scripts/seed-plans.ts",
+    "db:seed:modules": "tsx scripts/seed-modules.ts",
+    "db:seed:features": "tsx scripts/seed-features.ts",
+    "db:seed:tax-profiles": "tsx scripts/seed-tax-profiles.ts",
+    "db:seed:staff": "tsx scripts/seed-staff.ts",
+    "db:seed:status": "tsx scripts/seed-status.ts",
+    "db:seed:staging": "DOTENV_CONFIG_PATH=.env.staging pnpm db:seed:rbac && DOTENV_CONFIG_PATH=.env.staging pnpm db:seed:plans && DOTENV_CONFIG_PATH=.env.staging pnpm db:seed:modules && DOTENV_CONFIG_PATH=.env.staging pnpm db:seed:features && DOTENV_CONFIG_PATH=.env.staging pnpm db:seed:status",
+    "db:seed:production": "DOTENV_CONFIG_PATH=.env.production pnpm db:seed:rbac && DOTENV_CONFIG_PATH=.env.production pnpm db:seed:plans && DOTENV_CONFIG_PATH=.env.production pnpm db:seed:modules && DOTENV_CONFIG_PATH=.env.production pnpm db:seed:features && DOTENV_CONFIG_PATH=.env.production pnpm db:seed:status"
+  },
+  "dependencies": {
+    "@__SCOPE__/types": "workspace:*",
+    "@neondatabase/serverless": "^0.10.4",
+    "drizzle-orm": "^0.38.3"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@types/node": "^22.10.2",
+    "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.30.1",
+    "eslint": "^9.20.0",
+    "tsx": "^4.22.1",
+    "typescript": "^6.0.2"
+  }
+}

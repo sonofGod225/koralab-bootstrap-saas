@@ -1,0 +1,15 @@
+{
+  "extends": "@__SCOPE__/config/tsconfig/worker.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    // `@__SCOPE__/notifications` (consommé par sa source, ADR 0010) embarque
+    // des templates react-email `.tsx` — le JSX transitif doit être compilable.
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  },
+  "include": ["src/**/*", "worker-configuration.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

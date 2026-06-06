@@ -1,0 +1,34 @@
+{
+  "name": "@__SCOPE__/rpc",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — tRPC server skeleton + middleware stack. Wiring layer principal d'apps/api. Tous les modules ajoutent leurs sub-routers ici.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@__SCOPE__/db": "workspace:*",
+    "@__SCOPE__/rbac": "workspace:*",
+    "@__SCOPE__/types": "workspace:*",
+    "@trpc/server": "^11.17.0",
+    "@upstash/ratelimit": "^2.0.5",
+    "@upstash/redis": "^1.34.3",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2",
+    "vitest": "^2.1.8"
+  }
+}

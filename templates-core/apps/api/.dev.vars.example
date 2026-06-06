@@ -1,0 +1,66 @@
+# apps/api/.dev.vars.example — modèle pour le développement local.
+#
+# 1. Copier ce fichier en `.dev.vars` (gitignoré) à côté de `wrangler.toml`.
+# 2. Remplir les valeurs marquées « REQUIS » ; les autres sont optionnelles
+#    (les services correspondants seront no-op et tracés).
+# 3. Wrangler lit ce fichier automatiquement à `wrangler dev`.
+#
+# Le contexte de chaque clé est documenté dans `apps/api/src/env.ts` et
+# `apps/api/wrangler.toml`. En staging/production, ces clés sont des secrets
+# Cloudflare (`wrangler secret put <NAME> --env staging|production`).
+
+# === REQUIS — base ===
+
+# Story 0.2 — Neon Postgres. Connexion HTTP/pooler ou direct selon driver.
+DATABASE_URL=postgres://USER:PASSWORD@HOST/DBNAME?sslmode=require
+
+# Story 3.1 — Better-Auth (signature sessions/cookies).
+#   openssl rand -base64 32
+BETTER_AUTH_SECRET=replace-with-a-32-byte-random-string
+
+# === REQUIS pour Epic 3 — emails transactionnels ===
+
+# Story 3.2 — clé API Resend (signup, reset, OTP, invitations).
+#   https://resend.com/api-keys
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Expéditeur Resend. Tant que `__PROJECT_SLUG__.com` n'est pas vérifié (DNS SPF/DKIM)
+# dans le dashboard Resend, utiliser le sender bac-à-sable accepté par défaut :
+RESEND_FROM_EMAIL=onboarding@resend.dev
+# Une fois le domaine vérifié, supprimer la ligne ci-dessus → fallback sur
+# `__PROJECT_NAME__ <noreply@__PROJECT_SLUG__.com>`.
+
+# === OPTIONNEL — observabilité (Story 1.6) ===
+
+# DSN public Sentry — si absent, Sentry est no-op.
+# SENTRY_DSN=https://xxxxx@oxxxx.ingest.sentry.io/xxxxx
+
+# Token Axiom (envoi des logs). Si absent, le logger reste fonctionnel sans envoi.
+# AXIOM_TOKEN=xaat-xxxxxxxx
+# AXIOM_DATASET est déjà dans `wrangler.toml` ([vars]).
+
+# === OPTIONNEL — Twilio (Story 3.3, SMS OTP) ===
+
+# Si absents, l'inscription/connexion par téléphone est désactivée.
+# TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxx
+# TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxx
+# TWILIO_SENDER_ID=__PROJECT_NAME__
+
+# === OPTIONNEL — OAuth social (Story 3.4) ===
+
+# Chaque provider est activé seulement si client_id + client_secret sont présents.
+# GOOGLE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
+# GOOGLE_CLIENT_SECRET=GOCSPX-xxxxxxxx
+# MICROSOFT_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# MICROSOFT_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+
+# === OPTIONNEL — Upstash Redis (Story 1.16, rate limiting) ===
+
+# En dev, le middleware de rate limit est no-op si absent.
+# UPSTASH_REDIS_REST_URL=https://xxxxx.upstash.io
+# UPSTASH_REDIS_REST_TOKEN=AYxxxxxxxx
+
+# === Add your own integrations below ===
+# The generic core ships no payment/billing provider. When you add one (e.g. a
+# payments package + billing router), declare its secrets here as placeholders,
+# e.g. PROVIDER_API_KEY=replace-with-your-key  (never commit real keys).

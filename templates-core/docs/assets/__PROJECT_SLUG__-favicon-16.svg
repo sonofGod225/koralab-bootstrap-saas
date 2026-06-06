@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" role="img" aria-labelledby="title">
+  <title id="title">__PROJECT_NAME__ favicon 16</title>
+  <rect width="16" height="16" rx="3" fill="#2A1A0F"/>
+  <rect x="3" y="3" width="4.5" height="4.5" rx="1" fill="#F4E4CC"/>
+  <rect x="8.5" y="3" width="4.5" height="4.5" rx="1" fill="#F4E4CC"/>
+  <rect x="3" y="8.5" width="4.5" height="4.5" rx="1" fill="#F4E4CC"/>
+  <rect x="8.5" y="8.5" width="4.5" height="4.5" rx="1" fill="#E89B5A"/>
+</svg>

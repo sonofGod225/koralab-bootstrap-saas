@@ -1,15 +1,37 @@
-# koralab-bootstrap-saas
+# create-koralab-saas
 
-A Claude Code skill that bootstraps a new Turborepo SaaS monorepo reproducing the BudiSuite
-architecture (pnpm + Turbo + shared config package + ESLint module boundaries + TanStack
-Start SSR + Hono API + tRPC + Drizzle + Better-Auth on Cloudflare Workers).
+Scaffold a new Turborepo SaaS monorepo (pnpm + Turbo + shared config + ESLint module
+boundaries + TanStack Start SSR + Hono API + tRPC + Drizzle + Better-Auth on Cloudflare
+Workers). Ships as a CLI **and** as a Claude Code skill — both share the same engine.
+
+## CLI (recommended)
+```bash
+npm create koralab-saas@latest my-app          # interactive
+# or non-interactive:
+node bin/cli.mjs my-app --scope acme --variant core --yes
+```
+
+Two **variants**:
+- **`core`** (default) — a generic, **build-green** boilerplate bundled in this package:
+  full infra wired (config, db, ui, rpc, auth, rbac, events, notifications) + one
+  `module-example` product vertical (UI screen + lazy shim + permissions + tRPC router +
+  db schema + REST route). No business logic. This is what `npm create` ships.
+- **`full`** — a faithful clone of a **private** source monorepo you point at with
+  `--source`. The CLI snapshots it at runtime (tokenise + secret-scrub) and materialises a
+  renamed copy. Nothing proprietary is bundled in this package.
+
+Verify any generated project: `pnpm install && pnpm typecheck && pnpm build`
+(`pnpm --filter @<scope>/suite test:bundle` checks each module is code-split).
 
 ## Layout
 ```
+bin/cli.mjs                  # the CLI (interactive + flags), orchestrates the scripts
 SKILL.md                     # trigger + orchestration (read by Claude)
-scripts/snapshot.mjs         # maintenance: refresh templates/ from a source repo
-scripts/generate.mjs         # runtime: materialise a new project from templates/
-templates/                   # tokenised, secret-purged faithful copy of the reference repo
+scripts/snapshot.mjs         # maintenance: tokenise a source repo → templates
+scripts/generate.mjs         # runtime: materialise a project (--variant core|full)
+templates-core/              # COMMITTED generic build-green boilerplate (bundled in npm)
+templates/                   # gitignored: tokenised faithful copy of a private source repo
+overrides-slim/              # full-variant --slim overrides (single module-example)
 reference/architecture.md    # conventions to preserve
 reference/stack-variants.md  # recipes for non-default stack choices
 ```

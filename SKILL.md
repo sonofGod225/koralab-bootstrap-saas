@@ -53,13 +53,21 @@ Ask the user (use AskUserQuestion) for:
   **Build-green as-is** (verified: install + typecheck + build + test:bundle). The
   backend routers/schemas (rpc, db) keep the reference examples.
 
-### 2. Run the generator (default / faithful path)
+### 2. Run the generator
+Pick a **variant**:
+- `--variant core` — the committed generic **build-green** boilerplate (`templates-core/`,
+  full infra + one `module-example`, no business). This is what the published CLI ships.
+- `--variant full` (default of the script) — the faithful clone from `templates/` (the
+  private snapshot of the reference repo). Add `--slim` to reduce it to one `module-example`.
+
 ```bash
 node ~/.claude/skills/koralab-bootstrap-saas/scripts/generate.mjs \
-  --name <slug> --scope <scope> --display <Name> --domain <domain> \
-  --out <abs-target-dir> [--no-admin] [--no-landing] [--slim]
+  --variant core --name <slug> --scope <scope> --display <Name> --domain <domain> \
+  --out <abs-target-dir> [--no-admin] [--no-landing]
 ```
-The default output is buildable as-is (it is real, interconnected code, renamed).
+Both outputs are buildable as-is. There is also a CLI wrapper (`bin/cli.mjs`, published as
+`create-koralab-saas`) with interactive prompts; in `full` mode it snapshots a private
+`--source` repo at runtime. The default output is real, interconnected code, renamed.
 
 ### 3. Non-default stack variants (hybrid step)
 If the user picked a non-default value for front / deploy target / db driver, AFTER running

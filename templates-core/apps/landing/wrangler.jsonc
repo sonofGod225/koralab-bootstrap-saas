@@ -1,0 +1,36 @@
+{
+  // __PROJECT_NAME__ — apps/landing
+  // Worker placeholder « Coming soon » servi sur le domaine racine __PROJECT_SLUG__.com.
+  // But : retirer la page de parking LWS en attendant le vrai projet landing.
+  // Quand la landing définitive sera prête, remplacer src/index.ts (ou pointer
+  // les custom domains ci-dessous vers le nouveau Worker) — le rattachement DNS
+  // reste géré par Cloudflare, aucun changement de record manuel nécessaire.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "__PROJECT_SLUG__-landing",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-14",
+  "observability": {
+    "enabled": true
+  },
+
+  // Par défaut "development" pour `wrangler dev` local (aucun custom domain).
+  "vars": {
+    "ENVIRONMENT": "development"
+  },
+
+  "env": {
+    // Le domaine racine n'existe qu'en production (pas de root.staging.__PROJECT_SLUG__.com).
+    "production": {
+      "name": "__PROJECT_SLUG__-landing-production",
+      "vars": {
+        "ENVIRONMENT": "production"
+      },
+      // Custom domains : Cloudflare remplace les A records de parking LWS par un
+      // enregistrement proxy vers ce Worker, et provisionne le certificat TLS.
+      "routes": [
+        { "pattern": "__PROJECT_SLUG__.com", "custom_domain": true },
+        { "pattern": "www.__PROJECT_SLUG__.com", "custom_domain": true }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t d">
+  <title id="t">Le code en route</title>
+  <desc id="d">Ondes concentriques propageant un signal entre une enveloppe et un téléphone stylisés.</desc>
+  
+  <g fill="none" stroke-linecap="round">
+    <circle cx="240" cy="240" r="200" stroke="#F4E4CC" stroke-width="2" opacity="0.7"></circle>
+    <circle cx="240" cy="240" r="160" stroke="#E5D2B5" stroke-width="2" opacity="0.7"></circle>
+    <circle cx="240" cy="240" r="120" stroke="#BFA378" stroke-width="2.5" opacity="0.6"></circle>
+    <circle cx="240" cy="240" r="80" stroke="#E89B5A" stroke-width="3" opacity="0.9"></circle>
+  </g>
+  
+  <circle cx="240" cy="240" r="50" fill="#2A1A0F"></circle>
+  <circle cx="240" cy="240" r="14" fill="#E89B5A"></circle>
+  
+  <g fill="#2A1A0F">
+    <circle cx="240" cy="170" r="6"></circle>
+    <circle cx="300.6" cy="205" r="6"></circle>
+    <circle cx="300.6" cy="275" r="6"></circle>
+    <circle cx="240" cy="310" r="6"></circle>
+    <circle cx="179.4" cy="275" r="6"></circle>
+    <circle cx="179.4" cy="205" r="6"></circle>
+  </g>
+  
+  <path d="M 105 110 Q 180 200 240 240 Q 300 280 380 380" stroke="#E89B5A" stroke-width="2.5" fill="none" stroke-dasharray="5 7" stroke-linecap="round" opacity="0.85"></path>
+  
+  <g transform="translate(65 80)">
+    <rect width="80" height="56" rx="10" fill="#E89B5A"></rect>
+    <path d="M 4 6 L 40 32 L 76 6" stroke="#F4E4CC" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  </g>
+  
+  <g transform="translate(348 348)">
+    <rect width="60" height="100" rx="14" fill="#2A1A0F"></rect>
+    <rect x="6" y="10" width="48" height="74" rx="6" fill="#F4E4CC" opacity="0.2"></rect>
+    <circle cx="30" cy="92" r="3" fill="#F4E4CC" opacity="0.4"></circle>
+  </g>
+</svg>

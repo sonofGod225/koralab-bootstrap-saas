@@ -1,0 +1,195 @@
+name: Deploy Staging
+
+# Story 1.5 — Déploiement automatique vers staging à chaque merge sur main
+# Cible 3 Workers Cloudflare indépendants : apps/api + apps/suite + apps/admin
+# Story 1.17 — la version (git describe) est inlinée au build / passée en var Worker.
+# Secrets requis (GitHub Environment "staging") :
+#   - CLOUDFLARE_API_TOKEN (scope Workers:Edit + Pages:Edit + Account.Workers Scripts:Edit)
+#   - CLOUDFLARE_ACCOUNT_ID
+#   - DATABASE_URL (Neon staging branch)
+#   - autres secrets app (BETTER_AUTH_SECRET, WAVE_API_KEY, …) — gérés via wrangler secret put en one-shot
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: '10.33.2'
+  NODE_VERSION: '22.12.0'
+
+jobs:
+  # Epic 25 — applique les migrations Drizzle AVANT tout déploiement de code.
+  # Migrations additives (forward-compatible) : le code en place tolère les
+  # nouvelles colonnes/tables, donc migrer d'abord est sûr. Le seed status est
+  # idempotent (upsert sur service_components.key).
+  migrate:
+    name: DB migrate + seed (staging)
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Apply Drizzle migrations
+        run: pnpm --filter @__SCOPE__/db db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # Catalogue (idempotent) — requis par l'onboarding : sans plan Free
+      # (is_free=true), createFreeSubscription échoue. RBAC + modules + features
+      # alimentent aussi les écrans rôles / settings / billing.
+      - name: Seed catalog (rbac + plans + modules + features, idempotent)
+        run: |
+          pnpm --filter @__SCOPE__/db db:seed:rbac
+          pnpm --filter @__SCOPE__/db db:seed:plans
+          pnpm --filter @__SCOPE__/db db:seed:modules
+          pnpm --filter @__SCOPE__/db db:seed:features
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Seed status components (idempotent)
+        run: pnpm --filter @__SCOPE__/db db:seed:status
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  deploy-api:
+    name: Deploy apps/api (Workers)
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 10
+    needs: migrate # n'expose le nouveau code qu'une fois le schéma migré
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # Story 1.17 — version dev : dernier tag + N commits + hash court.
+      - name: Compute dev version
+        id: ver
+        run: echo "version=$(git describe --tags --always --dirty)" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Wrangler deploy (staging)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: pnpm
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/api
+          command: deploy --env staging --var APP_VERSION:${{ steps.ver.outputs.version }}
+      - name: Smoke test /health
+        run: |
+          sleep 5
+          curl -sf https://api.staging.__PROJECT_SLUG__.com/health \
+            | grep -q '"status":"ok"' && echo "✅ apps/api staging is healthy"
+
+  deploy-suite:
+    name: Deploy apps/suite (Workers SSR)
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 10
+    needs: deploy-api # déploie API d'abord pour que /health/db soit prêt avant que suite n'appelle
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute dev version
+        id: ver
+        run: echo "version=$(git describe --tags --always --dirty)" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Build (version inlinée via VITE_APP_VERSION)
+        run: pnpm --filter @__SCOPE__/suite exec vite build --mode staging
+        env:
+          VITE_APP_VERSION: ${{ steps.ver.outputs.version }}
+      # Deploy direct (pas wrangler-action) : le @cloudflare/vite-plugin génère
+      # dist/server/wrangler.json — c'est ce config qu'il faut, pas le wrangler.jsonc
+      # source (dont le `main` virtuel @tanstack/react-start/server-entry n'est pas
+      # résolvable hors contexte Vite). Le plugin aplatit aussi les env.* — d'où
+      # le --name + --var explicites au lieu de --env staging.
+      - name: Wrangler deploy (staging)
+        working-directory: apps/suite
+        run: >
+          pnpm exec wrangler deploy
+          --config dist/server/wrangler.json
+          --name __PROJECT_SLUG__-suite-staging
+          --var ENVIRONMENT:staging
+          --var VITE_API_URL:https://api.staging.__PROJECT_SLUG__.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Smoke test landing page
+        run: |
+          sleep 5
+          # La racine `/` redirige (307 → /dashboard → /signin selon l'auth) : on
+          # suit la redirection (-L) et on vérifie un HTTP 200 final — signal fiable
+          # de service, contrairement à un grep de contenu sur la réponse de redirect.
+          code=$(curl -sSL -o /dev/null -w '%{http_code}' https://staging.__PROJECT_SLUG__.com/)
+          if [ "$code" = "200" ]; then
+            echo "✅ apps/suite staging serves (HTTP $code)"
+          else
+            echo "❌ apps/suite staging HTTP $code"; exit 1
+          fi
+
+  deploy-admin:
+    name: Deploy apps/admin (Workers SSR)
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 10
+    needs: deploy-api
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute dev version
+        id: ver
+        run: echo "version=$(git describe --tags --always --dirty)" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Build (version inlinée via VITE_APP_VERSION)
+        run: pnpm --filter @__SCOPE__/admin exec vite build --mode staging
+        env:
+          VITE_APP_VERSION: ${{ steps.ver.outputs.version }}
+      - name: Wrangler deploy (staging)
+        working-directory: apps/admin
+        run: >
+          pnpm exec wrangler deploy
+          --config dist/server/wrangler.json
+          --name __PROJECT_SLUG__-admin-staging
+          --var ENVIRONMENT:staging
+          --var VITE_API_URL:https://api.staging.__PROJECT_SLUG__.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Smoke test admin
+        run: |
+          sleep 5
+          curl -sf https://admin.staging.__PROJECT_SLUG__.com/ \
+            | grep -q '__PROJECT_NAME__' && echo "✅ apps/admin staging serves landing"

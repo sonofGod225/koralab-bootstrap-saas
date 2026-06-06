@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" width="280" height="60" role="img" aria-labelledby="title">
+  <title id="title">__PROJECT_NAME__ logo monochrome</title>
+  <g transform="translate(0, 8)">
+    <path d="M 8 28 L 8 18 Q 8 8 18 8 L 28 8 L 28 28 Z" fill="#2A1A0F"/>
+    <path d="M 30 28 L 30 8 L 48 8 Q 48 8 48 18 L 48 28 Z" fill="#2A1A0F"/>
+    <path d="M 8 30 L 28 30 L 28 48 L 18 48 Q 8 48 8 38 Z" fill="#2A1A0F"/>
+    <path d="M 30 30 L 48 30 L 48 38 Q 48 48 38 48 L 30 48 Z" fill="#2A1A0F"/>
+  </g>
+  <text x="70" y="42" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="28" letter-spacing="-0.8" fill="#2A1A0F">__PROJECT_NAME__</text>
+</svg>

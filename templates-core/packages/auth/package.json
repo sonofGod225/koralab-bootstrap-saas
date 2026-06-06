@@ -1,0 +1,30 @@
+{
+  "name": "@__SCOPE__/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — configuration Better-Auth (Drizzle + KV, plugins organization/phone/2FA, OAuth). Consommé par apps/api.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@__SCOPE__/db": "workspace:*",
+    "@__SCOPE__/notifications": "workspace:*",
+    "@__SCOPE__/types": "workspace:*",
+    "@noble/hashes": "^2.2.0",
+    "better-auth": "^1.6.11"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250101.0",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2"
+  }
+}

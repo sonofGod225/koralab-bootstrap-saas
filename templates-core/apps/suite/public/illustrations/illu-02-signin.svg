@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t d">
+  <title id="t">Le retour</title>
+  <desc id="d">Arche accueillante avec foyer lumineux et silhouettes d&#39;une équipe.</desc>
+  
+  <path d="M 80 420 L 80 220 Q 80 80 240 80 Q 400 80 400 220 L 400 420 Z" fill="#E5D2B5"></path>
+  
+  <path d="M 130 420 L 130 230 Q 130 130 240 130 Q 350 130 350 230 L 350 420 Z" fill="#F4E4CC"></path>
+  
+  <path d="M 175 215 Q 175 155 240 155 Q 305 155 305 215" stroke="#2A1A0F" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.55"></path>
+  
+  <circle cx="240" cy="225" r="50" fill="#E89B5A"></circle>
+  
+  <ellipse cx="240" cy="420" rx="180" ry="22" fill="#2A1A0F"></ellipse>
+  
+  <g fill="#2A1A0F">
+    
+    <ellipse cx="170" cy="395" rx="16" ry="32"></ellipse>
+    <circle cx="170" cy="355" r="11"></circle>
+    
+    <ellipse cx="240" cy="388" rx="20" ry="38"></ellipse>
+    <circle cx="240" cy="343" r="13"></circle>
+    
+    <ellipse cx="320" cy="382" rx="24" ry="44"></ellipse>
+    <circle cx="320" cy="332" r="15"></circle>
+  </g>
+  
+  <g fill="#E89B5A">
+    <circle cx="110" cy="120" r="5"></circle>
+    <circle cx="380" cy="135" r="6" opacity="0.8"></circle>
+    <circle cx="95" cy="230" r="4" opacity="0.6"></circle>
+    <circle cx="395" cy="260" r="5" opacity="0.7"></circle>
+    <circle cx="430" cy="180" r="3" opacity="0.5"></circle>
+  </g>
+</svg>

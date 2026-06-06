@@ -1,0 +1,27 @@
+{
+  "name": "@__SCOPE__/events",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — Event bus typé pub/sub (in-memory pour tests/dev + Cloudflare Queues pour prod). Convention 'entity.action'. Extensible par module via declaration merging.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@__SCOPE__/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2",
+    "vitest": "^2.1.8"
+  }
+}

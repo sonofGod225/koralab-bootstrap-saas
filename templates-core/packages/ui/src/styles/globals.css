@@ -1,0 +1,26 @@
+/**
+ * __PROJECT_NAME__ — feuille de styles globale du design system (Story 2.4).
+ *
+ * Point d'entrée unique pour les apps : agrège les tokens (couleurs
+ * light + dark, fontes, radii, ombres), les utilitaires d'animation
+ * (`tw-animate-css` — entrées/sorties des overlays shadcn) et les classes
+ * typographiques éditoriales `.t-*`.
+ *
+ * Usage — une seule fois, en racine d'app, APRÈS Tailwind :
+ *   @import 'tailwindcss';
+ *   @import '@__SCOPE__/ui/styles/globals.css';
+ *
+ * Le dark mode est automatique (`prefers-color-scheme`) et forçable via la
+ * classe `.dark` / `.light` sur `<html>` (cf. tokens.css).
+ *
+ * `@source` ci-dessous : Tailwind v4 n'auto-scanne PAS `node_modules`. Le
+ * design system y déclare donc lui-même sa source `packages/ui/src` — toute
+ * app important ce fichier génère ainsi les classes utilitaires des
+ * primitives `@__SCOPE__/ui` (sinon les composants rendent sans styles).
+ */
+
+@import 'tw-animate-css';
+@import './tokens.css';
+@import './editorial.css';
+
+@source '../';

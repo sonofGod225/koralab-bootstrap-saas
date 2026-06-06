@@ -1,0 +1,6 @@
+{
+  "$comment": "Code-split quality gate for product modules (see scripts/assert-module-split.mjs). Add one entry per module — no script rewrite needed.",
+  "serverManifest": "dist/server/.vite/manifest.json",
+  "clientAssetsDir": "dist/client/assets",
+  "modules": [{ "name": "example", "shimSrc": "src/routes/_app/example.lazy.tsx" }]
+}

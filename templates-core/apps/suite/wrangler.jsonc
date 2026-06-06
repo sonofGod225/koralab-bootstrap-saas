@@ -1,0 +1,41 @@
+{
+  // __PROJECT_NAME__ — apps/suite (TanStack Start SSR sur Cloudflare Workers)
+  // Référence : architecture.md step 4 (Frontend) + step 9 (Infrastructure)
+  // Story 1.4 (2026-05-15) — déploiement 2 envs (staging + production)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "__PROJECT_SLUG__-suite",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+
+  // Logs Cloudflare (cf. Story 1.6 Observabilité)
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+
+  // Vars publiques (non secrets) — par défaut "development" pour wrangler dev local
+  "vars": {
+    "ENVIRONMENT": "development"
+  },
+
+  "env": {
+    "staging": {
+      "name": "__PROJECT_SLUG__-suite-staging",
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "VITE_API_URL": "https://api.staging.__PROJECT_SLUG__.com"
+      }
+      // Bindings futurs (à activer Story 3.x+) :
+      // - KV SESSIONS_KV (Better-Auth cache)
+      // - R2 R2 (PDFs, logos)
+    },
+    "production": {
+      "name": "__PROJECT_SLUG__-suite-production",
+      "vars": {
+        "ENVIRONMENT": "production",
+        "VITE_API_URL": "https://api.__PROJECT_SLUG__.com"
+      }
+    }
+  }
+}

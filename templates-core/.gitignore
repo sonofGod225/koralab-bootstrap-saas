@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+.vinxi/
+.tanstack/
+.output/
+.nitro/
+
+# Generated route trees (TanStack Router)
+routeTree.gen.ts
+
+# Local archives (manual backups, hors workspace)
+_archive/
+
+# Turbo
+.turbo/
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Env
+.env
+.env.local
+.env.*.local
+.env.staging
+.env.production
+!.env.example
+!.env.*.example
+
+# IDE / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage / cache
+coverage/
+.vitest/
+*.tsbuildinfo
+
+# Testing
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Misc
+.eslintcache
+.prettiercache
+*.tgz
+
+# Local artifacts (preserve BMad outputs, ignore temp)
+_bmad-output/temp/
+
+# Storybook
+storybook-static/

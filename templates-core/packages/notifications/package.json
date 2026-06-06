@@ -1,0 +1,31 @@
+{
+  "name": "@__SCOPE__/notifications",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — Service de notifications multi-canal (email, WhatsApp, SMS, push). Shell + stubs. Providers réels câblés Stories 5.2-5.4.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@__SCOPE__/types": "workspace:*",
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.0.8",
+    "react": "^19.2.6"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2",
+    "vitest": "^2.1.8"
+  }
+}

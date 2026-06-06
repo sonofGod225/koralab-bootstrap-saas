@@ -1,0 +1,186 @@
+name: CI
+
+# Story 1.5 — Pipeline validation sur chaque PR vers main
+# Exécute lint + typecheck + tests + audits custom + build preview (sans deploy)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: '10.33.2'
+  NODE_VERSION: '22.12.0'
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+
+  lint:
+    name: Lint
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm lint
+
+  typecheck:
+    name: Type-check
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter @__SCOPE__/suite exec vite build --mode production
+      - run: pnpm --filter @__SCOPE__/admin exec vite build --mode production
+      - run: pnpm typecheck
+
+  format-check:
+    name: Format check (Prettier)
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm format:check
+
+  test:
+    name: Unit tests (Vitest)
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm test
+
+  build-suite:
+    name: Build apps/suite (Cloudflare SSR)
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter @__SCOPE__/suite build
+
+  build-admin:
+    name: Build apps/admin (Cloudflare SSR)
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter @__SCOPE__/admin build
+
+  audits-custom:
+    name: Audits custom (no-any, money-bigint, tenant-scope)
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Audit 1 — Aucun "any" dans le code source'
+        run: |
+          if grep -rn ":\s*any\b\|<any>\|as any" --include='*.ts' --include='*.tsx' \
+            packages/ apps/ 2>/dev/null \
+            | grep -v 'node_modules' \
+            | grep -v '\.gen\.' \
+            | grep -v '// eslint-disable' \
+            | grep -v '@ts-expect-error'; then
+              echo "❌ Detected 'any' usage above. Use 'unknown' + narrow, or proper types."
+              exit 1
+          fi
+      - name: 'Audit 2 — Pas de "number" pour money (sauf interfaces réseau brutes)'
+        run: |
+          # Échappatoire documentée (comme `// eslint-disable` pour l'Audit 1) :
+          # une ligne marquée `money-audit-ignore` est exclue — réservée aux faux
+          # positifs légitimes (DTO réseau bruts, valeurs d'affichage/pagination
+          # déjà résolues), avec justification en commentaire sur la même ligne.
+          if grep -rn "amount:\s*number\|price:\s*number\|total:\s*number" \
+            --include='*.ts' --include='*.tsx' \
+            packages/ apps/ 2>/dev/null \
+            | grep -v 'node_modules' \
+            | grep -v '\.test\.' \
+            | grep -v 'money-audit-ignore' \
+            | grep -v 'parseInt\|parseFloat'; then
+              echo "❌ Detected 'number' for money. Use BigInt + Money interface (cf. packages/types/src/money.ts)."
+              exit 1
+          fi
+      - name: 'Audit 3 — Drizzle queries sans organization_id (heuristique)'
+        run: |
+          # Heuristique : tout fichier *.service.ts qui fait db.select/update/delete sans where(eq(*.organization_id))
+          # En MVP cette règle est avertissement ; en strict on l'active après Story 3.1 Better-Auth.
+          # Pour l'instant ne casse pas le CI, juste warning.
+          if grep -rn "db\.\(select\|update\|delete\)" \
+            --include='*.service.ts' \
+            packages/ apps/ 2>/dev/null \
+            | grep -v 'organization_id\|public\.\|__system__'; then
+              echo "⚠️ Detected potential tenant-leak. Ensure organization_id scope on all module queries."
+              # exit 1  # Activer après Story 3.1
+          fi
+      - run: echo "✅ Custom audits passed"

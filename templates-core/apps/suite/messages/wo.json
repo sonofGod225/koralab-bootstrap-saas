@@ -1,0 +1,19 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "_comment": "Wolof (latin) — couverture minimale MVP. Les clés manquantes fallback automatiquement sur fr-fr. Localisation complète à venir avec un linguiste wolof Story 2.x.",
+  "app.title": "__PROJECT_NAME__",
+  "greeting": "Salaam aleekum",
+  "common.continue": "Kontinuwe",
+  "common.cancel": "Bayyi",
+  "common.save": "Defal",
+  "common.error": "Am na jafe-jafe",
+  "common.loading": "Xaaral…",
+  "common.retry": "Jeemaat",
+  "auth.signin": "Dugg",
+  "auth.signout": "Génn",
+  "language.switcher.label": "Làkk",
+  "language.fr-fr": "Français",
+  "language.fr-af": "Français (Afrique)",
+  "language.en": "English",
+  "language.wo": "Wolof"
+}

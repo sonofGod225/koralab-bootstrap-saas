@@ -1,0 +1,16 @@
+/**
+ * apps/suite — global styles
+ *
+ * Tokens design system Terre & Soleil : @__SCOPE__/ui/styles/tokens.css
+ * Source de vérité : packages/ui/src/styles/tokens.css
+ *
+ * Ajouter ici uniquement les overrides SPÉCIFIQUES à apps/suite (s'il y en a).
+ */
+
+@import 'tailwindcss';
+@import '@__SCOPE__/ui/styles/globals.css';
+
+/* Tailwind v4 ne scanne pas node_modules : déclarer chaque module produit dont
+   les classes utilitaires doivent être générées (cf. POC @__SCOPE__/module-crm). */
+@source '../../../packages/module-crm/src';
+@source '../../../packages/module-invoicing/src';

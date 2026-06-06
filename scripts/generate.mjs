@@ -32,7 +32,6 @@ import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const TEMPLATES = join(__dirname, '..', 'templates');
 
 // ---- args -----------------------------------------------------------------
 const args = process.argv.slice(2);
@@ -55,6 +54,21 @@ const DOMAIN = val('--domain', `${NAME}.com`);
 const SLIM = flag('--slim');
 const NO_ADMIN = flag('--no-admin');
 const NO_LANDING = flag('--no-landing');
+
+// Variant: 'core' = the committed generic deep-stripped boilerplate (templates-core/,
+// bundled in the npm package); 'full' = the faithful clone from templates/ (private,
+// not shipped). Default 'full' preserves the original skill behaviour.
+const VARIANT = (val('--variant', 'full') || 'full').toLowerCase();
+if (!['core', 'full'].includes(VARIANT)) {
+  console.error(`✖ --variant must be 'core' or 'full' (got "${VARIANT}").`);
+  process.exit(1);
+}
+// --templates <dir> overrides the source tree (used by the CLI's `full` flow,
+// which snapshots a private source repo into a temp dir first).
+const TEMPLATES_OVERRIDE = val('--templates');
+const TEMPLATES = TEMPLATES_OVERRIDE
+  ? (TEMPLATES_OVERRIDE.startsWith('/') ? TEMPLATES_OVERRIDE : join(process.cwd(), TEMPLATES_OVERRIDE))
+  : join(__dirname, '..', VARIANT === 'core' ? 'templates-core' : 'templates');
 const NO_GIT = flag('--no-git');
 const DRY = flag('--dry-run');
 
@@ -97,7 +111,7 @@ function isPruned(relPosix) {
   if (relPosix === '.template-manifest.json') return true;
   if (NO_ADMIN && inDir(relPosix, 'apps/admin')) return true;
   if (NO_LANDING && inDir(relPosix, 'apps/landing')) return true;
-  if (SLIM && SLIM_DELETE(relPosix)) return true;
+  if (SLIM && VARIANT === 'full' && SLIM_DELETE(relPosix)) return true;
   return false;
 }
 
@@ -158,7 +172,7 @@ function applyOverrides(absDir, root) {
     overridden++;
   }
 }
-if (SLIM) {
+if (SLIM && VARIANT === 'full') {
   if (!existsSync(OVERRIDES_SLIM)) {
     console.error(`✖ --slim needs overrides-slim/ at ${OVERRIDES_SLIM} (missing).`);
     process.exit(1);

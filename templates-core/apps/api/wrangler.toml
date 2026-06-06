@@ -1,0 +1,335 @@
+# Cloudflare Workers config pour apps/api (Hono backend)
+# Voir architecture.md step 4 décision compute hosting + step 5 patterns Hono middleware
+
+name = "__PROJECT_SLUG__-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-14"
+compatibility_flags = ["nodejs_compat"]
+
+# === Limits (paid plan recommended pour CPU time 30s) ===
+[limits]
+cpu_ms = 30000
+
+# === Logs / observabilité ===
+[observability]
+enabled = true
+
+# === Environnements (cf. Story 1.2 AC : 3 envs explicites) ===
+# Note : `wrangler dev` lit les vars ci-dessous (env dev par défaut) + .dev.vars (secrets locaux)
+[vars]
+ENVIRONMENT = "development"
+AXIOM_DATASET = "__PROJECT_SLUG__-logs"
+BETTER_AUTH_URL = "http://localhost:9187"
+APP_URL = "http://localhost:9100"
+# Epic 24 — back-office admin (dev). `ADMIN_IP_WHITELIST` n'est appliquée qu'en
+# staging/production (secret), jamais en development.
+ADMIN_APP_URL = "http://localhost:9101"
+
+[env.staging]
+name = "__PROJECT_SLUG__-api-staging"
+vars = { ENVIRONMENT = "staging", AXIOM_DATASET = "__PROJECT_SLUG__-logs", BETTER_AUTH_URL = "https://api.staging.__PROJECT_SLUG__.com", APP_URL = "https://staging.__PROJECT_SLUG__.com", ADMIN_APP_URL = "https://admin.staging.__PROJECT_SLUG__.com" }
+routes = [
+  { pattern = "api.staging.__PROJECT_SLUG__.com", custom_domain = true }
+]
+
+[env.production]
+name = "__PROJECT_SLUG__-api-production"
+vars = { ENVIRONMENT = "production", AXIOM_DATASET = "__PROJECT_SLUG__-logs", BETTER_AUTH_URL = "https://api.__PROJECT_SLUG__.com", APP_URL = "https://app.__PROJECT_SLUG__.com", ADMIN_APP_URL = "https://admin.__PROJECT_SLUG__.com" }
+routes = [
+  { pattern = "api.__PROJECT_SLUG__.com", custom_domain = true }
+]
+
+# === Bindings ===
+# Story 3.1 — KV cache sessions Better-Auth (secondary storage).
+# Créer les namespaces puis remplacer les `id` ci-dessous :
+#   wrangler kv namespace create SESSIONS_KV
+#   wrangler kv namespace create SESSIONS_KV --env staging
+#   wrangler kv namespace create SESSIONS_KV --env production
+[[kv_namespaces]]
+binding = "SESSIONS_KV"
+id = "REPLACE_WITH_DEV_KV_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "SESSIONS_KV"
+id = "REPLACE_WITH_STAGING_KV_ID"
+
+[[env.production.kv_namespaces]]
+binding = "SESSIONS_KV"
+id = "REPLACE_WITH_PRODUCTION_KV_ID"
+
+# === Epic 5 : R2 Files (logos d'organisation, pièces jointes) ===
+# Dev local : miniflare simule le bucket automatiquement.
+# Déploiement : wrangler r2 bucket create __PROJECT_SLUG__-files[-staging|-production]
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "__PROJECT_SLUG__-files"
+
+[[env.staging.r2_buckets]]
+binding = "R2"
+bucket_name = "__PROJECT_SLUG__-files-staging"
+
+[[env.production.r2_buckets]]
+binding = "R2"
+bucket_name = "__PROJECT_SLUG__-files-production"
+
+# [[queues.producers]]
+# binding = "QUEUE_FNE"
+# queue = "fne-certification-queue"
+
+# [[queues.producers]]
+# binding = "QUEUE_NOTIFICATIONS"
+# queue = "notifications-queue"
+
+# [[queues.consumers]]
+# queue = "fne-certification-queue"
+# max_batch_size = 10
+# max_batch_timeout = 5
+# max_retries = 5
+
+# === Epic 4 (Stories 4.4 / 4.8 / 4.9) — Stripe billing : queue + cron ===
+#
+# Producteur : le webhook PSP REST (Story 4.4 — endpoint /webhooks/stripe)
+# enqueue un `BillingEventMessage` dans `billing-events`. Le binding Worker
+# `QUEUE_BILLING` (cf. apps/api/src/env.ts) côté code TypeScript pointe sur
+# cette queue.
+#
+# Consumer : `billingEventsConsumer` (apps/api/src/queues/billing-events.ts)
+# traite les events asynchrones avec déduplication par `eventId`. Après
+# `max_retries`, les messages partent dans `billing-events-dlq` pour
+# investigation manuelle (alerte Axiom à brancher Story 4.4).
+#
+# TODO Marius — avant le premier `wrangler deploy` Epic 4 :
+#   wrangler queues create billing-events
+#   wrangler queues create billing-events-dlq
+#   wrangler queues create billing-events --env staging
+#   wrangler queues create billing-events-dlq --env staging
+#   wrangler queues create billing-events --env production
+#   wrangler queues create billing-events-dlq --env production
+# Puis décommenter les blocs ci-dessous (les noms de queues sont stables ;
+# Cloudflare ne nécessite pas d'ID, juste le nom).
+#
+# [[queues.producers]]
+# binding = "QUEUE_BILLING"
+# queue = "billing-events"
+#
+# [[queues.consumers]]
+# queue = "billing-events"
+# max_batch_size = 10
+# max_batch_timeout = 5
+# max_retries = 5
+# dead_letter_queue = "billing-events-dlq"
+#
+# [[env.staging.queues.producers]]
+# binding = "QUEUE_BILLING"
+# queue = "billing-events"
+#
+# [[env.staging.queues.consumers]]
+# queue = "billing-events"
+# max_batch_size = 10
+# max_batch_timeout = 5
+# max_retries = 5
+# dead_letter_queue = "billing-events-dlq"
+#
+# [[env.production.queues.producers]]
+# binding = "QUEUE_BILLING"
+# queue = "billing-events"
+#
+# [[env.production.queues.consumers]]
+# queue = "billing-events"
+# max_batch_size = 10
+# max_batch_timeout = 5
+# max_retries = 5
+# dead_letter_queue = "billing-events-dlq"
+
+# === Epic 6 (Story 6.3) — Import contacts asynchrone : queue ===
+#
+# Producteur : le router tRPC `contacts.import` (packages/rpc) stage les lignes
+# en R2 puis enqueue un pointeur `ContactsImportMessage` dans `contacts-import`.
+# Le binding Worker `QUEUE_CONTACTS_IMPORT` (cf. apps/api/src/env.ts) pointe sur
+# cette queue.
+#
+# Consumer : `contactsImportConsumer` (apps/api/src/queues/contacts-import.ts)
+# relit le payload R2, insère par batch, écrit l'audit `contact.imported` et
+# envoie l'email récapitulatif. Après `max_retries`, DLQ `contacts-import-dlq`.
+#
+# IMPORTANT — en dev local, miniflare simule la queue automatiquement (le chemin
+# async est donc actif). Avant le premier `wrangler deploy` staging/production,
+# créer les queues côté Cloudflare (sinon le deploy échoue sur binding manquant) :
+#   wrangler queues create contacts-import
+#   wrangler queues create contacts-import-dlq
+#   wrangler queues create contacts-import --env staging
+#   wrangler queues create contacts-import-dlq --env staging
+#   wrangler queues create contacts-import --env production
+#   wrangler queues create contacts-import-dlq --env production
+[[queues.producers]]
+binding = "QUEUE_CONTACTS_IMPORT"
+queue = "contacts-import"
+
+[[queues.consumers]]
+queue = "contacts-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "contacts-import-dlq"
+
+[[env.staging.queues.producers]]
+binding = "QUEUE_CONTACTS_IMPORT"
+queue = "contacts-import"
+
+[[env.staging.queues.consumers]]
+queue = "contacts-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "contacts-import-dlq"
+
+[[env.production.queues.producers]]
+binding = "QUEUE_CONTACTS_IMPORT"
+queue = "contacts-import"
+
+[[env.production.queues.consumers]]
+queue = "contacts-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "contacts-import-dlq"
+
+# === Epic 6 (Story 6.3) — Import catalogue asynchrone : queue (symétrique contacts) ===
+#
+# Producteur : le router tRPC `catalogue.import` (packages/rpc) stage les lignes
+# en R2 puis enqueue un pointeur `CatalogueImportMessage` dans `catalogue-import`.
+# Le binding Worker `QUEUE_CATALOGUE_IMPORT` (cf. apps/api/src/env.ts) pointe dessus.
+#
+# Consumer : `catalogueImportConsumer` (apps/api/src/queues/catalogue-import.ts)
+# relit le payload R2, insère par batch, écrit l'audit `product.imported` et
+# envoie l'email récapitulatif. Après `max_retries`, DLQ `catalogue-import-dlq`.
+#
+# Avant le premier `wrangler deploy` staging/production :
+#   wrangler queues create catalogue-import
+#   wrangler queues create catalogue-import-dlq
+#   wrangler queues create catalogue-import --env staging
+#   wrangler queues create catalogue-import-dlq --env staging
+#   wrangler queues create catalogue-import --env production
+#   wrangler queues create catalogue-import-dlq --env production
+[[queues.producers]]
+binding = "QUEUE_CATALOGUE_IMPORT"
+queue = "catalogue-import"
+
+[[queues.consumers]]
+queue = "catalogue-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "catalogue-import-dlq"
+
+[[env.staging.queues.producers]]
+binding = "QUEUE_CATALOGUE_IMPORT"
+queue = "catalogue-import"
+
+[[env.staging.queues.consumers]]
+queue = "catalogue-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "catalogue-import-dlq"
+
+[[env.production.queues.producers]]
+binding = "QUEUE_CATALOGUE_IMPORT"
+queue = "catalogue-import"
+
+[[env.production.queues.consumers]]
+queue = "catalogue-import"
+max_batch_size = 5
+max_batch_timeout = 10
+max_retries = 3
+dead_letter_queue = "catalogue-import-dlq"
+
+# === Cron triggers ===
+# Stories 4.8 (trial J-7/J-1 + retry past_due) et 4.9 (retry payment_failed
+# J+1/J+3/J+7). Le handler `scheduled` (apps/api/src/crons/billing-daily.ts)
+# tourne à 06h00 UTC chaque jour. Pas de resource externe à créer côté
+# Cloudflare — le cron est embarqué dans le Worker au deploy.
+[triggers]
+crons = [
+  "0 6 * * *",    # 06h00 UTC daily — billing-daily (Stories 4.8/4.9)
+  "0 7 * * *",    # 07h00 UTC daily — invoicing-reminders (Story 8.12)
+  "*/5 * * * *",  # toutes les 5 min — status-probe (Epic 25 Story 25.6)
+]
+
+# === Secrets (à set via `wrangler secret put`) ===
+# DATABASE_URL, BETTER_AUTH_SECRET, ANTHROPIC_API_KEY, OPENAI_API_KEY,
+# WAVE_API_KEY, PAYSTACK_SECRET_KEY, STRIPE_SECRET_KEY, RESEND_API_KEY, etc.
+#
+# Story 1.16 — Upstash Ratelimit (optionnels, middleware no-op si absents) :
+#   wrangler secret put UPSTASH_REDIS_REST_URL --env staging
+#   wrangler secret put UPSTASH_REDIS_REST_TOKEN --env staging
+#   wrangler secret put UPSTASH_REDIS_REST_URL --env production
+#   wrangler secret put UPSTASH_REDIS_REST_TOKEN --env production
+#
+# Story 1.6 — Sentry (monitoring erreurs). DSN public mais set comme secret
+# pour rester cohérent avec la convention de bindings __PROJECT_NAME__ :
+#   wrangler secret put SENTRY_DSN --env staging
+#   wrangler secret put SENTRY_DSN --env production
+# DSN __PROJECT_SLUG__-api : voir le dashboard Sentry org "__PROJECT_SLUG__".
+# En dev local : apps/api/.dev.vars.
+#
+# Story 3.2 — Resend (emails transactionnels). RESEND_API_KEY est un secret :
+#   wrangler secret put RESEND_API_KEY --env staging
+#   wrangler secret put RESEND_API_KEY --env production
+# En dev local : apps/api/.dev.vars.
+# NB : l'expéditeur noreply@__PROJECT_SLUG__.com exige que le domaine __PROJECT_SLUG__.com
+# soit vérifié dans Resend (DNS SPF/DKIM) avant tout envoi en staging/prod.
+#
+# Story 3.3 — Twilio (SMS OTP). Secrets :
+#   wrangler secret put TWILIO_ACCOUNT_SID  --env staging|production
+#   wrangler secret put TWILIO_AUTH_TOKEN   --env staging|production
+#   wrangler secret put TWILIO_SENDER_ID    --env staging|production
+# Le sender ID alphanumérique "__PROJECT_NAME__" doit être enregistré et approuvé
+# côté Twilio pour la livraison SN/CI.
+#
+# Story 3.4 — OAuth social (Google + Microsoft). Secrets :
+#   wrangler secret put GOOGLE_CLIENT_ID     --env staging|production
+#   wrangler secret put GOOGLE_CLIENT_SECRET --env staging|production
+#   wrangler secret put MICROSOFT_CLIENT_ID     --env staging|production
+#   wrangler secret put MICROSOFT_CLIENT_SECRET --env staging|production
+# Redirect URIs à déclarer côté provider :
+#   https://api.<env>.__PROJECT_SLUG__.com/api/auth/callback/{google,microsoft}
+#
+# Story 1.6 — Axiom (logs structurés). AXIOM_DATASET est en [vars] ci-dessus ;
+# AXIOM_TOKEN est un secret (API token Axiom) :
+#   wrangler secret put AXIOM_TOKEN --env staging
+#   wrangler secret put AXIOM_TOKEN --env production
+# En dev local : apps/api/.dev.vars.
+#
+# Epic 4 Story 4.3-4.4 — Stripe Billing. Secrets :
+#   wrangler secret put STRIPE_SECRET_KEY      --env staging|production
+#   wrangler secret put STRIPE_WEBHOOK_SECRET  --env staging|production
+#   wrangler secret put STRIPE_PRICE_IDS_JSON  --env staging|production
+# STRIPE_PRICE_IDS_JSON est un JSON inline mappant (planCode × cycle) → Stripe
+# Price ID. Forme attendue :
+#   {"starter":{"monthly":"price_…","quarterly":"price_…","biannual":"price_…","annual":"price_…"},
+#    "business":{"monthly":"price_…",…},"pro":{…},"enterprise":{…}}
+# Les Prices sont créés en EUR dans le Stripe Dashboard (Stripe ne supporte
+# pas natif XOF en Subscription). Conversion XOF↔EUR via EUR_RATE=655,957
+# (cf. packages/payments/src/billing/cycles.ts).
+# En dev local : apps/api/.dev.vars (utiliser sk_test_… et price_… du mode test).
+#
+# Epic 4 Story 4.2 — Gating subscription (mode souple par défaut).
+# Toggle binaire pour activer le mode strict du middleware
+# `requireActiveSubscription`. À activer post-Epic 4 stable.
+#   wrangler secret put STRICT_SUBSCRIPTION_GATE --env staging|production   # "true" pour bloquer
+# Tant que non défini ou ≠ "true", le middleware log mais n'interrompt pas.
+#
+# Task #12 — Paystack Billing (cycles quarterly | biannual | annual ;
+# monthly reste Stripe-only). Optionnels : si absents, le router billing
+# refuse les checkouts `method='paystack'` mais Stripe continue.
+#   wrangler secret put PAYSTACK_SECRET_KEY      --env staging|production
+#   wrangler secret put PAYSTACK_WEBHOOK_SECRET  --env staging|production   # facultatif (sinon = SECRET_KEY)
+#   wrangler secret put PAYSTACK_PLAN_CODES_JSON --env staging|production
+# PAYSTACK_PLAN_CODES_JSON : JSON inline mappant (planCode × cycle) → Paystack
+# plan code (PLN_…), créé via le Dashboard Paystack. Forme attendue :
+#   {"starter":{"quarterly":"PLN_…","biannual":"PLN_…","annual":"PLN_…"},
+#    "business":{…},"pro":{…},"enterprise":{…}}
+# Paystack supporte XOF natif pour les comptes Sénégal/Côte d'Ivoire — pas
+# de conversion EUR (montants directs en kobo dans la doc Paystack).
+# En dev local : apps/api/.dev.vars (utiliser sk_test_… et PLN_… du mode test).

@@ -1,0 +1,44 @@
+{
+  "name": "create-koralab-saas",
+  "version": "0.1.0",
+  "description": "Scaffold a Turborepo SaaS monorepo (pnpm + Turbo + shared config + ESLint module boundaries + TanStack Start + Hono + tRPC + Drizzle + Better-Auth) — generic build-green core, or a faithful clone of your own private repo.",
+  "type": "module",
+  "bin": {
+    "create-koralab-saas": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "templates-core",
+    "reference",
+    "SKILL.md",
+    "README.md",
+    "snapshot.local.example.json"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "create",
+    "boilerplate",
+    "starter",
+    "turborepo",
+    "monorepo",
+    "saas",
+    "tanstack-start",
+    "hono",
+    "trpc",
+    "drizzle",
+    "better-auth",
+    "cloudflare-workers"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonofGod225/koralab-bootstrap-saas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonofGod225/koralab-bootstrap-saas/issues"
+  },
+  "homepage": "https://github.com/sonofGod225/koralab-bootstrap-saas#readme"
+}

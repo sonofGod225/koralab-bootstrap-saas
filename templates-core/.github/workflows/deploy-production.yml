@@ -1,0 +1,187 @@
+name: Deploy Production
+
+# Story 1.5 + 1.17 — Déploiement production.
+# Déclenché par le workflow Release (workflow_call) après une release
+# semantic-release, ou manuellement (workflow_dispatch) pour un redéploiement.
+# Secrets requis (GitHub Environment "production") :
+#   - CLOUDFLARE_API_TOKEN
+#   - CLOUDFLARE_ACCOUNT_ID
+#   - DATABASE_URL (Neon production branch — EU Frankfurt, cf. ADR 0001)
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version tag à déployer (ex: v1.2.3)'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag à déployer (ex: v1.2.3)'
+        required: true
+        type: string
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: '10.33.2'
+  NODE_VERSION: '22.12.0'
+
+jobs:
+  # Gate : refuse de déployer si la version n'est pas un semver vX.Y.Z
+  validate-tag:
+    name: Validate semver tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check tag format
+        run: |
+          TAG="${{ inputs.version }}"
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Tag '$TAG' n'est pas un semver vX.Y.Z. Refus de déployer."
+            exit 1
+          fi
+          echo "✅ Tag $TAG validé"
+
+  # Epic 25 — migrations Drizzle AVANT déploiement (additives, forward-compatible).
+  # Checkout sur le tag déployé pour que les migrations correspondent au code.
+  migrate:
+    name: DB migrate + seed (production)
+    runs-on: ubuntu-latest
+    environment: production
+    needs: validate-tag
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.version }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Apply Drizzle migrations
+        run: pnpm --filter @__SCOPE__/db db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Seed status components (idempotent)
+        run: pnpm --filter @__SCOPE__/db db:seed:status
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  deploy-api:
+    name: Deploy apps/api (Workers production)
+    runs-on: ubuntu-latest
+    environment: production
+    needs: migrate
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.version }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Wrangler deploy (production)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: pnpm
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/api
+          command: deploy --env production --var APP_VERSION:${{ inputs.version }}
+      - name: Smoke test /health + /health/db
+        run: |
+          sleep 5
+          curl -sf https://api.__PROJECT_SLUG__.com/health | grep -q '"status":"ok"'
+          curl -sf https://api.__PROJECT_SLUG__.com/health/db | grep -q '"status":"ok"'
+          echo "✅ apps/api production healthy"
+
+  deploy-suite:
+    name: Deploy apps/suite (Workers SSR production)
+    runs-on: ubuntu-latest
+    environment: production
+    needs: deploy-api
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.version }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Build (version inlinée via VITE_APP_VERSION)
+        run: pnpm --filter @__SCOPE__/suite exec vite build --mode production
+        env:
+          VITE_APP_VERSION: ${{ inputs.version }}
+      - name: Wrangler deploy (production)
+        working-directory: apps/suite
+        run: >
+          pnpm exec wrangler deploy
+          --config dist/server/wrangler.json
+          --name __PROJECT_SLUG__-suite-production
+          --var ENVIRONMENT:production
+          --var VITE_API_URL:https://api.__PROJECT_SLUG__.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Smoke test landing
+        run: |
+          sleep 5
+          curl -sf https://app.__PROJECT_SLUG__.com/ | grep -q '__PROJECT_NAME__' && echo "✅ apps/suite production serves landing"
+
+  deploy-admin:
+    name: Deploy apps/admin (Workers SSR production)
+    runs-on: ubuntu-latest
+    environment: production
+    needs: deploy-api
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.version }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      - name: Build (version inlinée via VITE_APP_VERSION)
+        run: pnpm --filter @__SCOPE__/admin exec vite build --mode production
+        env:
+          VITE_APP_VERSION: ${{ inputs.version }}
+      - name: Wrangler deploy (production)
+        working-directory: apps/admin
+        run: >
+          pnpm exec wrangler deploy
+          --config dist/server/wrangler.json
+          --name __PROJECT_SLUG__-admin-production
+          --var ENVIRONMENT:production
+          --var VITE_API_URL:https://api.__PROJECT_SLUG__.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Smoke test admin
+        run: |
+          sleep 5
+          curl -sf https://admin.__PROJECT_SLUG__.com/ | grep -q '__PROJECT_NAME__' && echo "✅ apps/admin production serves landing"

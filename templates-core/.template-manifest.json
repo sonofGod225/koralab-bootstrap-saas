@@ -1,0 +1,13 @@
+{
+  "generatedFrom": "snapshot.mjs",
+  "sourceIdentity": {
+    "slug": "acmebase",
+    "scope": "acmebase",
+    "display": "Acmebase"
+  },
+  "tokens": {
+    "@__SCOPE__/": "npm scope",
+    "__PROJECT_NAME__": "display name",
+    "__PROJECT_SLUG__": "slug / domain base"
+  }
+}

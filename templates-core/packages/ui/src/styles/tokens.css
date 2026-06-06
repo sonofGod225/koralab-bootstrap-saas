@@ -1,0 +1,309 @@
+/**
+ * __PROJECT_NAME__ — Design System Terre & Soleil v3.0
+ *
+ * Source de vérité unique pour les tokens (couleurs, fontes, sizes, radii, shadows).
+ * Consommé par apps/suite et apps/admin via : @import '@__SCOPE__/ui/styles/tokens.css';
+ *
+ * Référence : docs/design-system/project/tokens/__PROJECT_SLUG__-tokens.css
+ * Règles non-négociables (docs/design-system/project/SKILL.md) :
+ * - Soleil 400 (#E89B5A) ≤ 15% de toute surface
+ * - Pill buttons (radius 100px), card 16-20px, input 12px
+ * - Sentence case partout (jamais ALL CAPS)
+ * - Italic Fraunces en Soleil 600 — max 2 par page (éditorial)
+ *
+ * Fontes (Story 2.3) :
+ * - Fraunces self-hosted en WOFF2 sous-défini latin (axe `opsz` figé à 40,
+ *   axe `wght` variable) — @font-face ci-dessous, miroir de fonts.css.
+ *   Régénération : `pnpm --filter @__SCOPE__/ui fonts:build`.
+ * - Inter + JetBrains Mono via Google Fonts CDN — chargés par un
+ *   `<link rel="stylesheet">` dans le <head> de chaque app (+ preconnect).
+ *   PAS via `@import` ici : enfoui dans la cascade `globals.css → tokens.css`,
+ *   un `@import` distant n'est plus en tête du bundle final et est supprimé
+ *   par le bundler CSS (Lightning CSS) — Inter ne se chargeait pas.
+ *
+ * Les @font-face Fraunces (pas soumis à la contrainte « en tête ») sont
+ * définis directement ci-dessous ; variante exportée séparément :
+ * @__SCOPE__/ui/styles/fonts.css pour qui ne veut que les fontes.
+ */
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../fonts/Fraunces-VariableFont.woff2') format('woff2-variations');
+  unicode-range: U+0000-017F, U+2000-206F, U+20A0-20CF;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../fonts/Fraunces-Italic-VariableFont.woff2') format('woff2-variations');
+  unicode-range: U+0000-017F, U+2000-206F, U+20A0-20CF;
+}
+
+@theme {
+  /* === Palette par défaut Tailwind purgée (Story 2.2) ===
+     `--color-*: initial` retire slate/gray/red/orange/blue/… : seules les
+     couleurs __PROJECT_NAME__ ci-dessous existent comme classes utilitaires — une
+     classe de la palette par défaut ne génère donc plus aucun CSS. Les
+     mots-clés CSS (white/black/transparent/current/inherit) sont réintroduits. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+
+  /* === SOLEIL — Couleur signature ≤ 15% surface === */
+  --color-soleil-50: #fdf1dd;
+  --color-soleil-100: #fbe2ba;
+  --color-soleil-200: #f5c994;
+  --color-soleil-300: #efb071;
+  --color-soleil-400: #e89b5a;
+  --color-soleil-500: #d6843e;
+  --color-soleil-600: #b86a28;
+  --color-soleil-700: #95531c;
+  --color-soleil-800: #6b3a12;
+  --color-soleil-900: #3d200a;
+
+  /* === TERRE — Texte primaire + fond + CTA === */
+  --color-terre-25: #fcf7ee;
+  --color-terre-50: #f8efdf;
+  --color-terre-100: #f4e4cc;
+  --color-terre-200: #e5d2b5;
+  --color-terre-300: #bfa378;
+  --color-terre-400: #a18560;
+  --color-terre-500: #8c6f4f;
+  --color-terre-600: #6b4423;
+  --color-terre-700: #4a2f18;
+  --color-terre-800: #3a2412;
+  --color-terre-900: #2a1a0f;
+  --color-terre-950: #1a0f08;
+
+  /* === PALMERAIE — Success === */
+  --color-palmeraie-50: #e8f0dc;
+  --color-palmeraie-200: #a8c083;
+  --color-palmeraie-400: #6a9c42;
+  --color-palmeraie-600: #4a7c36;
+  --color-palmeraie-800: #2c4f1f;
+  --color-palmeraie-900: #1a3010;
+
+  /* === BRIQUE — Danger === */
+  --color-brique-50: #fae8e0;
+  --color-brique-200: #e6a084;
+  --color-brique-400: #d85f36;
+  --color-brique-600: #b8421a;
+  --color-brique-800: #7a2a0e;
+  --color-brique-900: #4a180a;
+
+  /* === MIL — Warning === */
+  --color-mil-50: #fff5d9;
+  --color-mil-200: #ffdf8c;
+  --color-mil-400: #efc548;
+  --color-mil-600: #bd9420;
+
+  /* === TOKENS SÉMANTIQUES (Story 2.4 — dark mode) ===
+     Couche d'indirection : les primitives consomment ces tokens (bg-background,
+     text-foreground, border-border…) et NON la palette brute. Chaque token
+     pointe sur une var runtime (`--bs-*`) basculée en sombre par le bloc
+     `@media (prefers-color-scheme: dark)` / la classe `.dark` ci-dessous. */
+  --color-background: var(--bs-background);
+  --color-foreground: var(--bs-foreground);
+  --color-card: var(--bs-card);
+  --color-card-foreground: var(--bs-foreground);
+  --color-popover: var(--bs-popover);
+  --color-popover-foreground: var(--bs-foreground);
+  --color-muted: var(--bs-muted);
+  --color-muted-foreground: var(--bs-muted-foreground);
+  --color-subtle: var(--bs-subtle);
+  --color-subtle-foreground: var(--bs-subtle-foreground);
+  --color-primary: var(--bs-primary);
+  --color-primary-foreground: var(--bs-primary-foreground);
+  --color-secondary: var(--bs-secondary);
+  --color-secondary-foreground: var(--bs-foreground);
+  --color-accent: var(--color-soleil-400);
+  --color-accent-foreground: var(--color-terre-900);
+  --color-destructive: var(--color-brique-600);
+  --color-destructive-foreground: #ffffff;
+  --color-border: var(--bs-border);
+  --color-border-subtle: var(--bs-border-subtle);
+  --color-input: var(--bs-border);
+  --color-ring: var(--color-soleil-400);
+
+  /* === TYPOGRAPHIE === */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  /* Stylistic sets Fraunces (ss01, ss02) appliqués par la classe `font-display`. */
+  --font-display--font-feature-settings: 'ss01', 'ss02';
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  --text-4xl: 40px;
+  --text-5xl: 56px;
+  --text-6xl: 72px;
+
+  --tracking-display: -2px;
+  --tracking-tighter: -1.2px;
+  --tracking-tight: -0.6px;
+  --tracking-normal: -0.2px;
+  --tracking-wide: 0.5px;
+  --tracking-widest: 1.5px;
+
+  /* === BORDER RADIUS organiques === */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-pill: 100px;
+  --radius-full: 9999px;
+
+  /* Radii sémantiques — alias usage métier (Story 2.2) : rounded-input,
+     rounded-tile, rounded-card. */
+  --radius-input: 12px;
+  --radius-tile: 16px;
+  --radius-card: 20px;
+
+  /* === SHADOWS warm (jamais noir pur) === */
+  --shadow-xs: 0 1px 2px 0 rgb(42 26 15 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(42 26 15 / 0.06), 0 1px 2px -1px rgb(42 26 15 / 0.04);
+  --shadow-md: 0 4px 8px -2px rgb(42 26 15 / 0.06), 0 2px 4px -2px rgb(42 26 15 / 0.04);
+  --shadow-lg: 0 12px 20px -4px rgb(42 26 15 / 0.08), 0 4px 8px -4px rgb(42 26 15 / 0.04);
+  --shadow-focus: 0 0 0 3px rgb(232 155 90 / 0.25);
+
+  /* Focus ring — Soleil 400 @ 25% (épaisseur 3px via --shadow-focus). */
+  --ring-focus: rgb(232 155 90 / 0.25);
+}
+
+/* === Valeurs runtime des tokens sémantiques — clair (défaut) ===
+   Story 2.4. Le sombre s'active automatiquement via `prefers-color-scheme`
+   et peut être forcé par la classe `.dark` (toggle specimen / app). */
+:root {
+  color-scheme: light dark;
+  --bs-background: #fcf7ee; /* terre-25 */
+  --bs-foreground: #2a1a0f; /* terre-900 */
+  --bs-card: #ffffff;
+  --bs-popover: #ffffff;
+  --bs-muted: #f8efdf; /* terre-50 */
+  --bs-muted-foreground: #6b4423; /* terre-600 */
+  --bs-subtle: #f4e4cc; /* terre-100 */
+  --bs-subtle-foreground: #4a2f18; /* terre-700 */
+  --bs-primary: #2a1a0f; /* terre-900 */
+  --bs-primary-foreground: #fcf7ee; /* terre-25 */
+  --bs-secondary: #f4e4cc; /* terre-100 */
+  --bs-border: rgb(42 26 15 / 0.12);
+  --bs-border-subtle: rgb(42 26 15 / 0.06);
+
+  /* Champs de saisie « projecteur » (design §field-*) — fond blanc, bordure
+     fine terre, ombre interne ; consommés par les triggers type recherche. */
+  --field-bg: #ffffff;
+  --field-bg-hover: #fdfaf5;
+  --field-border: var(--color-terre-200);
+  --field-placeholder: var(--color-terre-400);
+  --field-icon: var(--color-terre-500);
+  --field-shadow-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.5);
+}
+
+/* === Valeurs sombres — palette Terre inversée (cf. __PROJECT_SLUG__-tokens.css) === */
+.dark {
+  --bs-background: #1a0f08; /* terre-950 */
+  --bs-foreground: #f8efdf; /* terre-50 */
+  --bs-card: #2a1a0f; /* terre-900 */
+  --bs-popover: #3a2412; /* terre-800 */
+  --bs-muted: #2a1a0f; /* terre-900 */
+  --bs-muted-foreground: #bfa378; /* terre-300 */
+  --bs-subtle: #3a2412; /* terre-800 */
+  --bs-subtle-foreground: #e5d2b5; /* terre-200 */
+  --bs-primary: #f8efdf; /* terre-50 */
+  --bs-primary-foreground: #2a1a0f; /* terre-900 */
+  --bs-secondary: #3a2412; /* terre-800 */
+  --bs-border: rgb(248 239 223 / 0.14);
+  --bs-border-subtle: rgb(248 239 223 / 0.07);
+
+  --field-bg: #2a1a0f; /* terre-900 */
+  --field-bg-hover: #3a2412; /* terre-800 */
+  --field-border: rgb(248 239 223 / 0.14);
+  --field-placeholder: var(--color-terre-400);
+  --field-icon: var(--color-terre-300);
+  --field-shadow-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  /* `:root:not(.light)` : le sombre auto cède la priorité à un forçage clair. */
+  :root:not(.light) {
+    --bs-background: #1a0f08;
+    --bs-foreground: #f8efdf;
+    --bs-card: #2a1a0f;
+    --bs-popover: #3a2412;
+    --bs-muted: #2a1a0f;
+    --bs-muted-foreground: #bfa378;
+    --bs-subtle: #3a2412;
+    --bs-subtle-foreground: #e5d2b5;
+    --bs-primary: #f8efdf;
+    --bs-primary-foreground: #2a1a0f;
+    --bs-secondary: #3a2412;
+    --bs-border: rgb(248 239 223 / 0.14);
+    --bs-border-subtle: rgb(248 239 223 / 0.07);
+
+    --field-bg: #2a1a0f;
+    --field-bg-hover: #3a2412;
+    --field-border: rgb(248 239 223 / 0.14);
+    --field-placeholder: var(--color-terre-400);
+    --field-icon: var(--color-terre-300);
+    --field-shadow-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.06);
+  }
+}
+
+/* === Base styles (appliqués à toutes les apps qui importent ce fichier) === */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  /* Réglages Inter alignés sur le bundle de design (`colors_and_type.css`). */
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-soleil-200);
+  color: var(--color-terre-900);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+/* === Utilitaires custom (Story 2.2) === */
+
+/* Bordure hairline 0.5px, Terre 900 @ 6% — l'épaisseur fine signature
+   __PROJECT_NAME__ (cartes, séparateurs, inputs). Usage : `class="border-hairline"`. */
+@utility border-hairline {
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: rgb(42 26 15 / 0.06);
+}

@@ -1,0 +1,62 @@
+name: Security Scan
+
+# Story 1.5 — Audit dépendances + scan secrets nocturne
+# Détecte vulnérabilités deps + secrets fuités
+#
+# Note CodeQL : retiré du MVP — GitHub Code Scanning (CodeQL) nécessite
+# "Code Security" activé, payant pour les repos privés (GitHub Team/Enterprise).
+# À réactiver si le repo passe public ou si on souscrit GitHub Advanced Security.
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 02h00 UTC tous les jours
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  PNPM_VERSION: '10.33.2'
+  NODE_VERSION: '22.12.0'
+
+jobs:
+  audit-deps:
+    name: pnpm audit dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+      # Audit informatif : ne casse pas le CI sur des vulns transitives non
+      # patchables (continue-on-error). Story 14.x durcira en gate bloquante
+      # avec une allowlist d'exceptions documentées.
+      - name: pnpm audit (high + critical)
+        continue-on-error: true
+        run: pnpm audit --audit-level=high
+
+  secret-scan:
+    name: Trufflehog secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # TruffleHog via image Docker officielle : l'action wrapper refuse de tourner
+      # quand base == HEAD (push direct main mono-commit), et le script upstream
+      # `install.sh` télécharge un asset de release qui renvoie 404 (détection de
+      # version cassée). Le mode `filesystem` scanne tout le working tree, fiable
+      # sur tous les events ; l'image Docker est un canal de distribution stable.
+      - name: Scan filesystem for verified secrets (TruffleHog)
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/repo" \
+            trufflesecurity/trufflehog:latest \
+            filesystem /repo --results=verified --fail --no-update

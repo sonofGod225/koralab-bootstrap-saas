@@ -1,0 +1,62 @@
+name: Release
+
+# Story 1.17 — Versioning automatique.
+# À chaque merge sur main, semantic-release analyse les Conventional Commits,
+# calcule la version produit, met à jour les 11 package.json + CHANGELOG.md,
+# committe en retour ([skip ci]), crée le tag vX.Y.Z + la GitHub Release,
+# puis déclenche le déploiement production via workflow_call.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+env:
+  NODE_VERSION: '22.12.0'
+
+jobs:
+  release:
+    name: semantic-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Ne pas re-tourner sur le commit-back chore(release) (ceinture + bretelles
+    # en plus de la convention [skip ci] honorée nativement par GitHub).
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 24
+          extra_plugins: |
+            @semantic-release/changelog@6
+            @semantic-release/exec@6
+            @semantic-release/git@10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-production:
+    name: Deploy production
+    needs: release
+    if: ${{ needs.release.outputs.new_release_published == 'true' }}
+    uses: ./.github/workflows/deploy-production.yml
+    with:
+      version: v${{ needs.release.outputs.new_release_version }}
+    secrets: inherit

@@ -1,0 +1,81 @@
+{
+  "name": "__PROJECT_SLUG__",
+  "version": "0.4.0",
+  "private": true,
+  "description": "__PROJECT_NAME__ — Business Digital Suite for Africa. Suite SaaS modulaire de gestion d'entreprise pour TPE/PME d'Afrique francophone.",
+  "author": "__PROJECT_NAME__ <you@example.com>",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "ui:check": "node scripts/ui-check.mjs",
+    "clean": "turbo clean && rm -rf node_modules .turbo",
+    "prepare": "husky",
+    "deploy:staging": "./scripts/deploy.sh staging",
+    "deploy:production": "./scripts/deploy.sh production"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "semantic-release": "^24.2.0",
+    "sharp": "^0.34.5",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@oxc-parser/binding-darwin-arm64": "0.131.0",
+    "@oxc-parser/binding-darwin-x64": "0.131.0",
+    "@oxc-parser/binding-linux-arm64-gnu": "0.131.0",
+    "@oxc-parser/binding-linux-x64-gnu": "0.131.0",
+    "@rolldown/binding-darwin-arm64": "1.0.1",
+    "@rolldown/binding-darwin-x64": "1.0.1",
+    "@rolldown/binding-linux-arm64-gnu": "1.0.1",
+    "@rolldown/binding-linux-x64-gnu": "1.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix --max-warnings=0 --no-warn-ignored",
+      "prettier --write"
+    ],
+    "*.{json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss",
+      "@tailwindcss/oxide",
+      "workerd"
+    ],
+    "supportedArchitectures": {
+      "os": [
+        "darwin",
+        "linux"
+      ],
+      "cpu": [
+        "arm64",
+        "x64"
+      ]
+    }
+  }
+}

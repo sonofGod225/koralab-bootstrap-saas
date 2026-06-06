@@ -1,0 +1,21 @@
+{
+  "name": "@__SCOPE__/types",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "__PROJECT_NAME__ — Types fondamentaux partagés (branded IDs, Money, errors, events). Aucune dépendance runtime.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@__SCOPE__/config": "workspace:*",
+    "eslint": "^9.20.0",
+    "typescript": "^6.0.2"
+  }
+}

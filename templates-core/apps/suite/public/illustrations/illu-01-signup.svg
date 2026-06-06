@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="t d">
+  <title id="t">Le soleil qui se lève</title>
+  <desc id="d">Soleil émergent derrière des collines organiques, symbole de nouveau départ.</desc>
+  <defs>
+    <radialGradient id="aura01" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5C994" stop-opacity="0.55"></stop>
+      <stop offset="60%" stop-color="#F5C994" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#F5C994" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  
+  <circle cx="240" cy="220" r="180" fill="url(#aura01)"></circle>
+  
+  <g stroke="#E89B5A" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.7">
+    <path d="M 240 90 Q 240 60 240 40"></path>
+    <path d="M 150 130 Q 130 110 110 95"></path>
+    <path d="M 330 130 Q 350 110 370 95"></path>
+    <path d="M 110 220 Q 80 220 60 220"></path>
+    <path d="M 370 220 Q 400 220 420 220"></path>
+  </g>
+  
+  <circle cx="240" cy="220" r="90" fill="#E89B5A"></circle>
+  
+  <path d="M 0 380 Q 90 320 200 340 Q 320 360 480 320 L 480 480 L 0 480 Z" fill="#E5D2B5"></path>
+  
+  <path d="M 0 420 Q 120 370 220 395 Q 340 425 480 380 L 480 480 L 0 480 Z" fill="#2A1A0F"></path>
+  
+  <g stroke="#2A1A0F" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.65">
+    <path d="M 80 150 q 8 -6 16 0 q 8 -6 16 0"></path>
+    <path d="M 380 175 q 7 -5 14 0 q 7 -5 14 0"></path>
+  </g>
+  
+  <g transform="translate(60 400) rotate(-15)">
+    <path d="M 0 0 L 0 -16 Q 0 -24 8 -24 L 16 -24 L 16 0 Z" fill="#E89B5A"></path>
+  </g>
+</svg>

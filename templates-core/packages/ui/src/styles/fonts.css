@@ -1,0 +1,42 @@
+/**
+ * __PROJECT_NAME__ — Self-host fontes Fraunces (Story 2.3).
+ *
+ * Variante autonome des `@font-face` Fraunces — `tokens.css` les redéclare à
+ * l'identique. Consommée via `@import '@__SCOPE__/ui/styles/fonts.css'` par les
+ * apps qui ne veulent que les fontes (sans les tokens).
+ *
+ * Fichiers : `packages/ui/fonts/Fraunces-*VariableFont.woff2` — WOFF2
+ * sous-définis latin, axe `opsz` figé à 40, axe `wght` variable (100-900).
+ * Sources TTF dans `packages/ui/fonts/source/` ; régénération :
+ * `pnpm --filter @__SCOPE__/ui fonts:build`.
+ *
+ * Poids : ~85 KB Roman + ~100 KB Italic. Le seuil ≤ 50 KB visé par UX-DR1 /
+ * NFR57 n'est pas atteignable pour Fraunces self-hosté ; Fraunces est
+ * display-only (`font-display: swap`, jamais bloquant au premier rendu) — le
+ * chemin critique reste Inter.
+ *
+ * `unicode-range` Latin de base + Latin-1 + Latin Extended-A couvre le
+ * français, le wolof latinisé et les diacritiques d'Afrique de l'Ouest ;
+ * + ponctuation générale et symboles monétaires.
+ *
+ * Inter et JetBrains Mono : Google Fonts CDN — chargés par un
+ * `<link rel="stylesheet">` (+ preconnect) dans le <head> de chaque app.
+ */
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../fonts/Fraunces-VariableFont.woff2') format('woff2-variations');
+  unicode-range: U+0000-017F, U+2000-206F, U+20A0-20CF;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../fonts/Fraunces-Italic-VariableFont.woff2') format('woff2-variations');
+  unicode-range: U+0000-017F, U+2000-206F, U+20A0-20CF;
+}

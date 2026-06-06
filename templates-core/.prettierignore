@@ -1,0 +1,52 @@
+# Build outputs
+**/node_modules/
+**/dist/
+**/build/
+**/.turbo/
+**/.next/
+**/.output/
+**/.wrangler/
+**/coverage/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated
+**/routeTree.gen.ts
+**/*.gen.ts
+CHANGELOG.md
+
+# Drizzle migrations (managed by drizzle-kit, do not format)
+**/migrations/
+
+
+# Vendored assets
+docs/design-system/
+docs/assets/
+docs/ui-designs/
+
+# BMad framework (vendored skills + outputs)
+.claude/skills/
+.bmad/
+_bmad/
+_bmad-output/
+
+# Validation reports + PRD docs (output of BMad workflows)
+docs/__PROJECT_NAME__-PRD-v2.0-Africa.md
+docs/__PROJECT_NAME__-PRD-v2.0-Africa-validation-report.md
+docs/__PROJECT_NAME__-Architecture-v2.0-extracted.md
+docs/AGENTS.md
+docs/DESIGN_SYSTEM.md
+docs/IMPLEMENTATION_PROCESS.md
+
+# PDFs and binaries
+**/*.pdf
+**/*.ttf
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.svg
+**/*.ico
