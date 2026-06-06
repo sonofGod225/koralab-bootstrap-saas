@@ -93,6 +93,15 @@ returns a `tar.gz` of the whole design project), the boilerplate can adopt that 
   `generate.mjs --variant core --spec /tmp/kb/spec.json …`. The agent mapping beats the heuristic
   when token names are unusual. Spec schema: see `scripts/design.mjs` `resolveSpec`.
 
+**Re-theme an existing project (after generation):** theming also works on an already-generated
+`core` project — no re-scaffold needed. `scripts/retheme.mjs <projectDir> [theme flags]` re-derives
+the project identity (scope/name/display) from the repo, rebuilds the spec (same theme flags +
+design import via `--theme/--primary/--design-url/--design-dir/--spec`), and re-applies it (rewrites
+`tokens.css`, copies fonts/logos, recolors manifest). CLI: `create-koralab-saas theme --out <dir> …`;
+generated projects also ship a `pnpm theme` script. It refuses to overwrite a non-generated
+`tokens.css` (full variant / hand-edited) without `--yes`. Agent path: write a refined spec JSON and
+`node scripts/retheme.mjs <dir> --spec <file>`.
+
 ### 3. Non-default stack variants (hybrid step)
 If the user picked a non-default value for front / deploy target / db driver, AFTER running
 the generator apply the recipe in `reference/stack-variants.md`. Those recipes scaffold the

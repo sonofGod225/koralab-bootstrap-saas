@@ -30,9 +30,9 @@ import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, readdirSync, statS
 import { join, relative, dirname, basename, extname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { execSync, execFileSync } from 'node:child_process';
-import { resolveSpec } from './design.mjs';
+import { execSync } from 'node:child_process';
 import { applyTheme } from './apply-theme.mjs';
+import { buildThemeSpec } from './theme-resolve.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -57,19 +57,6 @@ const DOMAIN = val('--domain', `${NAME}.com`);
 const SLIM = flag('--slim');
 const NO_ADMIN = flag('--no-admin');
 const NO_LANDING = flag('--no-landing');
-
-// Theme (applied to the `core` variant after generation). All optional.
-const THEME = {
-  theme: val('--theme'),
-  primary: val('--primary'),
-  accent: val('--accent'),
-  success: val('--success'),
-  danger: val('--danger'),
-  warning: val('--warning'),
-  font: val('--font'),
-  radius: val('--radius'),
-  mode: val('--mode'),
-};
 
 // Variant: 'core' = the committed generic deep-stripped boilerplate (templates-core/,
 // bundled in the npm package); 'full' = the faithful clone from templates/ (private,
@@ -197,36 +184,11 @@ if (SLIM && VARIANT === 'full') {
 }
 
 // ---- theme (core variant only) --------------------------------------------
-// Optional design-bundle import: --spec <file> (precomputed), --design-dir <dir>
-// (a fetch-design output with manifest.json), or --design-url <url> (fetch+extract).
-function designImportOpts() {
-  const SELF = dirname(fileURLToPath(import.meta.url));
-  if (val('--spec')) return JSON.parse(readFileSync(val('--spec'), 'utf8'));
-  let manifestPath;
-  if (val('--design-url')) {
-    const tmp = mkdtempSync(join(tmpdir(), 'koralab-design-'));
-    const manifest = execFileSync('node', [join(SELF, 'fetch-design.mjs'), val('--design-url'), tmp], { encoding: 'utf8' });
-    manifestPath = join(tmp, 'manifest.json');
-    writeFileSync(manifestPath, manifest);
-  } else if (val('--design-dir')) {
-    manifestPath = join(val('--design-dir'), 'manifest.json');
-    if (!existsSync(manifestPath)) {
-      // classify the dir on the fly via fetch-design's logic is not available; require manifest.
-      console.error(`✖ --design-dir expects a fetch-design output containing manifest.json (${manifestPath} missing).`);
-      process.exit(1);
-    }
-  }
-  if (!manifestPath) return null;
-  const spec = execFileSync('node', [join(SELF, 'extract-theme.mjs'), manifestPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
-  return JSON.parse(spec);
-}
-
+// Theme = optional design-bundle import (--spec / --design-dir / --design-url) +
+// theme flags, resolved by the shared theme-resolve module.
 let themeSpec = null;
 if (!DRY && VARIANT === 'core') {
-  const designOpts = designImportOpts();
-  // Explicit theme flags override the imported design.
-  const flagOpts = Object.fromEntries(Object.entries(THEME).filter(([, v]) => v));
-  themeSpec = resolveSpec({ ...(designOpts || {}), ...flagOpts });
+  themeSpec = buildThemeSpec({ val, selfDir: __dirname }).spec;
   applyTheme(OUT, themeSpec, { scope: SCOPE, name: NAME, display: DISPLAY });
 }
 
@@ -238,7 +200,9 @@ if (!DRY && !NO_GIT) {
 
 console.log(`✔ ${written} files written${pruned ? `, ${pruned} pruned` : ''}${overridden ? `, ${overridden} slim overrides applied` : ''}.`);
 if (themeSpec) {
-  console.log(`  theme: ${themeSpec.preset}${THEME.primary || THEME.accent ? ' (custom seeds)' : ''} · font=${themeSpec.font} · radius=${themeSpec.radius} · mode=${themeSpec.mode}`);
+  const fontLabel = typeof themeSpec.font === 'string' ? themeSpec.font : 'imported';
+  const radiusLabel = typeof themeSpec.radius === 'string' ? themeSpec.radius : 'custom';
+  console.log(`  theme: ${themeSpec.preset} · font=${fontLabel} · radius=${radiusLabel} · mode=${themeSpec.mode}`);
 }
 
 // ---- next steps -----------------------------------------------------------

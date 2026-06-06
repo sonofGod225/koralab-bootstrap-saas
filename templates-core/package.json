@@ -20,6 +20,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "ui:check": "node scripts/ui-check.mjs",
+    "theme": "npx --yes create-koralab-saas@latest theme",
     "clean": "turbo clean && rm -rf node_modules .turbo",
     "prepare": "husky",
     "deploy:staging": "./scripts/deploy.sh staging",

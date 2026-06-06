@@ -1,5 +1,7 @@
 # create-koralab-saas
 
+> 🇫🇷 **Version française : [README.fr.md](README.fr.md)**
+
 Scaffold a new Turborepo SaaS monorepo (pnpm + Turbo + shared config + ESLint module
 boundaries + TanStack Start SSR + Hono API + tRPC + Drizzle + Better-Auth on Cloudflare
 Workers). Ships as a CLI **and** as a Claude Code skill — both share the same engine.
@@ -57,6 +59,22 @@ mapper logs its decisions; for unusual token names, let the agent refine the spe
 > Claude Design bundle URLs are **short-lived** — fetch promptly. Once downloaded, work from the
 > extracted dir (`--design-dir`) or a saved spec (`--spec`), which never expire.
 
+### Re-theme an existing project (after generation)
+Theming isn't limited to init — re-theme an already-generated `core` project in place:
+```bash
+# from inside the project (script shipped in generated projects):
+pnpm theme -- --theme stone-emerald
+pnpm theme -- --design-url https://api.anthropic.com/v1/design/h/<hash>
+# or directly:
+node bin/cli.mjs theme --out ./my-app --primary '#334155' --accent '#3b82f6' --mode dark --yes
+node scripts/retheme.mjs ./my-app --theme zinc-violet
+```
+`retheme.mjs` re-derives the project identity (scope/name/display) from the repo, rebuilds the
+theme spec (same flags + design import), and re-runs `apply-theme` (rewrites `tokens.css`, copies
+fonts/logos, recolors manifest). It guards against overwriting a non-generated `tokens.css`
+(`full` variant / hand-edited) unless `--yes`. The `pnpm theme` script delegates to
+`npx create-koralab-saas@latest theme`, so it is fully operational **once the package is published**.
+
 ## Layout
 ```
 bin/cli.mjs                  # the CLI (interactive + flags), orchestrates the scripts
@@ -67,6 +85,8 @@ scripts/design.mjs           # theme generator: OKLCH scales + presets + tokens.
 scripts/apply-theme.mjs      # applies a theme to a generated core project (tokens/logo/fonts/mode)
 scripts/fetch-design.mjs     # download + untar a Claude Design bundle → JSON manifest
 scripts/extract-theme.mjs    # heuristic: map a design bundle's tokens → a theme spec
+scripts/theme-resolve.mjs    # shared: options (+ design import) → resolved theme spec
+scripts/retheme.mjs          # re-theme an existing generated project in place
 templates-core/              # COMMITTED generic build-green boilerplate (bundled in npm)
 templates/                   # gitignored: tokenised faithful copy of a private source repo
 overrides-slim/              # full-variant --slim overrides (single module-example)

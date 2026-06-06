@@ -28,6 +28,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SKILL_ROOT = join(__dirname, '..');
 const GENERATE = join(SKILL_ROOT, 'scripts', 'generate.mjs');
 const SNAPSHOT = join(SKILL_ROOT, 'scripts', 'snapshot.mjs');
+const RETHEME = join(SKILL_ROOT, 'scripts', 'retheme.mjs');
 
 // ---- args -----------------------------------------------------------------
 const argv = process.argv.slice(2);
@@ -62,6 +63,35 @@ async function main() {
   };
 
   try {
+    // ── Subcommand: `theme` — re-theme an existing generated project ──
+    if (positional === 'theme') {
+      const target = resolveAbs(val('--out') || '.');
+      const args = [];
+      const designUrl = val('--design-url') || (rl ? await ask('Import a Claude Design bundle? (URL, blank to skip):', '') : '');
+      if (val('--spec')) args.push('--spec', val('--spec'));
+      else if (val('--design-dir')) args.push('--design-dir', val('--design-dir'));
+      else if (designUrl) args.push('--design-url', designUrl);
+      else if (val('--primary') || val('--accent')) args.push('--primary', val('--primary') || '#3f3f46', '--accent', val('--accent') || '#6366f1');
+      else if (val('--theme')) args.push('--theme', val('--theme'));
+      else {
+        const how = await askChoice('Design system: a preset, or custom colors?', ['preset', 'custom'], 'preset');
+        if (how === 'custom') args.push('--primary', await ask('Primary / neutral color (hex):', '#3f3f46'), '--accent', await ask('Accent color (hex):', '#6366f1'));
+        else args.push('--theme', await askChoice(`Preset (${Object.keys(PRESETS).join(' / ')})`, Object.keys(PRESETS), 'terre-soleil'));
+      }
+      const noDesign = !val('--spec') && !val('--design-dir') && !designUrl;
+      if (noDesign) {
+        const f = val('--font') || (rl ? await askChoice('Font', Object.keys(FONTS), 'fraunces') : null); if (f) args.push('--font', f);
+        const rad = val('--radius') || (rl ? await askChoice('Radius', ['sharp', 'default', 'rounded'], 'default') : null); if (rad) args.push('--radius', rad);
+      }
+      const mode = val('--mode') || (rl ? await askChoice('Default color mode', ['system', 'light', 'dark'], 'system') : null); if (mode) args.push('--mode', mode);
+      if (val('--display')) args.push('--display', val('--display'));
+      if (YES) args.push('--yes');
+      rl?.close();
+      console.log(`  ${C.c('▸')} Re-theming ${target}…\n`);
+      run('node', [RETHEME, target, ...args]);
+      return;
+    }
+
     // name
     let name = positional || val('--name');
     if (!name && rl) name = await ask('Project name (lowercase, npm-safe):', 'my-app');
